@@ -39,9 +39,7 @@ export default class HN extends Component {
       <Route
         path="/hn"
         exact
-        render={props =>
-          <FrontPage posts={posts.slice(0, 25)} />
-        }
+        render={props => <FrontPage posts={posts} />}
       />
       <Route
         path="/hn/:id"
