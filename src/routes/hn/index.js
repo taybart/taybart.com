@@ -42,7 +42,7 @@ export default class HN extends Component {
         render={props => <FrontPage posts={posts} />}
       />
       <Route
-        path="/hn/:id"
+        path="/hn/:id/:comment?"
         component={Post}
       />
     </Switch>);

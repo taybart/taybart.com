@@ -21,7 +21,7 @@ export default class FrontPage extends Component {
     const { posts } = this.props;
     return (
       <ul className={`${style.hn} ${style["hn-post-list"]}`}>
-        {posts.map(e => this.renderItem(e, e.score))}
+        {posts.map(e => this.renderItem(e, e.id))}
       </ul>
     );
   }

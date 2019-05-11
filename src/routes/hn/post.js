@@ -10,26 +10,42 @@ export default class Post extends Component {
       loading: true,
       post: {},
       comments: [],
+      kids: [],
     };
   }
 
   componentDidMount() {
     this.getPost(this.props.match.params.id).then((post) => {
-      this.getChildren(post.kids)
+      this.setState({ post, loading: false });
+      if (this.props.match.params.comment) {
+        this.getPost(this.props.match.params.comment)
+          .then(comment => this.getChildren(comment.kids));
+      } else {
+        this.getChildren(post.kids)
+      }
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.comment !== prevProps.match.params.comment) {
+      const id = this.props.match.params.comment || this.props.match.params.id;
+      this.getPost(id).then((post) => {
+        this.getChildren(post.kids)
+      });
+    }
   }
 
   getPost = (id) => new Promise((resolve) => {
     fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
       .then(res => res.json())
       .then((post) => {
-        this.setState({ post, loading: false });
         resolve(post)
       });
   });
+
   getChildren = (kidsp) => {
     const comments = [];
-    const kids = this.state.post.kids || kidsp;
+    const kids = kidsp || this.state.post.kids;
     if (kids) {
       kids.forEach((k) => {
         fetch(`https://hacker-news.firebaseio.com/v0/item/${k}.json`)
@@ -37,7 +53,7 @@ export default class Post extends Component {
           .then((comment) => {
             comments.push(comment);
             this.setState({ comments });
-        });
+          });
       });
     }
   }
@@ -55,17 +71,20 @@ export default class Post extends Component {
           </Link>
           <a href={post.url} rel="noopener noreferrer" target="_blank">({post.score}) {post.title}</a>
         </li>
-        {comments.map((p) => {
+        {comments.sort((a, b) => a.score - b.score).map(p => {
           if (p && !p.deleted && !p.dead) {
             if (!p.text.includes('<script')) {
               return (
-                <li key={`${p.id}`} className={`${style['hn-comment']}`}>
-                  <div dangerouslySetInnerHTML={{ __html: p.text }} />
+                <li key={p.id} className={`${style['hn-comment']}`}>
+                  <Link to={`/hn/${this.props.match.params.id}/${p.id}`}>
+                    <div dangerouslySetInnerHTML={{ __html: p.text }} />
+                      {p.kids ?  <div className={style['hn-comment-count']}>{p.kids.length}</div> : null}
+                  </Link>
                 </li>
               );
             }
           }
-          return null;
+          return <div />;
         })}
       </ul>
     );

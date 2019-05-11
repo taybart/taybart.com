@@ -46,20 +46,34 @@
 }
 
 .hn-comment {
-  cursor: pointer;
   height: 100%;
   padding-top: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid black;
 }
+.hn-comment a {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 .hn-comment-count {
-  color: white;
-  background-color: black;
+  margin-left: 30px;
+  align-self: end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50%;
+  min-width: 20px;
+  min-height: 20px;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  background: #fff;
+  border: 2px solid black;
+  color: black;
   text-align: center;
-  width: 25px;
-  margin: 0px;
+  font-size: 10px;
 }
 
 pre {
