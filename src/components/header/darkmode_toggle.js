@@ -7,7 +7,6 @@ export default class DarkmodeToggle extends Component {
     this.button = React.createRef();
   }
   componentDidMount() {
-    console.log(localStorage.getItem('mode'));
     if ((localStorage.getItem('mode') || 'light') === 'light') {
       this.setlight()
     } else {
