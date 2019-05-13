@@ -7,16 +7,17 @@ import style from './style.module.css';
 
 class Header extends Component {
   componentDidMount() {
-    let prevScrollpos = window.pageYOffset;
+    /* let prevScrollpos = window.pageYOffset;
     window.onscroll = () => {
       const currentScrollPos = window.pageYOffset;
+      console.log(prevScrollpos, currentScrollPos)
       if (prevScrollpos > currentScrollPos) {
         document.getElementById("navbar").style.top = "0";
       } else {
         document.getElementById("navbar").style.top = "-50px";
       }
       prevScrollpos = currentScrollPos;
-    }
+    } */
   }
   render() {
     return (
