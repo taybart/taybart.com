@@ -61,17 +61,12 @@
 }
 
 .darkmode-toggle {
-  width: 20px;
-  height: 20px;
-  border-radius:100%;
-  margin-top: 20px;
+  border:none;
+  align-self: center;
+  background: transparent;
 }
-
-.darkmode-toggle.sun {
-  background-color:#ffdd00;
-  border:1px solid #f1c40f;
-}
-.darkmode-toggle.moon {
-  background-color: grey;
-  border:1px solid grey;
+.darkmode-toggle img {
+  width: 25px;
+  height: 25px;
+  padding-top: 5px;
 }
