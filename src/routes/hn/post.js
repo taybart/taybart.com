@@ -16,13 +16,13 @@ export default class Post extends Component {
   }
 
   componentDidMount() {
-    this.getPost(this.props.match.params.id).then((post) => {
+    this.getItem(this.props.match.params.id).then((post) => {
       this.setState({ post, loading: false });
       if (this.props.match.params.comment) {
-        this.getPost(this.props.match.params.comment)
-          .then(comment => this.getChildren(comment.kids));
+        this.getItem(this.props.match.params.comment)
+          .then(comment => this.getItems(comment.kids));
       } else {
-        this.getChildren(post.kids)
+        this.getItems(post.kids)
       }
     });
   }
@@ -30,33 +30,30 @@ export default class Post extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.match.params.comment !== prevProps.match.params.comment) {
       const id = this.props.match.params.comment || this.props.match.params.id;
-      this.getPost(id).then((post) => {
-        this.getChildren(post.kids)
+      this.setState({ comments: [] })
+      this.getItem(id).then((post) => {
+        this.getItems(post.kids)
       });
     }
   }
 
-  getPost = (id) => new Promise((resolve) => {
-    fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
-      .then(res => res.json())
-      .then((post) => {
-        resolve(post)
-      });
-  });
-
-  getChildren = (kidsp) => {
-    const comments = [];
-    const kids = kidsp || this.state.post.kids;
-    if (kids) {
-      kids.forEach((k) => {
-        fetch(`https://hacker-news.firebaseio.com/v0/item/${k}.json`)
-          .then(res => res.json())
-          .then((comment) => {
-            comments.push(comment);
-            this.setState({ comments });
-          });
-      });
+  async getItems(postIds) {
+    const chunkSize = 30;
+    const chunks = postIds.length / chunkSize
+    for (let i = 0; i < chunks; i += 1) {
+      const actions = postIds.slice(i * chunkSize, (i + 1) * chunkSize).map(this.getItem);
+      await Promise.all(actions).then(comments => this.setState({ comments: [...this.state.comments, ...comments] }));
     }
+  }
+
+  getItem(id, index) {
+    return new Promise((resolve) => {
+      fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
+        .then(post => post.json())
+        .then((post) => {
+          resolve(post);
+        });
+    });
   }
 
   render() {
@@ -74,7 +71,7 @@ export default class Post extends Component {
           </Link>
           <a href={post.url} rel="noopener noreferrer" target="_blank">({post.score}) {post.title}</a>
         </li>
-        {comments.sort((a, b) => a.score - b.score).map(p => {
+        {comments.map(p => {
           if (p && !p.deleted && !p.dead) {
             if (!p.text.includes('<script')) {
               return (
