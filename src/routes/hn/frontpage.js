@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import ReactList from 'react-list';
 import style from './style.module.css';
 import arrow from '../../assets/right-arrow.png';
 

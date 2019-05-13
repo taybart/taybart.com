@@ -9,9 +9,10 @@ const Resume = () => (<div className={style.resume}>
     <ul>
       <li> go </li>
       <li> js/node </li>
+      <li> python </li>
       <li> c </li>
     </ul>
-    <li> frameworks </li>
+    <li> web frameworks </li>
     <ul>
       <li> react </li>
     </ul>
@@ -39,7 +40,6 @@ const Resume = () => (<div className={style.resume}>
     </ul>
     <li> frameworks </li>
     <ul>
-      <li></li>
     </ul>
   </ul>
   <b>things i made</b>

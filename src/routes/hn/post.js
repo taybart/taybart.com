@@ -76,10 +76,10 @@ export default class Post extends Component {
             if (!p.text.includes('<script')) {
               return (
                 <li key={p.id} className={`${style['hn-comment']}`}>
-                  <Link to={`/hn/${this.props.match.params.id}/${p.id}`}>
                     <div dangerouslySetInnerHTML={{ __html: p.text }} />
+                    <Link to={`/hn/${this.props.match.params.id}/${p.id}`}>
                       {p.kids ?  <div className={style['hn-comment-count']}>{p.kids.length}</div> : null}
-                  </Link>
+                    </Link>
                 </li>
               );
             }
