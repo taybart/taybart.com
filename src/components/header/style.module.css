@@ -1,13 +1,13 @@
 .header {
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 56px;
-	padding: 0;
-	background: white;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-	z-index: 50;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 56px;
+  padding: 0;
+  background: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 50;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,8 +15,9 @@
 
 .header-left {
   padding: 0 15px;
-	font-size: 24px;
-	font-weight: 400;
+  font-size: 24px;
+  font-weight: 400;
+  justify-self: flex-start;
 }
 
 .header-right {
@@ -25,22 +26,23 @@
   height: 100%;
   padding-right: 25px;
   align-content: center;
+  justify-self: flex-end;
 }
 
 .nav-link {
   height: 100%;
   flex-grow: 1;
   padding-top: 20px;
-	color: rgba(0,0,0,0.2);
-	will-change: color;
+  color: rgba(0,0,0,0.2);
+  will-change: color;
 }
 
 .nav-link:hover {
-	color: rgba(0,0,0,0.5);
+  color: rgba(0,0,0,0.5);
 }
 
 .nav-link.active {
-	color: rgba(0,0,0,1);
+  color: rgba(0,0,0,1);
 }
 
 @media (max-width: 768px) {
@@ -55,4 +57,20 @@
     height: 100%;
     padding-right: 25px;
   }
+}
+
+.darkmode-toggle {
+  width: 20px;
+  height: 20px;
+  border-radius:100%;
+  margin-top: 20px;
+}
+
+.darkmode-toggle.sun {
+  background-color:#ffdd00;
+  border:1px solid #f1c40f;
+}
+.darkmode-toggle.moon {
+  background-color: grey;
+  border:1px solid grey;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import DarkmodeToggle from './darkmode_toggle.js';
 import { NavLink } from 'react-router-dom';
 import style from './style.module.css';
 
@@ -9,6 +10,7 @@ const Header = () => (
       <NavLink className={style['nav-link']} activeClassName={style.active} to="/" exact>home</NavLink>
 			<NavLink className={style['nav-link']} activeClassName={style.active} to="/resume">resume</NavLink>
       <NavLink className={style['nav-link']} activeClassName={style.active} to="/hn">hn</NavLink>
+      <DarkmodeToggle />
 		</nav>
 	</header>
 );
