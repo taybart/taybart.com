@@ -23,7 +23,7 @@ export default class DarkmodeToggle extends Component {
       this.setDark()
     } else if (!this.sysColorScheme()) {
       // if no previous mode, attempt to autodetect
-      this.setlight(); // default to light
+      this.setLight(); // default to light
     }
   }
 
