@@ -34,8 +34,8 @@
   height: 100%;
   flex-grow: 1;
   padding-top: 20px;
-  color: rgba(0,0,0,0.2);
   will-change: color;
+  font-weight: 300;
 }
 
 .nav-link:hover {
@@ -43,7 +43,7 @@
 }
 
 .nav-link.active {
-  color: rgba(0,0,0,1);
+  font-weight: bold;
 }
 
 @media (max-width: 768px) {
