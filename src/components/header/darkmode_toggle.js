@@ -61,12 +61,14 @@ export default class DarkmodeToggle extends Component {
     localStorage.setItem('mode', 'dark');
     document.querySelector('body').classList.add('dark');
     document.querySelector('header').classList.add('dark');
+    (document.querySelectorAll('.hn-comment-count')).forEach(e => e.classList.add('dark'))
     this.setState({ img: sun });
   }
   setLight = () => {
     localStorage.setItem('mode', 'light');
     document.querySelector('body').classList.remove('dark');
     document.querySelector('header').classList.remove('dark');
+    (document.querySelectorAll('hn-comment-count')).forEach(e => e.classList.remove('dark'))
     this.setState({ img: moon });
   }
 

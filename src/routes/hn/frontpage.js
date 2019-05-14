@@ -16,9 +16,9 @@ import arrowWhite from '../../assets/right-arrow-white.png';
       <li key={key} className={`${style["hn-post"]}`}>
         <a href={p.url} rel="noopener noreferrer" target="_blank">[{p.score}] {p.title}</a>
         <div className={style['hn-post-comments-link']}>
-          <Link to={`/hn/${p.id}`}>
-            ({p.descendants}) <img alt="arrow" src={a} height="23"/>
-          </Link>
+          {(p.descendants > 0) ?
+            (<Link to={`/hn/${p.id}`}> <img alt="arrow" src={a} height="23"/> </Link>) : null
+          }
       </div>
       </li>
     );

@@ -69,7 +69,7 @@ export default class Post extends Component {
           <Link className={style['hn-post-back']} to="/hn">
             <img alt="arrow" src={a} height="23"/>
           </Link>
-          <a href={post.url} rel="noopener noreferrer" target="_blank">({post.score}) {post.title}</a>
+          <a href={post.url} rel="noopener noreferrer" target="_blank">{post.title}</a>
         </li>
         {comments.map(p => {
           if (p && !p.deleted && !p.dead) {

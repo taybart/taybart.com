@@ -1,4 +1,11 @@
 .resume {
-  padding: 65px 20px;
-  min-height: 100%;
+	padding-top: 65px;
+	margin: 0px 20%;
+	min-height: 100%;
+}
+
+@media (max-width: 768px) {
+  .resume{
+    margin: 0px 5%;
+  }
 }
