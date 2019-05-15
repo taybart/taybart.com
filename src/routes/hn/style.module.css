@@ -91,8 +91,7 @@ pre {
   .hn-comment {
     cursor: pointer;
     height: 100%;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px 5%;
   }
 
   .hn-post-comments-link {
