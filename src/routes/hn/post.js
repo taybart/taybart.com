@@ -84,7 +84,7 @@ export default class Post extends Component {
               );
             }
           }
-          return <div />;
+          return (<span key={p.id} />);
         })}
       </ul>
     );

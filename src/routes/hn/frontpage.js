@@ -4,7 +4,7 @@ import style from './style.module.css';
 import arrow from '../../assets/right-arrow.png';
 import arrowWhite from '../../assets/right-arrow-white.png';
 
- export default class FrontPage extends Component {
+export default class FrontPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,10 +17,11 @@ import arrowWhite from '../../assets/right-arrow-white.png';
         <a href={p.url} rel="noopener noreferrer" target="_blank">[{p.score}] {p.title}</a>
         <div className={style['hn-post-comments-link']}>
           {(p.descendants > 0) ?
-            (<Link to={`/hn/${p.id}`}> <img alt="arrow" src={a} height="23"/> </Link>) : null
-          }
-      </div>
-      </li>
+            (<Link to={`/hn/${p.id}`}> 
+              <img alt="arrow" src={a} height="23"/> </Link>) 
+            : null }
+          </div>
+        </li>
     );
   }
   async getPosts(postIds) {
@@ -54,18 +55,13 @@ import arrowWhite from '../../assets/right-arrow-white.png';
       return <div className={style.hn}>Getting frontpage...</div>;
     }
     let a = (localStorage.getItem('mode') === 'light') ? arrow : arrowWhite;
-    return (
-      <ul className={`${style.hn} ${style["hn-post-list"]}`}>
-        {posts.map(p =>
-          <li key={p.id} className={`${style["hn-post"]}`}>
-            <a href={p.url} rel="noopener noreferrer" target="_blank">[{p.score}] {p.title}</a>
-            <div className={style['hn-post-comments-link']}>
-              <Link to={`/hn/${p.id}`}>
-                ({p.descendants}) <img alt="arrow" src={a} height="23"/>
-              </Link>
-            </div>
-          </li>)}
-        </ul>
-    );
+    return (<ul className={`${style.hn} ${style["hn-post-list"]}`}>
+      {posts.map(p => <li key={p.id} className={`${style["hn-post"]}`}>
+        <a href={p.url} rel="noopener noreferrer" target="_blank">[{p.score}] {p.title}</a>
+        {(p.descendants > 0) ?  <Link to={`/hn/${p.id}`} className={style['hn-post-comments-link']}>
+          {p.descendants} <img alt="arrow" src={a} height="23"/>
+        </Link> : null }
+      </li>)}
+    </ul>);
   }
 }

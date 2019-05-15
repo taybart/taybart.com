@@ -5,19 +5,27 @@
 }
 
 .hn-post-title {
-  font-size: 1.2em;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   min-height: 50px;
   border-bottom: 2px solid;
 }
+
+.hn-post {
+  font-size: 1.1em;
+  padding: 15px 0px;
+}
+
 .hn-post-comments-link {
   display: flex;
   width: 30%;
   height: 100%;
   justify-content: flex-end;
+  max-width: 100px;
+  border-left: 1px solid;
 }
+
 .hn-post-comments-link img {
   vertical-align: middle;
 }
@@ -84,8 +92,8 @@ pre {
   }
 
   .hn-post {
-    min-height: 100px;
-    padding: 0px 5%;
+    max-height: 100px;
+    padding: 20px 5%;
   }
 
   .hn-comment {
@@ -97,12 +105,21 @@ pre {
   .hn-post-comments-link {
     min-width: 80px;
   }
-  .hn-post-title {
-    font-size: 1.2em;
-    justify-self: center;
-    text-align: center;
+
+  .hn-post-back {
+    margin-right: 5%;
+    border-right: 1px solid;
     height: 100%;
-    padding-top: 10px;
-    padding-bottom: 20px;
+  }
+
+  .hn-post-title {
+    justify-self: center;
+    padding: 10px 0px;
+  }
+  .hn-post-title a {
+    font-size: 1.2em;
+  }
+  .hn-post-title img {
+    padding-top: 30%;
   }
 }
