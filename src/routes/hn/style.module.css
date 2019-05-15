@@ -80,11 +80,12 @@ pre {
 
 @media (max-width: 768px) {
   .hn {
-    margin: 0px 5%;
+    margin: 0;
   }
 
   .hn-post {
     min-height: 100px;
+    padding: 0px 5%;
   }
 
   .hn-comment {
