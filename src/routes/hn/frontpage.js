@@ -11,29 +11,20 @@ export default class FrontPage extends Component {
       posts: [],
     };
   }
-  renderItem(p, key, a) {
-    return (
-      <li key={key} className={`${style["hn-post"]}`}>
-        <a href={p.url} rel="noopener noreferrer" target="_blank">[{p.score}] {p.title}</a>
-        <div className={style['hn-post-comments-link']}>
-          {(p.descendants > 0) ?
-            (<Link to={`/hn/${p.id}`}> 
-              <img alt="arrow" src={a} height="23"/> </Link>) 
-            : null }
-          </div>
-        </li>
-    );
-  }
-  async getPosts(postIds) {
+
+  async getItems(itemIds) {
     const chunkSize = 30;
-    const chunks = postIds.length / chunkSize
+    const chunks = itemIds.length / chunkSize
     for (let i = 0; i < chunks; i += 1) {
-      const actions = postIds.slice(i * chunkSize, (i + 1) * chunkSize).map(this.getPost);
-      await Promise.all(actions).then(posts => this.setState({ posts: [...this.state.posts, ...posts] }));
+      const actions = itemIds.slice(i * chunkSize, (i + 1) * chunkSize).map(this.getItem);
+      await Promise.all(actions).then(posts => {
+        this.setState({ posts: [...this.state.posts, ...posts] })
+        localStorage.setItem('fp', JSON.stringify([...this.state.posts, ...posts]))
+      });
     }
   }
 
-  getPost(id, index) {
+  getItem(id, index) {
     return new Promise((resolve) => {
       fetch(`https://hacker-news.firebaseio.com/v0//item/${id}.json`)
         .then(post => post.json())
@@ -43,12 +34,22 @@ export default class FrontPage extends Component {
     });
   }
   componentDidMount() {
+    const fp = JSON.parse(localStorage.getItem('fp'))
+    if (!fp) {
     fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
       .then(res => res.json())
       .then((postIds) => {
-        this.getPosts(postIds);
+        this.getItems(postIds);
       });
+    } else {
+      this.setState({ posts: fp })
+    }
+
+    window.onbeforeunload = () => {
+      localStorage.removeItem('fp')
+    }
   }
+
   render() {
     const { posts } = this.state;
     if (posts.length === 0) {

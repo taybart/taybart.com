@@ -58,6 +58,11 @@
   border-bottom: 1px solid;
 }
 
+.hn-comment > div,  .hn-comment > code {
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
 .hn-comment a {
   display: flex;
   flex-direction: column;
@@ -85,6 +90,7 @@
 pre {
   background-color: #f6f8fa;
 }
+
 
 @media (max-width: 768px) {
   .hn {

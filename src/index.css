@@ -10,8 +10,11 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+pre {
+  white-space: pre-wrap;
 }
 
 .dark {
@@ -19,9 +22,15 @@ code {
   color: #fff !important;
   border-color: white !important;
 }
+
 .dark a {
   color: #fff !important;
 }
+
+.dark pre {
+  background-color: rgb(63, 72, 84) !important;
+}
+
 .dark code[class*=language-],
 .dark table tbody>tr:nth-child(odd)>td,
 .dark table tbody>tr:nth-child(odd)>th {

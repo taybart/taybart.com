@@ -4,6 +4,7 @@ import style from './style.module.css';
 import arrow from '../../assets/left-arrow.png';
 import arrowWhite from '../../assets/left-arrow-white.png';
 
+// Note post and frontpage should move to display components
 export default class Post extends Component {
   constructor(props) {
     super(props);
@@ -15,34 +16,15 @@ export default class Post extends Component {
     };
   }
 
-  componentDidMount() {
-    this.getItem(this.props.match.params.id).then((post) => {
-      this.setState({ post, loading: false });
-      if (this.props.match.params.comment) {
-        this.getItem(this.props.match.params.comment)
-          .then(comment => this.getItems(comment.kids));
-      } else {
-        this.getItems(post.kids)
-      }
-    });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.match.params.comment !== prevProps.match.params.comment) {
-      const id = this.props.match.params.comment || this.props.match.params.id;
-      this.setState({ comments: [] })
-      this.getItem(id).then((post) => {
-        this.getItems(post.kids)
-      });
-    }
-  }
-
   async getItems(postIds) {
     const chunkSize = 30;
     const chunks = postIds.length / chunkSize
     for (let i = 0; i < chunks; i += 1) {
       const actions = postIds.slice(i * chunkSize, (i + 1) * chunkSize).map(this.getItem);
-      await Promise.all(actions).then(comments => this.setState({ comments: [...this.state.comments, ...comments] }));
+      await Promise.all(actions).then(comments => {
+        this.setState({ comments: [...this.state.comments, ...comments] })
+        // localStorage.setItem('comments', JSON.stringify([...this.state.comments, ...comments]))
+      });
     }
   }
 
@@ -55,6 +37,36 @@ export default class Post extends Component {
         });
     });
   }
+
+  componentDidMount() {
+    // const comments = JSON.parse(localStorage.getItem('comments'))
+    // if (!comments) {
+      this.getItem(this.props.match.params.id).then((post) => {
+        this.setState({ post, loading: false });
+        if (this.props.match.params.comment) {
+          this.getItem(this.props.match.params.comment)
+            .then(comment => this.getItems(comment.kids));
+        } else {
+          this.getItems(post.kids)
+        }
+      });
+    // }
+
+    /* window.onbeforeunload = () => {
+      localStorage.removeItem('comments')
+    } */
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.comment !== prevProps.match.params.comment) {
+      const id = this.props.match.params.comment || this.props.match.params.id;
+      this.setState({ comments: [] })
+      this.getItem(id).then((post) => {
+        this.getItems(post.kids)
+      });
+    }
+  }
+
 
   render() {
     const { loading, post, comments } = this.state;
@@ -76,15 +88,15 @@ export default class Post extends Component {
             if (!p.text.includes('<script')) {
               return (
                 <li key={p.id} className={`${style['hn-comment']}`}>
-                    <div dangerouslySetInnerHTML={{ __html: p.text }} />
-                    <Link to={`/hn/${this.props.match.params.id}/${p.id}`}>
-                      {p.kids ?  <div className={style['hn-comment-count']}>{p.kids.length}</div> : null}
-                    </Link>
+                  <div className={localStorage.getItem('mode')} dangerouslySetInnerHTML={{ __html: p.text }} />
+                  <Link to={`/hn/${this.props.match.params.id}/${p.id}`}>
+                    {p.kids ?  <div className={style['hn-comment-count']}>{p.kids.length}</div> : null}
+                  </Link>
                 </li>
               );
             }
           }
-          return (<span key={p.id} />);
+          return null;
         })}
       </ul>
     );
