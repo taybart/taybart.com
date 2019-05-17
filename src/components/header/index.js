@@ -27,6 +27,7 @@ class Header extends Component {
           <NavLink className={style['nav-link']} activeClassName={style.active} to="/" exact>home</NavLink>
           <NavLink className={style['nav-link']} activeClassName={style.active} to="/resume">resume</NavLink>
           <NavLink className={style['nav-link']} activeClassName={style.active} to="/hn">hn</NavLink>
+          {/* <NavLink className={style['nav-link']} activeClassName={style.active} to="/vc">vc</NavLink> */}
           <DarkmodeToggle />
         </nav>
       </header>

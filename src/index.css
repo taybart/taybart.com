@@ -6,7 +6,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  border-color: white;
 }
 
 code {
@@ -23,6 +22,9 @@ pre {
   border-color: white !important;
 }
 
+.dark input {
+  color: #fff !important;
+}
 .dark a {
   color: #fff !important;
 }
@@ -43,7 +45,7 @@ pre {
 
 
 .nav-pmpbar {
-  color: black !important;
+  color: black;
   background-color: white;
   border-bottom: 1px solid black;
 }
@@ -62,9 +64,16 @@ button:focus {
   box-shadow: none !important;
 }
 
+.dark .btn-tb {
+  background: transparent;
+  border: 1px solid;
+  color: white !important;
+}
+
+
 .btn-tb {
   background: transparent;
-  border: 1px solid black;
+  border: 1px solid;
   color: black;
 }
 .btn-tb:hover {

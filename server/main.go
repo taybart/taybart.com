@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
+	"github.com/gorilla/websocket"
 	"github.com/taybart/log"
 	"golang.org/x/crypto/acme/autocert"
 	"net/http"
@@ -47,7 +48,22 @@ func main() {
 		c.File("../build/index.html")
 	})
 
-	log.Info("Running...")
+	var upgrader = websocket.Upgrader{
+		ReadBufferSize:  1024,
+		WriteBufferSize: 1024,
+	}
+	r.GET("/ws", func(c *gin.Context) {
+		upgrader.CheckOrigin = func(r *http.Request) bool {
+			return true
+		}
+		conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
+		if err != nil {
+			fmt.Printf("Failed to set websocket upgrade: %+v\n", err)
+			return
+		}
+		wshandler(conn)
+	})
+
 	certManager := autocert.Manager{
 		Prompt:     autocert.AcceptTOS,
 		Cache:      autocert.DirCache("certs"),
@@ -64,5 +80,6 @@ func main() {
 		},
 	}
 
+	log.Info("Running...")
 	log.Fatal(server.ListenAndServeTLS("", ""))
 }

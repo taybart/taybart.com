@@ -7,7 +7,7 @@ import Header from './header';
 import Home from '../routes/home';
 import Resume from '../routes/resume';
 import HN from '../routes/hn';
-// import HNPost from '../routes/hn/post';
+import VC from '../routes/voicechat';
 
 export default class App extends Component {
   render() {
@@ -18,7 +18,7 @@ export default class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/resume" component={Resume} />
           <Route path="/hn" component={HN} />
-          {/* <HNPost path="/hn/post/:id" /> */}
+          <Route path="/vc" component={VC} />
         </Router>
       </div>
     );

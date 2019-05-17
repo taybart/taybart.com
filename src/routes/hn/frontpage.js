@@ -8,7 +8,7 @@ export default class FrontPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: [],
+      posts: JSON.parse(localStorage.getItem('fp')) || [],
     };
   }
 
@@ -34,20 +34,11 @@ export default class FrontPage extends Component {
     });
   }
   componentDidMount() {
-    const fp = JSON.parse(localStorage.getItem('fp'))
-    if (!fp) {
     fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
       .then(res => res.json())
       .then((postIds) => {
         this.getItems(postIds);
       });
-    } else {
-      this.setState({ posts: fp })
-    }
-
-    window.onbeforeunload = () => {
-      localStorage.removeItem('fp')
-    }
   }
 
   render() {

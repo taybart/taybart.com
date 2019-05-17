@@ -55,8 +55,6 @@ export default class DarkmodeToggle extends Component {
     }
   }
 
-  setmode = (mode) => {
-  }
   setDark = () => {
     localStorage.setItem('mode', 'dark');
     document.querySelector('body').classList.add('dark');
