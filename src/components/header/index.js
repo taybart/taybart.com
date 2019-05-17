@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import DarkmodeToggle from './darkmode_toggle.js';
-import { NavLink } from 'react-router-dom';
+import { Link,NavLink } from 'react-router-dom';
 import style from './style.module.css';
 
 
@@ -22,7 +22,7 @@ class Header extends Component {
   render() {
     return (
       <header id="navbar" className={style.header}>
-        <h1 className={style['header-left']}>Taylor Bartlett</h1>
+        <Link to="/"><h1 className={style['header-left']}>Taylor Bartlett</h1></Link>
         <nav className={style['header-right']}>
           <NavLink className={style['nav-link']} activeClassName={style.active} to="/" exact>home</NavLink>
           <NavLink className={style['nav-link']} activeClassName={style.active} to="/resume">resume</NavLink>

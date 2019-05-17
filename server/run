@@ -1,0 +1,3 @@
+#!/bin/bash
+/root/server/server > /var/log/server.log
+

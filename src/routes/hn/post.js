@@ -23,7 +23,6 @@ export default class Post extends Component {
       const actions = postIds.slice(i * chunkSize, (i + 1) * chunkSize).map(this.getItem);
       await Promise.all(actions).then(comments => {
         this.setState({ comments: [...this.state.comments, ...comments] })
-        // localStorage.setItem('comments', JSON.stringify([...this.state.comments, ...comments]))
       });
     }
   }
@@ -38,9 +37,14 @@ export default class Post extends Component {
     });
   }
 
+  updateLocalStore = () => {
+    localStorage.setItem('commentsOwner', this.props.match.params.comment)
+    localStorage.setItem('comments', JSON.stringify(this.state.comments))
+  }
+
   componentDidMount() {
-    // const comments = JSON.parse(localStorage.getItem('comments'))
-    // if (!comments) {
+    const owner = localStorage.getItem('commentsOwner');
+    if (owner !== this.props.match.params.comment) {
       this.getItem(this.props.match.params.id).then((post) => {
         this.setState({ post, loading: false });
         if (this.props.match.params.comment) {
@@ -50,11 +54,10 @@ export default class Post extends Component {
           this.getItems(post.kids)
         }
       });
-    // }
-
-    /* window.onbeforeunload = () => {
-      localStorage.removeItem('comments')
-    } */
+    } else {
+      const comments = JSON.parse(localStorage.getItem('comments'))
+      this.setState({ comments })
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -89,7 +92,7 @@ export default class Post extends Component {
               return (
                 <li key={p.id} className={`${style['hn-comment']}`}>
                   <div className={localStorage.getItem('mode')} dangerouslySetInnerHTML={{ __html: p.text }} />
-                  <Link to={`/hn/${this.props.match.params.id}/${p.id}`}>
+                  <Link onClick={this.updateLocalStore} to={`/hn/${this.props.match.params.id}/${p.id}`}>
                     {p.kids ?  <div className={style['hn-comment-count']}>{p.kids.length}</div> : null}
                   </Link>
                 </li>
