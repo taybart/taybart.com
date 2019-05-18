@@ -230,6 +230,7 @@ export default class VC extends Component {
     console.log(message)
     this.signaling.sendToServer({
       id: this.state.id,
+      username: this.state.username,
       type: "message",
       action: "send",
       message,
@@ -251,7 +252,7 @@ export default class VC extends Component {
             className="transparent"
             type="text"
             value={username}
-            onChange={(e) => this.setState({ username: e.target.value })}
+            onChange={(e) => this.setUsername(e.target.value)}
           />
         </label>
       </form>
