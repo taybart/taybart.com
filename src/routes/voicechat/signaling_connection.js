@@ -20,7 +20,7 @@ export default class SignalingConnection {
       serverUrl = `wss://${this.socketURL}`;
     }
 
-    this.connection = new WebSocket(serverUrl, "json");
+    this.connection = new WebSocket(serverUrl);
     this.connection.onopen = () => this.onOpen()
 
     this.connection.onmessage = event => {
