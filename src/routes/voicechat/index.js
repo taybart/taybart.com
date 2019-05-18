@@ -68,6 +68,7 @@ export default class VC extends Component {
         break;
       case "userlist-update": // Received an updated user list
         if (msg.action === 'add') {
+          // @TODO: Play chime
           const userIds = this.state.userIds;
           userIds.push(msg.id);
           this.setState({
