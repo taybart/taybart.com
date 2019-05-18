@@ -9,6 +9,7 @@ import (
 	"github.com/taybart/log"
 	"golang.org/x/crypto/acme/autocert"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -64,22 +65,26 @@ func main() {
 		wshandler(conn)
 	})
 
-	certManager := autocert.Manager{
-		Prompt:     autocert.AcceptTOS,
-		Cache:      autocert.DirCache("certs"),
-		HostPolicy: autocert.HostWhitelist("www.taylorbartlett.com", "taylorbartlett.com", "taybart.com", "www.taybart.com"),
-	}
-
-	go http.ListenAndServe(":80", certManager.HTTPHandler(nil))
-
-	server := &http.Server{
-		Addr:    ":443",
-		Handler: r,
-		TLSConfig: &tls.Config{
-			GetCertificate: certManager.GetCertificate,
-		},
-	}
-
 	log.Info("Running...")
-	log.Fatal(server.ListenAndServeTLS("", ""))
+	if os.Getenv("env") != "production" {
+		r.Run(":8080")
+	} else {
+		certManager := autocert.Manager{
+			Prompt:     autocert.AcceptTOS,
+			Cache:      autocert.DirCache("certs"),
+			HostPolicy: autocert.HostWhitelist("www.taylorbartlett.com", "taylorbartlett.com", "taybart.com", "www.taybart.com"),
+		}
+
+		go http.ListenAndServe(":80", certManager.HTTPHandler(nil))
+
+		server := &http.Server{
+			Addr:    ":443",
+			Handler: r,
+			TLSConfig: &tls.Config{
+				GetCertificate: certManager.GetCertificate,
+			},
+		}
+
+		log.Fatal(server.ListenAndServeTLS("", ""))
+	}
 }

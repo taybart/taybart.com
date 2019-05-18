@@ -32,6 +32,7 @@ type message struct {
 	Type      string       `json:"type,omitempty"`
 	SDP       sdp          `json:"sdp,omitempty"`
 	Status    string       `json:"status,omitempty"`
+	Message   string       `json:"message,omitempty"`
 }
 
 var mutex = &sync.Mutex{}
@@ -252,6 +253,12 @@ func wshandler(c *websocket.Conn) {
 					handleLeaveChat(c, m.ID)
 				}
 			}
+		case "message":
+			for _, conn := range connections {
+				mutex.Lock()
+				conn.WriteMessage(1, msg)
+				mutex.Unlock()
+			}
 		default:
 			if m.Target != uuid.Nil {
 				msg, err := json.Marshal(m)
@@ -261,6 +268,7 @@ func wshandler(c *websocket.Conn) {
 				}
 				connections[m.Target].WriteMessage(1, msg)
 			} else {
+				fmt.Printf("%+v\n", m)
 				for i, conn := range connections {
 					if i != m.ID {
 						mutex.Lock()
@@ -269,7 +277,6 @@ func wshandler(c *websocket.Conn) {
 					}
 				}
 			}
-			break
 		}
 	}
 

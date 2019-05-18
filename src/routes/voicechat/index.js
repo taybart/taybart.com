@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Chat from './chat.js';
 import PeerConnection from './peer_connection.js';
 import SignalingConnection from './signaling_connection.js';
 import style from './style.module.css';
@@ -12,6 +13,7 @@ export default class VC extends Component {
     username: (localStorage.getItem('username') || 'Change username'),
     userlist: [],
     userIds: [],
+    chat: [],
   };
   input = React.createRef();
   stream = null;
@@ -43,7 +45,7 @@ export default class VC extends Component {
   });
 
   onSignalingMessage = msg => {
-    // console.log(msg)
+    console.log(msg)
     switch (msg.type) {
       case "id":
         localStorage.setItem("id", msg.id)
@@ -104,6 +106,14 @@ export default class VC extends Component {
 
       case "new-ice-candidate":
         this.pcs[msg.id].pc.addIceCandidate(new RTCIceCandidate(msg.candidate));
+        break;
+      case "message":
+        console.log(msg)
+        let user = this.state.userlist[msg.id];
+        if (msg.id === this.state.id) {
+          user = this.state.username;
+        }
+        this.setState({ chat: [...this.state.chat,  { user, msg: msg.message }] })
         break;
 
       default: break;
@@ -191,7 +201,8 @@ export default class VC extends Component {
   componentDidMount() {
     let url = `${window.location.host}/ws`;
     if (process.env.NODE_ENV === 'development') {
-      url = `${window.location.hostname}:8080/ws`;
+      // url = `${window.location.hostname}:8080/ws`;
+      url = `york.local:8080/ws`;
     }
     this.signaling = new SignalingConnection({
       socketURL: url,
@@ -215,8 +226,18 @@ export default class VC extends Component {
     });
   }
 
+  sendChat = (message) => {
+    console.log(message)
+    this.signaling.sendToServer({
+      id: this.state.id,
+      type: "message",
+      action: "send",
+      message,
+    });
+  }
+
   render() {
-    const { username, inChat, userIds, userlist } = this.state;
+    const { username, inChat, userIds, userlist, chat } = this.state;
     return (<div className={style.voicechat}>
       <div className={style.username}>
         <form onSubmit={(e) => {
@@ -241,6 +262,9 @@ export default class VC extends Component {
     </div>
     {inChat ?  <ul style={{ height: `${(userIds.length + 1)*20}px`}} className={style.userlist}> Users {userIds.map(id => (<li key={id}> {userlist[id]} </li>))} </ul> : null}
 
+    <div>
+    <Chat onSend={this.sendChat} chat={chat} />
+  </div>
     <div id="output" />
   </div>);
   }

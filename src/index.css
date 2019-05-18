@@ -64,6 +64,14 @@ button:focus {
   box-shadow: none !important;
 }
 
+
+input {
+  border: none;
+  border-bottom: 1px solid;
+  background: transparent;
+  outline: none;
+}
+
 .dark .btn-tb {
   background: transparent;
   border: 1px solid;

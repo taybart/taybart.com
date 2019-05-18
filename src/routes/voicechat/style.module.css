@@ -1,5 +1,4 @@
 .voicechat {
-  display: flex;
   justify-content: space-between;
   padding-top: 65px;
   margin: 0px 20%;
@@ -24,10 +23,6 @@
 }
 
 .username input {
-  border: none;
-  border-bottom: 1px solid;
-  background: transparent;
-  outline: none;
   font: inherit;
   padding-left: 10px;
   width: 250px;
@@ -66,4 +61,19 @@
     margin-top: 100px;
     width: 100%;
   }
+}
+
+.chatinput {
+  width: 100%;
+}
+.chatinput input{
+  width: 100%;
+}
+.chatlog {
+  list-style: none;
+  width: 100%
+}
+.chatlog li{
+  border: 1px solid;
+  padding: 10px;
 }
