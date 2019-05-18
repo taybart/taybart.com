@@ -51,11 +51,11 @@ func main() {
 	var upgrader = websocket.Upgrader{
 		ReadBufferSize:  1024,
 		WriteBufferSize: 1024,
+		CheckOrigin: func(r *http.Request) bool {
+			return true
+		},
 	}
 	r.GET("/ws", func(c *gin.Context) {
-		upgrader.CheckOrigin = func(r *http.Request) bool {
-			return true
-		}
 		conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
 		if err != nil {
 			fmt.Printf("Failed to set websocket upgrade: %+v\n", err)
