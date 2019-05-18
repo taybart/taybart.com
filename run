@@ -1,0 +1,3 @@
+#!/bin/bash
+export ENV=development
+cd server; go run *.go

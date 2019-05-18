@@ -66,7 +66,7 @@ func main() {
 	})
 
 	log.Info("Running...")
-	if os.Getenv("env") == "development" {
+	if os.Getenv("ENV") == "development" {
 		r.Run(":8080")
 	} else {
 		certManager := autocert.Manager{

@@ -40,11 +40,10 @@
 
 @media (max-width: 768px) {
   .voicechat {
-    flex-wrap: wrap;
     margin: 0px 5%;
   }
   .username {
-    flex-wrap: wrap;
+    display: block;
   }
   .username input {
     width: 100%;

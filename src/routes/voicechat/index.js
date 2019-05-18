@@ -38,10 +38,10 @@ export default class VC extends Component {
     navigator.mediaDevices.getUserMedia({
       audio: true, video: false,
     }).then((stream) => {
-        this.stream = stream;
-        console.log('Received local stream');
-        resolve(stream)
-      }).catch(reject);
+      this.stream = stream;
+      console.log('Received local stream');
+      resolve(stream)
+    }).catch(reject);
   });
 
   onSignalingMessage = msg => {
@@ -260,11 +260,13 @@ export default class VC extends Component {
           (<button className={`btn-tb ${style['btn-jl']}`}onClick={this.joinChat}> Join Chat </button>)
       }
     </div>
-    {inChat ?  <ul style={{ height: `${(userIds.length + 1)*20}px`}} className={style.userlist}> Users {userIds.map(id => (<li key={id}> {userlist[id]} </li>))} </ul> : null}
-
     <div>
-    <Chat onSend={this.sendChat} chat={chat} />
-  </div>
+      {inChat ?  <ul style={{ height: `${(userIds.length + 1)*20}px`}} className={style.userlist}> Users {userIds.map(id => (<li key={id}> {userlist[id]} </li>))} </ul> : null}
+
+    </div>
+    <div>
+      <Chat onSend={this.sendChat} chat={chat} />
+    </div>
     <div id="output" />
   </div>);
   }
