@@ -8,23 +8,23 @@ export default class FrontPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: JSON.parse(localStorage.getItem('fp')) || [],
+      // posts: JSON.parse(localStorage.getItem('fp')) || [],
+      posts: [],
     };
+  }
+
+  setItems = (p) => {
+    let posts = this.state.posts.concat(p)
+    this.setState({ posts })
   }
 
   async getItems(itemIds) {
     const chunkSize = 30;
     const chunks = itemIds.length / chunkSize
-    let posts = [];
-    let actions = [];
     for (let i = 0; i < chunks; i += 1) {
-      actions = itemIds.slice(i * chunkSize, (i + 1) * chunkSize).map(this.getItem);
+      const actions = (itemIds.slice(i * chunkSize, (i + 1) * chunkSize).map(this.getItem));
+      await Promise.all(actions).then(this.setItems);
     }
-    await Promise.all(actions).then(p => {
-      posts = posts.concat(p)
-      localStorage.setItem('fp', JSON.stringify(posts))
-      this.setState({ posts: posts })
-    });
   }
 
   getItem(id, index) {

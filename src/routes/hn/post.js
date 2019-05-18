@@ -16,14 +16,17 @@ export default class Post extends Component {
     };
   }
 
-  async getItems(postIds) {
+  setItems = (i) => {
+    const comments = this.state.comments.concat(i)
+    this.setState({ comments })
+  }
+
+  async getItems(itemIds) {
     const chunkSize = 30;
-    const chunks = postIds.length / chunkSize
+    const chunks = itemIds.length / chunkSize
     for (let i = 0; i < chunks; i += 1) {
-      const actions = postIds.slice(i * chunkSize, (i + 1) * chunkSize).map(this.getItem);
-      await Promise.all(actions).then(comments => {
-        this.setState({ comments: [...this.state.comments, ...comments] })
-      });
+      const actions = (itemIds.slice(i * chunkSize, (i + 1) * chunkSize).map(this.getItem));
+      await Promise.all(actions).then(this.setItems);
     }
   }
 
@@ -43,8 +46,8 @@ export default class Post extends Component {
   }
 
   componentDidMount() {
-    const owner = localStorage.getItem('commentsOwner');
-    if (owner !== this.props.match.params.comment) {
+    /* const owner = localStorage.getItem('commentsOwner');
+    if (owner !== this.props.match.params.comment) { */
       this.getItem(this.props.match.params.id).then((post) => {
         this.setState({ post, loading: false });
         if (this.props.match.params.comment) {
@@ -54,10 +57,10 @@ export default class Post extends Component {
           this.getItems(post.kids)
         }
       });
-    } else {
+    /* } else {
       const comments = JSON.parse(localStorage.getItem('comments'))
       this.setState({ comments })
-    }
+    } */
   }
 
   componentDidUpdate(prevProps) {
@@ -92,7 +95,8 @@ export default class Post extends Component {
               return (
                 <li key={p.id} className={`${style['hn-comment']}`}>
                   <div className={localStorage.getItem('mode')} dangerouslySetInnerHTML={{ __html: p.text }} />
-                  <Link onClick={this.updateLocalStore} to={`/hn/${this.props.match.params.id}/${p.id}`}>
+                  {/* <Link onClick={this.updateLocalStore} to={`/hn/${this.props.match.params.id}/${p.id}`}> */}
+                  <Link to={`/hn/${this.props.match.params.id}/${p.id}`}>
                     {p.kids ?  <div className={style['hn-comment-count']}>{p.kids.length}</div> : null}
                   </Link>
                 </li>
