@@ -20,12 +20,13 @@ export default class VC extends Component {
   pcs = {};
   signaling = null;
 
-  setUsername = () => {
-    const { id, username } = this.state;
+  setUsername = (username) => {
+    const { id  } = this.state;
     localStorage.setItem('username', username)
     this.signaling.sendToServer({
       id, username, type: "username",
     });
+    this.setState({ username })
   };
 
   getStream = () => new Promise((resolve, reject) => {
@@ -50,7 +51,7 @@ export default class VC extends Component {
       case "id":
         localStorage.setItem("id", msg.id)
         this.setState({ id: msg.id });
-        this.setUsername();
+        this.setUsername(this.state.username);
         break;
 
       case "username-reject":
@@ -243,7 +244,7 @@ export default class VC extends Component {
       <div className={style.username}>
         <form onSubmit={(e) => {
           e.preventDefault();
-          this.setUsername();
+          this.setUsername(this.state.username);
         }}>
         <label>
           Hello
