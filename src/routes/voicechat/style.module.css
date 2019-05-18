@@ -36,6 +36,20 @@
   /* height: 400px; */
 }
 
+.chatinput {
+  width: 100%;
+}
+.chatinput input{
+  width: 100%;
+}
+.chatlog {
+  list-style: none;
+  width: 100%
+}
+.chatlog li{
+  border: 1px solid;
+  padding: 10px;
+}
 
 
 @media (max-width: 768px) {
@@ -43,7 +57,7 @@
     margin: 0px 5%;
   }
   .username {
-    display: block;
+    display: inline;
   }
   .username input {
     width: 100%;
@@ -60,19 +74,12 @@
     margin-top: 100px;
     width: 100%;
   }
+
+  .chatlog {
+    padding: 0px;
+  }
+  .chatlog li{
+    padding: 10px;
+  }
 }
 
-.chatinput {
-  width: 100%;
-}
-.chatinput input{
-  width: 100%;
-}
-.chatlog {
-  list-style: none;
-  width: 100%
-}
-.chatlog li{
-  border: 1px solid;
-  padding: 10px;
-}

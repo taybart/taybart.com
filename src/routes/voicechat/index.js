@@ -264,9 +264,7 @@ export default class VC extends Component {
       {inChat ?  <ul style={{ height: `${(userIds.length + 1)*20}px`}} className={style.userlist}> Users {userIds.map(id => (<li key={id}> {userlist[id]} </li>))} </ul> : null}
 
     </div>
-    <div>
-      <Chat onSend={this.sendChat} chat={chat} />
-    </div>
+    <Chat onSend={this.sendChat} chat={chat} />
     <div id="output" />
   </div>);
   }
