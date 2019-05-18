@@ -15,15 +15,16 @@ export default class FrontPage extends Component {
   async getItems(itemIds) {
     const chunkSize = 30;
     const chunks = itemIds.length / chunkSize
-    const posts = [];
+    let posts = [];
+    let actions = [];
     for (let i = 0; i < chunks; i += 1) {
-      const actions = itemIds.slice(i * chunkSize, (i + 1) * chunkSize).map(this.getItem);
-      await Promise.all(actions).then(p => {
-        posts.push(p)
-        localStorage.setItem('fp', JSON.stringify(posts))
-        this.setState({ posts: posts })
-      });
+      actions = itemIds.slice(i * chunkSize, (i + 1) * chunkSize).map(this.getItem);
     }
+    await Promise.all(actions).then(p => {
+      posts = posts.concat(p)
+      localStorage.setItem('fp', JSON.stringify(posts))
+      this.setState({ posts: posts })
+    });
   }
 
   getItem(id, index) {
