@@ -10,7 +10,7 @@ export default class VC extends Component {
     id: localStorage.getItem('id') || null,
     // id: null,
     inChat: false,
-    username: (localStorage.getItem('username') || 'Change username'),
+    username: (localStorage.getItem('username') || 'anon'),
     userlist: [],
     userIds: [],
     chat: [],
