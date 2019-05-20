@@ -11,21 +11,30 @@
   margin-left: 10px;
 }
 
+/* .transparent {
+  background: transparent !important;
+  transition: background 0.4s linear;
+  background: black;
+} */
+
 .username {
   display: flex;
   height: 50px;
   font-size: 30px;
+  width: 100%;
 }
-.transparent {
-  background: transparent !important;
-  transition: background 0.4s linear;
-  /* background: black; */
+
+.username form {
+  width: 100%;
+}
+
+.username button {
+  width: 25%;
 }
 
 .username input {
   font: inherit;
   padding-left: 10px;
-  width: 250px;
 }
 
 .userlist {
@@ -33,7 +42,6 @@
   list-style: none;
   border: 1px solid;
   width: 150px;
-  /* height: 400px; */
 }
 
 .chatinput {
@@ -41,10 +49,12 @@
 }
 .chatinput input{
   width: 100%;
+  font-size: 18px;
 }
 .chatlog {
   list-style: none;
-  width: 100%
+  width: 100%;
+  padding: 0px;
 }
 .chatlog li{
   border: 1px solid;
@@ -60,8 +70,15 @@
     display: inline;
   }
   .username input {
-    width: 100%;
     padding-left: 0px;
+  }
+  .username form {
+    display: flex;
+    width: 100%;
+  }
+
+  .username button {
+    width: 100%;
   }
   .btn-jl {
     height: 40px;
