@@ -9,8 +9,8 @@ import chatleave from './chat_leave.mp3';
 
 export default class VC extends Component {
   state = {
-    // id: localStorage.getItem('id') || null,
-    id: null,
+    id: localStorage.getItem('id') || null,
+    // id: null,
     inChat: false,
     username: (localStorage.getItem('username') || 'anon'),
     userlist: [],
