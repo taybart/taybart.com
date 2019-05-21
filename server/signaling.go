@@ -113,9 +113,7 @@ func handleLeaveChat(c *websocket.Conn, ID uuid.UUID) error {
 	}
 	for id := range connectedUsers {
 		if ID != id {
-			mutex.Lock()
 			connections[id].WriteMessage(1, ud)
-			mutex.Unlock()
 		}
 	}
 	return nil
@@ -140,8 +138,9 @@ func handleUsername(c *websocket.Conn, m message) error {
 		}
 	}
 
+	mutex.Lock()
 	userlist[m.ID] = m.Username
-
+	mutex.Unlock()
 	if status, exists := connectedUsers[m.ID]; exists && status == "connected" {
 		// update userlist globally
 		userupdate := struct {
@@ -191,16 +190,16 @@ func wshandler(c *websocket.Conn) {
 				fmt.Println("Marshal ud delete", err)
 			}
 			if _, exists := connectedUsers[id]; exists {
+				mutex.Lock()
+				delete(connectedUsers, id)
+				mutex.Unlock()
 				for i := range connectedUsers {
-					if id != i {
-						connections[id].WriteMessage(1, ud)
-					}
+					connections[i].WriteMessage(1, ud)
 				}
 			}
 			mutex.Lock()
 			delete(connections, id)
 			delete(userlist, id)
-			delete(connectedUsers, id)
 			mutex.Unlock()
 		}
 	}()
@@ -225,15 +224,15 @@ func wshandler(c *websocket.Conn) {
 
 				mutex.Lock()
 				connections[m.ID] = c
-				c.WriteMessage(1, []byte(`{"type": "id", "id": "`+id.String()+`" }`))
 				mutex.Unlock()
+				c.WriteMessage(1, []byte(`{"type": "id", "id": "`+id.String()+`" }`))
 			}
 			if m.Action == "request" {
 				id = uuid.New()
 				mutex.Lock()
 				connections[id] = c
-				c.WriteMessage(1, []byte(`{"type": "id", "id": "`+id.String()+`" }`))
 				mutex.Unlock()
+				c.WriteMessage(1, []byte(`{"type": "id", "id": "`+id.String()+`" }`))
 			}
 
 			// Username change
@@ -255,9 +254,7 @@ func wshandler(c *websocket.Conn) {
 			}
 		case "message":
 			for _, conn := range connections {
-				mutex.Lock()
 				conn.WriteMessage(1, msg)
-				mutex.Unlock()
 			}
 		default:
 			if m.Target != uuid.Nil {
@@ -271,9 +268,7 @@ func wshandler(c *websocket.Conn) {
 				fmt.Printf("%+v\n", m)
 				for i, conn := range connections {
 					if i != m.ID {
-						mutex.Lock()
 						conn.WriteMessage(1, msg)
-						mutex.Unlock()
 					}
 				}
 			}
