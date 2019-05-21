@@ -7,7 +7,7 @@ import style from './style.module.css';
 
 export default class VC extends Component {
   state = {
-    connected: {},
+    // connected: {},
     id: localStorage.getItem('id') || null,
     // id: null,
     inChat: false,
@@ -33,26 +33,28 @@ export default class VC extends Component {
 
   getStream = () => new Promise((resolve, reject) => {
     if (this.stream) {
-      console.log('Already have local stream');
+      // console.log('Already have local stream');
       resolve(this.stream);
       return
     }
-    console.log('Requesting local stream');
+    // console.log('Requesting local stream');
     navigator.mediaDevices.getUserMedia({
       audio: true, video: false,
     }).then((stream) => {
       this.stream = stream;
-      console.log('Received local stream');
+      // console.log('Received local stream');
 
       this.shh = new Shh(this.stream, { threshold: -60 });
       this.shh.on('speaking', () => {
-        console.log('speaking');
-        this.stream.getTracks().forEach(t => t.enabled = !t.enabled)
+        if (this.stream) {
+          this.stream.getTracks().forEach(t => t.enabled = !t.enabled)
+        }
       });
 
       this.shh.on('stopped_speaking', () => {
-        console.log('stopped_speaking');
-        this.stream.getTracks().forEach(t => t.enabled = !t.enabled)
+        if (this.stream) {
+          this.stream.getTracks().forEach(t => t.enabled = !t.enabled)
+        }
       });
 
       resolve(stream)
@@ -98,7 +100,7 @@ export default class VC extends Component {
           const userIds = this.state.userIds.filter(id => id !== msg.id)
           this.setState({ userIds, userlist });
         } else if (msg.action === 'update') {
-          console.log('update')
+          // console.log('update')
           this.setState({
             userlist: {
               ...this.state.userlist,
@@ -124,7 +126,7 @@ export default class VC extends Component {
         this.pcs[msg.id].pc.addIceCandidate(new RTCIceCandidate(msg.candidate));
         break;
       case "message":
-        console.log(msg)
+        // console.log(msg)
         let user = this.state.userlist[msg.id];
         if (msg.id === this.state.id) {
           user = this.state.username;
@@ -149,26 +151,25 @@ export default class VC extends Component {
   }
 
   onConnect = (target) => {
-    console.log("CONNECTED", target)
-    this.setState({ connected: {
+    // console.log("CONNECTED", target)
+    /* this.setState({ connected: {
       ...this.state.connected,
       [target]: "green"
-    }})
+    }}) */
   }
   onClose = (target) => {
-    console.log("CLOSED", target)
-    this.setState({ connected: {
+    // console.log("CLOSED", target)
+    /* this.setState({ connected: {
       ...this.state.connected,
       [target]: "purple"
-    }})
+    }}) */
   }
   onDisconnect = (target) => {
-    console.log("DISCONNECTED ", target)
-    this.setState({ connected: {
+    // console.log("DISCONNECTED ", target)
+    /* this.setState({ connected: {
       ...this.state.connected,
       [target]: "red"
-    }})
-
+    }}) */
   }
 
   joinChat = () => {
@@ -249,7 +250,6 @@ export default class VC extends Component {
   }
 
   sendMessage = (message) => {
-    console.log(message)
     this.signaling.sendToServer({
       id: this.state.id,
       username: this.state.username,
