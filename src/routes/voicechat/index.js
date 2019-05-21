@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Chat from './chat.js';
 import PeerConnection from './peer_connection.js';
 import SignalingConnection from './signaling_connection.js';
+import Shh from './shh.js';
 import style from './style.module.css';
 
 export default class VC extends Component {
@@ -19,6 +20,7 @@ export default class VC extends Component {
   stream = null;
   pcs = {};
   signaling = null;
+  shh = null;
 
   setUsername = (username) => {
     const { id  } = this.state;
@@ -41,6 +43,18 @@ export default class VC extends Component {
     }).then((stream) => {
       this.stream = stream;
       console.log('Received local stream');
+
+      this.shh = new Shh(this.stream, { threshold: -60 });
+      this.shh.on('speaking', () => {
+        console.log('speaking');
+        this.stream.getTracks().forEach(t => t.enabled = !t.enabled)
+      });
+
+      this.shh.on('stopped_speaking', () => {
+        console.log('stopped_speaking');
+        this.stream.getTracks().forEach(t => t.enabled = !t.enabled)
+      });
+
       resolve(stream)
     }).catch(reject);
   });
@@ -184,6 +198,8 @@ export default class VC extends Component {
     });
     this.stream.getTracks().forEach(track => track.stop())
     this.stream = null;
+    this.shh.stop();
+    this.shh = null;
     this.setState({ inChat: false, userlist: [], userIds: [] });
   }
 
@@ -204,7 +220,7 @@ export default class VC extends Component {
     let url = `${window.location.host}/ws`;
     if (process.env.NODE_ENV === 'development') {
       // url = `${window.location.hostname}:8080/ws`;
-      url = `york.local:8080/ws`;
+      url = `localhost:8080/ws`;
     }
     this.signaling = new SignalingConnection({
       socketURL: url,
@@ -228,7 +244,11 @@ export default class VC extends Component {
     });
   }
 
-  sendChat = (message) => {
+  componentWillUnmount() {
+    this.leaveChat();
+  }
+
+  sendMessage = (message) => {
     console.log(message)
     this.signaling.sendToServer({
       id: this.state.id,
@@ -245,7 +265,7 @@ export default class VC extends Component {
       <div className={style.username}>
         <form onSubmit={(e) => {
           e.preventDefault();
-          this.setUsername(this.state.username);
+          this.setUsername(username);
         }}>
         <label>
           Hello
@@ -267,7 +287,7 @@ export default class VC extends Component {
       {inChat ?  <ul style={{ height: `${(userIds.length + 1)*20}px`}} className={style.userlist}> Users {userIds.map(id => (<li key={id}> {userlist[id]} </li>))} </ul> : null}
 
     </div>
-    <Chat onSend={this.sendChat} chat={chat} />
+    <Chat onSend={this.sendMessage} chat={chat} />
     <div id="output" />
   </div>);
   }

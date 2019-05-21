@@ -96,7 +96,7 @@ export default class PeerConnection {
     }
   };
 
-  accept = (sdp) => new Promise((resolve, reject) => { 
+  accept = (sdp) => new Promise((resolve, reject) => {
     console.log("accepting call", this.id, this.target)
     this.pc.setRemoteDescription(new RTCSessionDescription(sdp))
       .then(() => this.pc.createAnswer())
