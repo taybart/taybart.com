@@ -1,8 +1,8 @@
+import 'webrtc-adapter';
 import React, { Component } from 'react';
 import Chat from './chat.js';
 import PeerConnection from './peer_connection.js';
 import SignalingConnection from './signaling_connection.js';
-import Shh from './shh.js';
 import style from './style.module.css';
 import chatenter from './chat_enter.mp3';
 import chatleave from './chat_leave.mp3';
@@ -21,7 +21,6 @@ export default class VC extends Component {
   stream = null;
   pcs = {};
   signaling = null;
-  shh = null;
 
   setUsername = (username) => {
     const { id  } = this.state;
@@ -44,20 +43,6 @@ export default class VC extends Component {
     }).then((stream) => {
       this.stream = stream;
       // console.log('Received local stream');
-
-      this.shh = new Shh(this.stream, { threshold: -60 });
-      this.shh.on('speaking', () => {
-        if (this.stream) {
-          this.stream.getTracks().forEach(t => t.enabled = !t.enabled)
-        }
-      });
-
-      this.shh.on('stopped_speaking', () => {
-        if (this.stream) {
-          this.stream.getTracks().forEach(t => t.enabled = !t.enabled)
-        }
-      });
-
       resolve(stream)
     }).catch(reject);
   });
@@ -87,7 +72,6 @@ export default class VC extends Component {
         if (msg.action === 'add') {
           const audio = new Audio(chatenter);
           audio.play();
-          // @TODO: Play chime
           const userIds = this.state.userIds;
           userIds.push(msg.id);
           this.setState({
@@ -123,12 +107,12 @@ export default class VC extends Component {
         break;
 
       case "connection-answer": // Callee has answered our offer
-        this.pcs[msg.id].pc.setRemoteDescription(new RTCSessionDescription(msg.sdp))
+        this.pcs[msg.id].setRemoteDescription(new RTCSessionDescription(msg.sdp))
           .catch(console.error);
         break;
 
       case "new-ice-candidate":
-        this.pcs[msg.id].pc.addIceCandidate(new RTCIceCandidate(msg.candidate));
+        this.pcs[msg.id].addIceCandidate(new RTCIceCandidate(msg.candidate));
         break;
       case "message":
         let user = this.state.userlist[msg.id];
@@ -175,19 +159,13 @@ export default class VC extends Component {
     });
     Object.keys(this.pcs).forEach(id => {
       console.log("Attempting to close", id);
-      this.pcs[id].pc.close();
+      this.pcs[id].close();
     });
-    this.stream.getTracks().forEach(track => track.stop())
-    this.stream = null;
-    this.shh.stop();
-    this.shh = null;
-    this.setState({ inChat: false, userlist: [], userIds: [] });
-  }
-
-  close = (id) => {
-    if (this.pcs[id]) {
-      this.pcs[id].pc.close();
+    if (this.stream) {
+      this.stream.getTracks().forEach(track => track.stop())
+      this.stream = null;
     }
+    this.setState({ inChat: false, userlist: [], userIds: [] });
   }
 
   call = (target) => {
@@ -206,7 +184,6 @@ export default class VC extends Component {
       message,
     });
   }
-
 
   componentDidMount() {
     let url = `${window.location.host}/ws`;

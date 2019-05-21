@@ -37,9 +37,9 @@ class EventEmitter {
 
 
 export default class Shh extends EventEmitter {
+  static audioContext = null;
   constructor(stream, options = {}) {
     super();
-    this.stream = stream;
     let audioContextType;
     if (typeof window !== 'undefined') {
       audioContextType = window.AudioContext || window.webkitAudioContext;
@@ -51,7 +51,7 @@ export default class Shh extends EventEmitter {
     this.smoothing = (options.smoothing || 0.1);
     this.interval = (options.interval || 50);
     this.threshold = options.threshold;
-    this.play = options.play;
+    const play = options.play;
     this.history = options.history || 10;
     this.running = true;
 
@@ -64,25 +64,26 @@ export default class Shh extends EventEmitter {
     this.analyser.smoothingTimeConstant = this.smoothing;
     this.fftBins = new Float32Array(this.analyser.frequencyBinCount);
 
-    if (this.stream.jquery) {
-      this.stream = this.stream[0];
+    if (stream.jquery) {
+      stream = stream[0];
     }
 
-    if (this.stream instanceof HTMLAudioElement || this.stream instanceof HTMLVideoElement) {
+    if (stream instanceof HTMLAudioElement || stream instanceof HTMLVideoElement) {
       // Audio Tag
-      this.sourceNode = this.audioContext.createMediaElementSource(this.stream);
+      this.sourceNode = this.audioContext.createMediaElementSource(stream);
       if (typeof play === 'undefined') {
         this.play = true;
       }
       this.threshold = this.threshold || -50;
     } else {
       // WebRTC Stream
-      this.sourceNode = this.audioContext.createMediaStreamSource(this.stream);
+      this.sourceNode = this.audioContext.createMediaStreamSource(stream);
       this.threshold = this.threshold || -50;
     }
 
+    // this.sourceNode.connect(this.analyser);
     this.sourceNode.connect(this.analyser);
-    if (this.play) {
+    if (play) {
       this.analyser.connect(this.audioContext.destination);
     }
 
@@ -105,7 +106,6 @@ export default class Shh extends EventEmitter {
     // Poll the analyser node to determine if speaking
     // and emit events if changed
     this.poll();
-
   }
 
   poll() {
