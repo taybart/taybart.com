@@ -5,9 +5,9 @@ export default class PeerConnection {
     this.signaling = signaling
     this.stream = stream;
 
-    this.onConnect = onConnect;
-    this.onClose = onClose;
-    this.onDisconnect = onDisconnect;
+    this.onConnect = onConnect || (() => {});
+    this.onClose = onClose || (() => {});
+    this.onDisconnect = onDisconnect || (() => {});
 
     this.pc = new RTCPeerConnection({
       iceServers: [

@@ -4,12 +4,13 @@ import PeerConnection from './peer_connection.js';
 import SignalingConnection from './signaling_connection.js';
 import Shh from './shh.js';
 import style from './style.module.css';
+import chatenter from './chat_enter.mp3';
+import chatleave from './chat_leave.mp3';
 
 export default class VC extends Component {
   state = {
-    // connected: {},
-    id: localStorage.getItem('id') || null,
-    // id: null,
+    // id: localStorage.getItem('id') || null,
+    id: null,
     inChat: false,
     username: (localStorage.getItem('username') || 'anon'),
     userlist: [],
@@ -84,6 +85,8 @@ export default class VC extends Component {
         break;
       case "userlist-update": // Received an updated user list
         if (msg.action === 'add') {
+          const audio = new Audio(chatenter);
+          audio.play();
           // @TODO: Play chime
           const userIds = this.state.userIds;
           userIds.push(msg.id);
@@ -95,6 +98,8 @@ export default class VC extends Component {
             }
           });
         } else if (msg.action === 'delete') {
+          const audio = new Audio(chatleave);
+          audio.play();
           const userlist = this.state.userlist;
           delete userlist[msg.id]
           const userIds = this.state.userIds.filter(id => id !== msg.id)
@@ -126,7 +131,6 @@ export default class VC extends Component {
         this.pcs[msg.id].pc.addIceCandidate(new RTCIceCandidate(msg.candidate));
         break;
       case "message":
-        // console.log(msg)
         let user = this.state.userlist[msg.id];
         if (msg.id === this.state.id) {
           user = this.state.username;
@@ -144,36 +148,12 @@ export default class VC extends Component {
       target,
       this.signaling,
       this.stream,
-      this.onConnect,
-      this.onClose,
-      this.onDisconnect,
     );
-  }
-
-  onConnect = (target) => {
-    // console.log("CONNECTED", target)
-    /* this.setState({ connected: {
-      ...this.state.connected,
-      [target]: "green"
-    }}) */
-  }
-  onClose = (target) => {
-    // console.log("CLOSED", target)
-    /* this.setState({ connected: {
-      ...this.state.connected,
-      [target]: "purple"
-    }}) */
-  }
-  onDisconnect = (target) => {
-    // console.log("DISCONNECTED ", target)
-    /* this.setState({ connected: {
-      ...this.state.connected,
-      [target]: "red"
-    }}) */
   }
 
   joinChat = () => {
     this.getStream().then(() => {
+      console.log('got stream')
       this.signaling.sendToServer({
         id: this.state.id,
         type: "status",
@@ -217,6 +197,17 @@ export default class VC extends Component {
     }).catch(console.error);
   };
 
+  sendMessage = (message) => {
+    this.signaling.sendToServer({
+      id: this.state.id,
+      username: this.state.username,
+      type: "message",
+      action: "send",
+      message,
+    });
+  }
+
+
   componentDidMount() {
     let url = `${window.location.host}/ws`;
     if (process.env.NODE_ENV === 'development') {
@@ -247,16 +238,6 @@ export default class VC extends Component {
 
   componentWillUnmount() {
     this.leaveChat();
-  }
-
-  sendMessage = (message) => {
-    this.signaling.sendToServer({
-      id: this.state.id,
-      username: this.state.username,
-      type: "message",
-      action: "send",
-      message,
-    });
   }
 
   render() {
