@@ -113,11 +113,9 @@ func handleLeaveChat(c *websocket.Conn, ID uuid.UUID) error {
 	}
 	for id := range connectedUsers {
 		if ID != id {
-
 			mutex.Lock()
 			connections[id].WriteMessage(1, ud)
 			mutex.Unlock()
-
 		}
 	}
 	return nil
@@ -188,20 +186,22 @@ func wshandler(c *websocket.Conn) {
 				ID:     id,
 			}
 
-			ua, err := json.Marshal(userupdate)
+			ud, err := json.Marshal(userupdate)
 			if err != nil {
-				fmt.Println("Marshal ua delete", err)
+				fmt.Println("Marshal ud delete", err)
+			}
+			if _, exists := connectedUsers[id]; exists {
+				for i := range connectedUsers {
+					if id != i {
+						connections[id].WriteMessage(1, ud)
+					}
+				}
 			}
 			mutex.Lock()
 			delete(connections, id)
 			delete(userlist, id)
 			delete(connectedUsers, id)
 			mutex.Unlock()
-			for _, conn := range connections {
-				mutex.Lock()
-				conn.WriteMessage(1, ua)
-				mutex.Unlock()
-			}
 		}
 	}()
 
