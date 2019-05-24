@@ -16,6 +16,10 @@
   width: 100%;
 }
 
+.input-error {
+  border-color: red !important;
+}
+
 @media (max-width: 768px) {
   .login{
     margin: 0px 5%;

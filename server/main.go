@@ -49,6 +49,31 @@ func main() {
 		c.File("../build/index.html")
 	})
 
+	r.Use(func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS")
+		c.Header("Access-Control-Allow-Headers", "authorization, origin, content-type, accept")
+		c.Header("Allow", "HEAD,GET,POST,PUT,PATCH,DELETE,OPTIONS")
+		c.Header("Content-Type", "application/json")
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(http.StatusOK)
+			return
+		}
+		c.Next()
+	})
+	r.POST("/login", func(c *gin.Context) {
+		submission := struct {
+			Username string `json:"username"`
+			Password string `json:"password"`
+		}{}
+		if err := c.ShouldBindJSON(&submission); err != nil {
+			c.String(500, "bad submission")
+			return
+		}
+		fmt.Println(submission)
+		c.JSON(http.StatusOK, gin.H{"test": "test"})
+	})
+
 	var upgrader = websocket.Upgrader{
 		ReadBufferSize:  1024,
 		WriteBufferSize: 1024,
