@@ -22,7 +22,7 @@ class Header extends Component {
   render() {
     return (
       <header id="navbar" className={style.header}>
-        <Link to="/"><h1 className={style['header-left']}>Taylor Bartlett</h1></Link>
+        <Link to="/"><h1 className={style['header-left']}>TB</h1></Link>
         <nav className={style['header-right']}>
           <NavLink className={style['nav-link']} activeClassName={style.active} to="/" exact>home</NavLink>
           <NavLink className={style['nav-link']} activeClassName={style.active} to="/resume">resume</NavLink>
