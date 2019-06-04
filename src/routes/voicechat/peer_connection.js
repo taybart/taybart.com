@@ -37,7 +37,7 @@ export default class PeerConnection  extends RTCPeerConnection {
       console.log('Received remote stream');
       output.appendChild(audio);
 
-      audio.pause()
+      audio.play()
       /* this.shh = new Shh(e.streams[0], { threshold: window.threshold || -55 });
       this.shh.on('speaking', () => {
         audio.play()
