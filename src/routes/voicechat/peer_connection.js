@@ -1,5 +1,5 @@
 import 'webrtc-adapter';
-import Shh from './shh.js';
+// import Shh from './shh.js';
 
 export default class PeerConnection  extends RTCPeerConnection {
   constructor(id, target, signaling, stream, onConnect, onClose, onDisconnect) {
@@ -37,14 +37,14 @@ export default class PeerConnection  extends RTCPeerConnection {
       console.log('Received remote stream');
       output.appendChild(audio);
 
-      audio.pause()
-      this.shh = new Shh(e.streams[0], { threshold: window.threshold || -55 });
+      audio.play()
+      /* this.shh = new Shh(e.streams[0], { threshold: window.threshold || -55 });
       this.shh.on('speaking', () => {
         audio.play()
       });
       this.shh.on('stopped_speaking', () => {
         audio.pause()
-    });
+    }); */
     }
   }
 
