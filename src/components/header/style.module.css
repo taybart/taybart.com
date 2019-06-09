@@ -36,6 +36,7 @@
   padding-top: 20px;
   will-change: color;
   font-weight: 300;
+  text-align: center;
 }
 
 .nav-link:hover {
