@@ -54,7 +54,6 @@ func main() {
 		c.Header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS")
 		c.Header("Access-Control-Allow-Headers", "authorization, origin, content-type, accept")
 		c.Header("Allow", "HEAD,GET,POST,PUT,PATCH,DELETE,OPTIONS")
-		c.Header("Content-Type", "application/json")
 		if c.Request.Method == "OPTIONS" {
 			c.AbortWithStatus(http.StatusOK)
 			return
@@ -97,7 +96,7 @@ func main() {
 		certManager := autocert.Manager{
 			Prompt:     autocert.AcceptTOS,
 			Cache:      autocert.DirCache("certs"),
-			HostPolicy: autocert.HostWhitelist("www.taylorbartlett.com", "taylorbartlett.com", "taybart.com", "www.taybart.com"),
+			HostPolicy: autocert.HostWhitelist("www.taylorbartlett.com", "taylorbartlett.com", "taybart.com", "www.taybart.com", "pmpbar.com"),
 		}
 
 		go http.ListenAndServe(":80", certManager.HTTPHandler(nil))
