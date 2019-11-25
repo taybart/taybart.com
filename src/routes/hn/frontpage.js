@@ -36,6 +36,7 @@ export default class FrontPage extends Component {
         });
     });
   }
+
   componentDidMount() {
     fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
       .then(res => res.json())

@@ -29,6 +29,10 @@ pre {
   color: #fff !important;
 }
 
+.dark button {
+  color: #fff !important;
+}
+
 .dark pre {
   background-color: rgb(63, 72, 84) !important;
 }
