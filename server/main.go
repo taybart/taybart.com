@@ -79,10 +79,10 @@ func main() {
 		},
 	}
 
-	r.GET("/ws", func(c *gin.Context) {
+	r.GET("/ip", func(c *gin.Context) {
 		c.String(http.StatusOK, c.Request.Header.Get("X-Forwarded-For"))
 	})
-	r.GET("/ip", func(c *gin.Context) {
+	r.GET("/ws", func(c *gin.Context) {
 		conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
 		if err != nil {
 			fmt.Printf("Failed to set websocket upgrade: %+v\n", err)
