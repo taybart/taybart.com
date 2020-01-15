@@ -35,7 +35,9 @@ function Resume () {
         <ul>
           <li> linux </li>
           <li> docker </li>
-          <li> aws...all the aws </li>
+          <li> k8s </li>
+          <li> aws </li>
+          <li> gcp </li>
         </ul>
       </ul>
       <b>things i made</b>
