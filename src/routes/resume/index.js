@@ -7,7 +7,7 @@ function Resume () {
     <div className={style.resumelist}>
       <ul className={style.list}>
         <li>
-          2018-now <b>head architect</b> journey
+          2018-now <b>lead engineer</b> journey
           <div style={{paddingLeft: '3%'}}> Journey is bringing trust, identity and zero-knowledge privacy to the contact center & beyond </div>
         </li>
         <li>
