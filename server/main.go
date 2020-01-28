@@ -78,6 +78,11 @@ func main() {
 			return true
 		},
 	}
+
+	r.GET("/ip", func(c *gin.Context) {
+		c.String(http.StatusOK, c.Request.Header.Get("X-Forwarded-For"))
+	})
+
 	r.GET("/ws", func(c *gin.Context) {
 		conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
 		if err != nil {

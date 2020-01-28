@@ -7,11 +7,12 @@ function Resume () {
     <div className={style.resumelist}>
       <ul className={style.list}>
         <li>
-          2018-now <b>head architect</b> journey
+          <div>2019-now <b>principal engineer & developement manager</b> journey</div>
+          <div>2018-2019 <b>lead software engineer</b> journey</div>
           <div style={{paddingLeft: '3%'}}> Journey is bringing trust, identity and zero-knowledge privacy to the contact center & beyond </div>
         </li>
         <li>
-          2017-2018 <b>lead engineer</b> the spiga group
+          2017-2018 <b>lead software engineer</b> the spiga group
         </li>
         <li>
           2014-2017 <b>co-founder</b> mfactor engineering
@@ -35,7 +36,9 @@ function Resume () {
         <ul>
           <li> linux </li>
           <li> docker </li>
-          <li> aws...all the aws </li>
+          <li> k8s </li>
+          <li> aws </li>
+          <li> gcp </li>
         </ul>
       </ul>
       <b>things i made</b>
