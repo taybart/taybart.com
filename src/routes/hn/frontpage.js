@@ -22,8 +22,8 @@ export default class FrontPage extends Component {
     const chunkSize = 30;
     const chunks = itemIds.length / chunkSize
     for (let i = 0; i < chunks; i += 1) {
-      const actions = (itemIds.slice(i * chunkSize, (i + 1) * chunkSize).map(this.getItem));
-      await Promise.all(actions).then(this.setItems);
+      const actions = await Promise.all(itemIds.slice(i * chunkSize, (i + 1) * chunkSize).map(this.getItem))
+      this.setItems(actions)
     }
   }
 
