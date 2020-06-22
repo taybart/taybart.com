@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    {{ template "meta.tmpl" . }}
+    <style type="text/css">
+      <!--
+        @import url("/css/index.css");
+        @import url("/css/hn.css");
+      -->
+    </style>
+  </head>
+  <body>
+    {{ template "header.tmpl" . }}
+    <div class="hn">
+      {{- range .Stories }}
+      <div class="hn-post-title">
+        <a target="_blank" rel="noopener noreferrer" href="{{ .URL }}">{{ .Title }}</a>
+        <a href="/hn/post?id={{ .ID }}">comments</a>
+        </div>
+      {{- end }}
+    </div>
+  </body>
+</html>

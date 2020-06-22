@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {{ template "meta.tmpl" . }}
+    <style type="text/css" media="screen">
+      <!--
+        @import url("/css/index.css");
+        @import url("/css/hn.css");
+      -->
+    </style>
+  </head>
+  <body>
+    {{ template "header.tmpl" . }}
+    <ul class="hn hn-post-list">
+        <li class="hn-post-title">
+        {{ if .Parent }}
+          <a class="hn-post-back" href="/hn/post?id={{ .Parent }}"> back </a>
+        {{ else }}
+          <a class="hn-post-back" href="/hn"> back </a>
+          <a href="{{ .URL }}">{{ .Title }}</a>
+          {{ end }}
+        </li>
+      {{- range .Posts }}
+      <li class="hn-comment">
+        {{ .Text }}
+            <a href="/hn/post?id={{ .ID }}">
+            {{- if .Kids }}
+              <div class="hn-comment-count">{{ len .Kids }}</div>
+            {{- end }}
+          </a>
+      </li>
+      {{- end }}
+      </ul>
+  </body>
+</html>
