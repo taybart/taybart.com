@@ -1,0 +1,84 @@
+<header id="navbar" class="header dark">
+  <a href="/"><h1 class="header-left">TB</h1></a>
+  <nav class="header-right">
+    <a class="nav-link" href="/resume">resume</a>
+    <a class="nav-link" href="/hn">hn</a>
+    <!-- <DarkmodeToggle /> -->
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transition: top 0.2s;
+    width: 100%;
+    height: 56px;
+    padding: 0;
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-left {
+    padding: 0 15px;
+    font-size: 24px;
+    font-weight: 400;
+    justify-self: flex-start;
+  }
+
+  .header-right {
+    display: flex;
+    width: 15%;
+    height: 100%;
+    padding-right: 25px;
+    align-content: center;
+    justify-self: flex-end;
+  }
+
+  .nav-link {
+    height: 100%;
+    flex-grow: 1;
+    padding-top: 20px;
+    will-change: color;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  .nav-link:hover {
+    color: rgba(0,0,0,0.5);
+  }
+
+  .nav-link.active {
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .header-left {
+      padding: 0 15px;
+      font-size: 15px;
+      font-weight: 400;
+    }
+    .header-right {
+      display: flex;
+      width: 75%;
+      height: 100%;
+      padding-right: 25px;
+    }
+  }
+
+  .darkmode-toggle {
+    border:none;
+    align-self: center;
+    background: transparent;
+  }
+  .darkmode-toggle img {
+    width: 25px;
+    height: 25px;
+    padding-top: 5px;
+  }
+</style>
