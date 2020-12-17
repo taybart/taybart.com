@@ -1,6 +1,6 @@
 <script>
-  import Header from './organisms/Header.svelte'
-  import Resume from './pages/Resume.svelte'
+  import Header from './components/organisms/Header.svelte'
+  import Resume from './components/pages/Resume.svelte'
 </script>
 
 <div>
