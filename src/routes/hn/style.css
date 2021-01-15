@@ -1,0 +1,132 @@
+@tailwind base;
+
+.hn {
+    padding-top: 60px;
+    margin: 0px 20%;
+    padding-left: 0px;
+}
+
+.hn-post-title {
+    @apply flex justify-between items-center;
+    min-height: 50px;
+    border-bottom: 2px solid;
+}
+
+.hn-post {
+    font-size: 1.1em;
+    padding: 15px 0px;
+    @apply flex justify-between items-center;
+}
+
+.hn-post-comments-link {
+    /* display: flex; */
+    /* width: 30%; */
+    /* height: 100%; */
+    /* justify-content: flex-end; */
+    /* max-width: 100px; */
+
+    @apply border border-white text-white mb-2 ml-4 p-2;
+}
+
+.hn-post-comments-link img {
+    vertical-align: middle;
+}
+
+.hn-post-back {
+    @apply border border-white text-white p-2 mb-2 mr-4 h-full;
+}
+
+.hn-post-list {
+    list-style: none;
+}
+
+.hn-post {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 50px;
+    border-bottom: 1px solid;
+}
+.hn-post a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.hn-comment {
+    height: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid;
+}
+
+.hn-comment > div,
+.hn-comment > code {
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.hn-comment a {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hn-comment-count {
+    margin-left: auto;
+    align-self: flex-end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    min-width: 20px;
+    min-height: 20px;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    border: 1px solid;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+pre {
+    background-color: #f6f8fa;
+}
+
+@media (max-width: 768px) {
+    .hn {
+        margin: 0;
+    }
+
+    .hn-post {
+        max-height: 100px;
+        padding: 20px 5%;
+    }
+
+    .hn-comment {
+        cursor: pointer;
+        height: 100%;
+        padding: 20px 5%;
+    }
+
+    .hn-post-comments-link {
+        @apply border border-white text-white ml-4 p-1;
+    }
+
+    .hn-post-back {
+        margin-right: 5%;
+        border-right: 1px solid;
+        height: 100%;
+    }
+
+    .hn-post-title {
+        @apply flex justify-between;
+        padding: 10px 0px;
+    }
+    .hn-post-title a {
+        font-size: 1.2em;
+    }
+    .hn-post-title img {
+        padding-top: 30%;
+    }
+}

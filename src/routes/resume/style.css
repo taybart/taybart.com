@@ -1,0 +1,24 @@
+.resume {
+    padding-top: 65px;
+    margin: 0px 20%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.resumelist {
+    min-height: 100%;
+}
+
+.list {
+    list-style: none;
+}
+.list li {
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .resume {
+        margin: 0px 5%;
+    }
+}
