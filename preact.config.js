@@ -19,29 +19,24 @@ export default {
                 disableLocalsExport: true
             }
         });
-        // const purgecss = require("@fullhuman/postcss-purgecss")({
-        //     // Specify the paths to all of the template files in your project
-        //     content: ["./src/**/*.tsx", "./src/**/*.css"],
-        //     // Include any special characters you're using in this regular expression
-        //     defaultExtractor: content => content.match(options.regex) || []
-        // });
-        // const purgecss = require("@fullhuman/postcss-purgecss")({
-        //     content: ["./src/**/*.css"]
-        // });
 
-        const postCssLoaders = helpers.getLoadersByName(
+        const postcssLoader = helpers.getLoadersByName(
             config,
             "postcss-loader"
         );
-        postCssLoaders.forEach(({ loader }) => {
-            const plugins = loader.options.plugins;
-            // Add tailwind css at the top.
-            plugins.unshift(require("tailwindcss"));
-            // Add PurgeCSS only in production.
-            if (env.production) {
-                // plugins.push(purgecss);
-            }
-        });
+        if (postcssLoader) {
+            postcssLoader.forEach(({ loader }) => delete loader.options);
+        }
+
+        // const postCssLoaders = helpers.getLoadersByName(
+        //     config,
+        //     "postcss-loader"
+        // );
+        // postCssLoaders.forEach(({ loader }) => {
+        //     const plugins = loader.options.plugins;
+        //     // Add tailwind css at the top.
+        //     plugins.unshift(require("tailwindcss"));
+        // });
 
         // Use any `index` file, not just index.js
         config.resolve.alias["preact-cli-entrypoint"] = resolve(

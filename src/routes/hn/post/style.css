@@ -36,5 +36,7 @@
 }
 
 pre {
-    @apply max-w-full p-4 text-gray-700 break-words whitespace-pre-wrap bg-blue-100 bg-opacity-25 dark:text-gray-50;
+    @apply text-gray-700 bg-blue-100 bg-opacity-25 dark:text-gray-50;
+    @apply break-words whitespace-pre-wrap;
+    @apply max-w-full p-4;
 }
