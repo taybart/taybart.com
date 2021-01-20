@@ -1,11 +1,9 @@
 import { FunctionalComponent, h } from "preact";
 import { useState, useEffect } from "preact/hooks";
-import { RoutableProps } from "preact-router";
+import sanitizeHtml from "sanitize-html";
 import { Link } from "preact-router/match";
 
-import arrow from "../../../assets/left-arrow.png";
-import arrowWhite from "../../../assets/left-arrow-white.png";
-import style from "../style.css";
+import style from "./style.css";
 
 interface Item {
     by: string;
@@ -79,31 +77,42 @@ const Post: FunctionalComponent<Props> = (props: Props) => {
     }, [post, props.comment]);
 
     return loading ? (
-        <div class={style.hn}>Getting post...</div>
+        <div class={style.post}>Getting post...</div>
     ) : (
-        <ul class={`${style.hn} ${style["hn-post-list"]}`}>
-            <li class={`${style["hn-post-title"]}`}>
-                <Link class={`${style["hn-post-back"]}`} href="/hn">
+        <div class={style.post}>
+            <div class={style.title}>
+                <Link class={style.back} href="/hn">
                     back
                 </Link>
                 <a href={post.url} rel="noopener noreferrer" target="_blank">
                     {post.title}
                 </a>
-            </li>
-            {comments.map(p => {
-                if (p && !p.deleted && !p.dead) {
-                    if (!p.text.includes("<script")) {
+            </div>
+            <ul class={style.comments}>
+                {comments.map(p => {
+                    if (p && !p.deleted && !p.dead) {
                         return (
-                            <li key={p.id} class={`${style["hn-comment"]}`}>
+                            <li key={p.id} class={style.comment}>
                                 <div
-                                    class={`${localStorage.getItem("mode")}`}
                                     dangerouslySetInnerHTML={{
-                                        __html: p.text
+                                        __html: sanitizeHtml(
+                                            p.text,
+
+                                            {
+                                                allowedAttributes: {
+                                                    a: ["href", "rel"]
+                                                }
+                                            }
+                                        ).replace(
+                                            /https:\/\/news.ycombinator.com\/item\?id=/g,
+                                            /* "taybart.com/hn/" */
+                                            "localhost:8080/hn/"
+                                        )
                                     }}
                                 />
                                 <Link href={`/hn/${props.id}/${p.id}`}>
                                     {p.kids && (
-                                        <div class={style["hn-comment-count"]}>
+                                        <div class={style.count}>
                                             {p.kids.length}
                                         </div>
                                     )}
@@ -111,9 +120,9 @@ const Post: FunctionalComponent<Props> = (props: Props) => {
                             </li>
                         );
                     }
-                }
-            })}
-        </ul>
+                })}
+            </ul>
+        </div>
     );
 };
 export default Post;

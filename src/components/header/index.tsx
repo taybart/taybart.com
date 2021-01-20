@@ -1,19 +1,19 @@
 import { FunctionalComponent, h } from "preact";
-import { useEffect } from "preact/hooks";
-import SchemeListener from "./scheme_listener";
+/* import { useEffect } from "preact/hooks"; */
+/* import SchemeListener from "./scheme_listener"; */
 import { Link } from "preact-router/match";
 import style from "./style.css";
 
 const Header: FunctionalComponent = () => {
-    useEffect(() => {
-        SchemeListener();
-    }, []);
+    /* useEffect(() => { */
+    /*     SchemeListener(); */
+    /* }, []); */
     return (
-        <header id="navbar" class={`${style.header}`}>
+        <header id="navbar" class={style.header}>
             <Link href="/">
-                <h1 class={style["header-left"]}>TB</h1>
+                <h1 class={style.left}>TB</h1>
             </Link>
-            <nav class={style["header-right"]}>
+            <nav class={style.right}>
                 <Link
                     class={style["nav-link"]}
                     activeClassName={style.active}

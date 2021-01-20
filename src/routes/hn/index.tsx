@@ -2,8 +2,6 @@ import { FunctionalComponent, h } from "preact";
 import { Link } from "preact-router/match";
 import { useState, useEffect } from "preact/hooks";
 
-import arrow from "../../assets/right-arrow.png";
-import arrowWhite from "../../assets/right-arrow-white.png";
 import style from "./style.css";
 
 interface HNItem {
@@ -33,28 +31,38 @@ const FrontPage: FunctionalComponent = () => {
                 setPostIDs(pids);
             });
     }, []);
+
     useEffect(() => {
+        const controller = new AbortController();
         postIDs.forEach(id => {
-            fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
+            fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`, {
+                signal: controller.signal
+            })
                 .then(res => res.json())
-                .then(p => setPosts(prev => [...prev, p]));
+                .then(p => setPosts(prev => [...prev, p]))
+                .catch(err => !controller.signal.aborted && console.log(err));
         });
+        return () => {
+            controller.abort();
+        };
     }, [postIDs]);
 
     return posts.length === 0 ? (
         <div class={style.hn}>Getting frontpage...</div>
     ) : (
-        <ul class={`${style.hn} ${style["hn-post-list"]}`}>
+        <ul class={style.hn}>
             {posts.map(p => (
-                <li key={p.id} class={`${style["hn-post"]}`}>
-                    <a href={p.url} rel="noopener noreferrer" target="_blank">
+                <li key={p.id} class={style.post}>
+                    <a
+                        href={p.url}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        class={style.title}
+                    >
                         {p.title}
                     </a>
                     {p.descendants > 0 ? (
-                        <Link
-                            href={`/hn/${p.id}`}
-                            class={style["hn-post-comments-link"]}
-                        >
+                        <Link href={`/hn/${p.id}`} class={style.comments}>
                             {p.descendants}
                         </Link>
                     ) : null}

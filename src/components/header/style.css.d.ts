@@ -2,11 +2,10 @@
 declare namespace StyleCssNamespace {
     export interface IStyleCss {
         active: string;
-        "darkmode-toggle": string;
         header: string;
-        "header-left": string;
-        "header-right": string;
+        left: string;
         "nav-link": string;
+        right: string;
     }
 }
 

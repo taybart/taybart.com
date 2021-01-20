@@ -1,7 +1,7 @@
 {
   "private": true,
-  "name": "taybart.com-p",
-  "version": "0.0.0",
+  "name": "taybart.com",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "build": "preact build",
@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.2",
+    "@types/sanitize-html": "^1.27.0",
     "autoprefixer": "^9.8.6",
     "postcss": "^7.0.35",
     "preact": "^10.3.1",
@@ -26,6 +27,7 @@
     "preact-markup": "^2.0.0",
     "preact-render-to-string": "^5.1.4",
     "preact-router": "^3.2.1",
+    "sanitize-html": "^2.3.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2"
   },
   "devDependencies": {

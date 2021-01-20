@@ -1,24 +1,29 @@
+@tailwind base;
+
 .resume {
-    padding-top: 65px;
-    margin: 0px 20%;
-    min-height: 100%;
-    display: flex;
-    justify-content: center;
+    @apply h-full pt-16 mx-0 md:mx-28 lg:mx-36 xl:mx-52;
 }
 
-.resumelist {
-    min-height: 100%;
+.jobs {
+    @apply w-full pt-0 list-none md:pt-10;
+}
+.jobs li {
+    @apply py-2;
 }
 
-.list {
-    list-style: none;
-}
-.list li {
-    padding: 10px;
+.current-job-desc {
+    @apply w-3/4 pl-2;
 }
 
-@media (max-width: 768px) {
-    .resume {
-        margin: 0px 5%;
-    }
+.knowledge {
+    @apply pt-10;
+}
+.knowledge ul {
+    @apply pb-2;
+}
+.knowledge ul li {
+    @apply pl-8;
+}
+.knowledge ul ul {
+    @apply pl-10;
 }

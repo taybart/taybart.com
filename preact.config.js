@@ -10,7 +10,7 @@ export default {
      * @param {WebpackConfigHelpers} helpers - object with useful helpers for working with the webpack config.
      * @param {object} options - this is mainly relevant for plugins (will always be empty in the config), default to an empty object
      **/
-    webpack(config, env, helpers, options) {
+    async webpack(config, env, helpers, options) {
         config.module.rules[4].use.splice(1, 0, {
             loader: "@teamsupercell/typings-for-css-modules-loader",
             options: {
@@ -19,13 +19,16 @@ export default {
                 disableLocalsExport: true
             }
         });
-        console.log(config);
         // const purgecss = require("@fullhuman/postcss-purgecss")({
         //     // Specify the paths to all of the template files in your project
-        //     content: ["./src/**/*.js"],
+        //     content: ["./src/**/*.tsx", "./src/**/*.css"],
         //     // Include any special characters you're using in this regular expression
-        //     defaultExtractor: content => content.match(params.regex) || []
+        //     defaultExtractor: content => content.match(options.regex) || []
         // });
+        // const purgecss = require("@fullhuman/postcss-purgecss")({
+        //     content: ["./src/**/*.css"]
+        // });
+
         const postCssLoaders = helpers.getLoadersByName(
             config,
             "postcss-loader"
@@ -40,7 +43,6 @@ export default {
             }
         });
 
-        console.log(config);
         // Use any `index` file, not just index.js
         config.resolve.alias["preact-cli-entrypoint"] = resolve(
             process.cwd(),

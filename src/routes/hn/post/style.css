@@ -1,0 +1,42 @@
+@tailwind base;
+
+.post {
+    @apply pt-16 m-0 list-none;
+}
+
+.title {
+    @apply fixed flex items-center justify-between w-full h-16 bg-white border-b-2 dark:bg-dark;
+}
+
+.title a {
+    @apply px-5;
+}
+
+.back {
+    /* @apply h-full p-2 mb-2 mr-4 text-black dark:text-white; */
+}
+
+.comments {
+    @apply pt-20 m-0 list-none md:pt-24 md:mx-28 lg:mx-36 xl:mx-52;
+}
+.comment {
+    @apply h-full py-6 mx-4 border-b;
+}
+
+.comment > div,
+.comment > code {
+    max-width: 100%;
+    word-wrap: break-word;
+}
+.comment a {
+    @apply flex flex-col justify-between;
+}
+.count {
+    @apply flex items-center self-end justify-center text-center;
+    @apply w-8 h-8 mt-2;
+    @apply border-2 border-black rounded-full dark:border-white;
+}
+
+pre {
+    @apply text-gray-700 bg-blue-100 bg-opacity-25 dark:text-gray-50;
+}

@@ -1,39 +1,36 @@
 import { FunctionalComponent, h } from "preact";
 import { Link } from "preact-router/match";
-import * as style from "./style.css";
+import style from "./style.css";
 
 const Resume: FunctionalComponent = () => {
     return (
-        <div className={style.resume}>
-            <div className={style.resumelist}>
-                <ul className={style.list}>
-                    <li>
-                        <div>
-                            2020-now{" "}
-                            <b>principal engineer & developement manager</b>{" "}
-                            journey
-                        </div>
-                        <div>
-                            2018-2020 <b>lead software engineer</b> journey
-                        </div>
-                        <div style={{ paddingLeft: "3%" }}>
-                            {" "}
-                            Journey is bringing trust, identity and
-                            zero-knowledge privacy to the contact center &
-                            beyond{" "}
-                        </div>
-                    </li>
-                    <li>
-                        2017-2018 <b>lead software engineer</b> the spiga group
-                    </li>
-                    <li>
-                        2014-2017 <b>co-founder</b> mfactor engineering
-                    </li>
-                    <li>
-                        2015 <b>bs</b> electrical and computer engineering,
-                        university of colorado
-                    </li>
-                </ul>
+        <div class={style.resume}>
+            <ul class={style.jobs}>
+                <li>
+                    <div>
+                        2020-now{" "}
+                        <b>principal engineer & developement manager</b> journey
+                    </div>
+                    <div>
+                        2018-2020 <b>lead software engineer</b> journey
+                    </div>
+                    <div class={style["current-job-desc"]}>
+                        Journey is bringing trust, identity and zero-knowledge
+                        privacy to the contact center & beyond
+                    </div>
+                </li>
+                <li>
+                    2017-2018 <b>lead software engineer</b> the spiga group
+                </li>
+                <li>
+                    2014-2017 <b>co-founder</b> mfactor engineering
+                </li>
+                <li>
+                    2015 <b>bs</b> electrical and computer engineering,
+                    university of colorado
+                </li>
+            </ul>
+            <div class={style.knowledge}>
                 <b>things i know well</b>
                 <ul>
                     <li> language </li>
