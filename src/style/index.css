@@ -1,0 +1,61 @@
+@tailwind base;
+
+html,
+body {
+    @apply h-full min-h-full p-0 m-0 text-black bg-white dark:bg-dark dark:text-white;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+#app {
+    @apply h-full min-h-full;
+}
+
+/* .nav-pmpbar { */
+/*     color: black; */
+/*     background-color: white; */
+/*     border-bottom: 1px solid black; */
+/* } */
+
+/* a { */
+/*     text-decoration: none; */
+/*     color: black; */
+/*     outline: 0; */
+/* } */
+/* a:visited { */
+/*     text-decoration: none; */
+/* } */
+
+/* button:focus { */
+/*     box-shadow: none !important; */
+/* } */
+
+/* input { */
+/*     border: none; */
+/*     border-bottom: 1px solid; */
+/*     background: transparent; */
+/*     outline: none; */
+/* } */
+
+/* .dark .btn-tb { */
+/*     background: transparent; */
+/*     border: 1px solid; */
+/*     color: white !important; */
+/* } */
+
+/* .btn-tb { */
+/*     background: transparent; */
+/*     border: 1px solid; */
+/*     color: black; */
+/* } */
+/* .btn-tb:hover { */
+/*     background-color: grey; */
+/*     color: white; */
+/*     border: 1px solid black; */
+/* } */
+/* .btn-tb:active { */
+/*     background-color: black !important; */
+/* } */
