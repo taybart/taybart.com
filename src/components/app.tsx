@@ -1,16 +1,16 @@
-import { FunctionalComponent, h } from "preact";
-import { Router, Route, route } from "preact-router";
+import { FunctionalComponent, h } from 'preact'
+import { Router, Route, route } from 'preact-router'
 
-import Resume from "../routes/resume";
-import HN from "../routes/hn";
-import Post from "../routes/hn/post";
-import NotFoundPage from "../routes/notfound";
-import Header from "./header";
+import Resume from '../routes/resume/index'
+import HN from '../routes/hn'
+import Post from '../routes/hn/post'
+import NotFoundPage from '../routes/notfound'
+import Header from './header'
 
 const Redirect: FunctionalComponent<{ to: string }> = props => {
-    route(props.to, true);
-    return null;
-};
+    route(props.to, true)
+    return null
+}
 
 const App: FunctionalComponent = () => {
     return (
@@ -24,7 +24,7 @@ const App: FunctionalComponent = () => {
                 <NotFoundPage default />
             </Router>
         </div>
-    );
-};
+    )
+}
 
-export default App;
+export default App

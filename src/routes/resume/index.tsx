@@ -1,6 +1,6 @@
-import { FunctionalComponent, h } from "preact";
-import { Link } from "preact-router/match";
-import style from "./style.css";
+import { FunctionalComponent, h } from 'preact'
+import { Link } from 'preact-router/match'
+import style from './style.css'
 
 const Resume: FunctionalComponent = () => {
     return (
@@ -8,13 +8,13 @@ const Resume: FunctionalComponent = () => {
             <ul class={style.jobs}>
                 <li>
                     <div>
-                        2020-now{" "}
+                        2020-now{' '}
                         <b>principal engineer & developement manager</b> journey
                     </div>
                     <div>
                         2018-2020 <b>lead software engineer</b> journey
                     </div>
-                    <div class={style["current-job-desc"]}>
+                    <div class={style['current-job-desc']}>
                         Journey is bringing trust, identity and zero-knowledge
                         privacy to the contact center & beyond
                     </div>
@@ -73,7 +73,7 @@ const Resume: FunctionalComponent = () => {
                 </ul>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Resume;
+export default Resume

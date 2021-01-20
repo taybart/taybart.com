@@ -1,51 +1,51 @@
-import { FunctionalComponent, h } from "preact";
-import { Link } from "preact-router/match";
-import { useState, useEffect } from "preact/hooks";
+import { FunctionalComponent, h } from 'preact'
+import { Link } from 'preact-router/match'
+import { useState, useEffect } from 'preact/hooks'
 
-import style from "./style.css";
+import style from './style.css'
 
 interface HNItem {
-    by: string;
-    id: number;
-    kids: [number];
-    parent: number;
-    text: string;
-    time: number;
-    type: string;
-    title: string;
-    url: string;
-    deleted: boolean;
-    dead: boolean;
-    score: number;
-    descendants: number;
+    by: string
+    id: number
+    kids: [number]
+    parent: number
+    text: string
+    time: number
+    type: string
+    title: string
+    url: string
+    deleted: boolean
+    dead: boolean
+    score: number
+    descendants: number
 }
 
 const FrontPage: FunctionalComponent = () => {
-    const [postIDs, setPostIDs] = useState<number[]>([]);
-    const [posts, setPosts] = useState<HNItem[]>([]);
+    const [postIDs, setPostIDs] = useState<number[]>([])
+    const [posts, setPosts] = useState<HNItem[]>([])
 
     useEffect(() => {
-        fetch("https://hacker-news.firebaseio.com/v0/topstories.json")
+        fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
             .then(res => res.json())
             .then((pids: number[]) => {
-                setPostIDs(pids.slice(0, 50));
-            });
-    }, []);
+                setPostIDs(pids.slice(0, 50))
+            })
+    }, [])
 
     useEffect(() => {
-        const controller = new AbortController();
+        const controller = new AbortController()
         postIDs.forEach(id => {
             fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`, {
-                signal: controller.signal
+                signal: controller.signal,
             })
                 .then(res => res.json())
                 .then(p => setPosts(prev => [...prev, p]))
-                .catch(err => !controller.signal.aborted && console.log(err));
-        });
+                .catch(err => !controller.signal.aborted && console.log(err))
+        })
         return () => {
-            controller.abort();
-        };
-    }, [postIDs]);
+            controller.abort()
+        }
+    }, [postIDs])
 
     return posts.length === 0 ? (
         <div class={style.hn}>Getting frontpage...</div>
@@ -69,7 +69,7 @@ const FrontPage: FunctionalComponent = () => {
                 </li>
             ))}
         </ul>
-    );
-};
+    )
+}
 
-export default FrontPage;
+export default FrontPage
