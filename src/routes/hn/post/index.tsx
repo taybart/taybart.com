@@ -84,7 +84,12 @@ const Post: FunctionalComponent<Props> = (props: Props) => {
                 <Link class={style.back} href="/hn">
                     back
                 </Link>
-                <a href={post.url} rel="noopener noreferrer" target="_blank">
+                <a
+                    href={post.url}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    class={style["title-link"]}
+                >
                     {post.title}
                 </a>
             </div>
@@ -104,9 +109,8 @@ const Post: FunctionalComponent<Props> = (props: Props) => {
                                                 }
                                             }
                                         ).replace(
-                                            /https:\/\/news.ycombinator.com\/item\?id=/g,
-                                            /* "taybart.com/hn/" */
-                                            "localhost:8080/hn/"
+                                            /news.ycombinator.com\/item\?id=/g,
+                                            "taybart.com/hn/"
                                         )
                                     }}
                                 />

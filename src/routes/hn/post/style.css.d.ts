@@ -7,6 +7,7 @@ declare namespace StyleCssNamespace {
         count: string;
         post: string;
         title: string;
+        "title-link": string;
     }
 }
 
