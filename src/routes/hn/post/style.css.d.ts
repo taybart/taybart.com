@@ -2,7 +2,9 @@
 declare namespace StyleCssNamespace {
     export interface IStyleCss {
         back: string
+        by: string
         comment: string
+        'comment-bottom': string
         comments: string
         count: string
         post: string

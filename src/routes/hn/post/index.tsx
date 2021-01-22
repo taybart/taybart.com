@@ -17,6 +17,7 @@ interface Item {
     url: string
     deleted: boolean
     dead: boolean
+    score: number
 }
 
 const emptyItem = (): Item => ({
@@ -31,6 +32,7 @@ const emptyItem = (): Item => ({
     url: '',
     deleted: false,
     dead: false,
+    score: 0,
 })
 
 export interface Props {
@@ -114,13 +116,16 @@ const Post: FunctionalComponent<Props> = (props: Props) => {
                                         ),
                                     }}
                                 />
-                                <Link href={`/hn/${props.id}/${p.id}`}>
-                                    {p.kids && (
-                                        <div class={style.count}>
-                                            {p.kids.length}
-                                        </div>
-                                    )}
-                                </Link>
+                                <div class={style['comment-bottom']}>
+                                    <span class={style.by}>{p.by}</span>
+                                    <Link href={`/hn/${props.id}/${p.id}`}>
+                                        {p.kids && (
+                                            <div class={style.count}>
+                                                {p.kids.length}
+                                            </div>
+                                        )}
+                                    </Link>
+                                </div>
                             </li>
                         )
                     }
