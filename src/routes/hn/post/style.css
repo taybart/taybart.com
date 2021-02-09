@@ -5,7 +5,7 @@
 }
 
 .title {
-    @apply fixed z-10 flex items-center justify-between w-full h-16 bg-white border-b-2 dark:bg-dark;
+    @apply fixed z-10 flex items-center justify-between w-full py-3 bg-white border-b-2 dark:bg-dark;
 }
 
 .title a {
@@ -20,7 +20,7 @@
 }
 
 .comments {
-    @apply pt-16 m-0 list-none md:pt-24 md:mx-28 lg:mx-36 xl:mx-52;
+    @apply pt-20 m-0 list-none md:pt-24 md:mx-28 lg:mx-36 xl:mx-52;
 }
 .comment {
     @apply h-full py-6 mx-4 overflow-auto border-b;
