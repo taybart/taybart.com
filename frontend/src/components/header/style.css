@@ -1,0 +1,28 @@
+.header {
+    @apply fixed top-0 left-0 z-50 w-full h-16;
+    @apply flex items-center justify-between;
+    @apply bg-white border-b border-black dark:bg-dark dark:text-white dark:border-white;
+}
+
+.left {
+    @apply pl-2 text-xl font-medium;
+}
+
+.right {
+    @apply flex content-center h-full pr-2 justify-self-end;
+}
+.right a {
+    @apply pl-2 pr-2;
+}
+
+.nav-link {
+    height: 100%;
+    flex-grow: 1;
+    padding-top: 20px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.nav-link.active {
+    font-weight: bold;
+}

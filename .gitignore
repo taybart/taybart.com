@@ -9,9 +9,9 @@
 **/coverage
 
 # production
-**/build
+**/dist
 **/certs
-server/server
+backend/backend
 
 # misc
 **/.DS_Store

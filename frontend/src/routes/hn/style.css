@@ -1,0 +1,14 @@
+.hn {
+    @apply pt-16 m-0 list-none md:mx-28 lg:mx-36 xl:mx-52;
+}
+
+.fp-title {
+    @apply w-3/4;
+}
+
+.fp-post {
+    @apply w-full flex items-center justify-between text-lg border-b h-28 md:h-16 px-4;
+}
+.fp-post a:hover {
+    @apply no-underline text-black  dark:text-white;
+}
