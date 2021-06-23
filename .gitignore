@@ -11,7 +11,8 @@
 # production
 **/dist
 **/certs
-backend/backend
+backend/server
+taybart.com
 
 # misc
 **/.DS_Store

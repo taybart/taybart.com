@@ -11,7 +11,11 @@ RUN npm i && npm run build
 ### Backend
 FROM golang:1.16-alpine as backend
 
+
 WORKDIR /build
+
+RUN CGO_ENABLED=0 go install -a -installsuffix cgo -ldflags="-w -s" github.com/taybart/hc@latest
+
 ADD ./backend .
 RUN CGO_ENABLED=0 go build -a -installsuffix cgo -ldflags="-w -s" .
 
@@ -28,8 +32,10 @@ COPY --from=backend /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 WORKDIR /app
 COPY --from=frontend /build/dist /app/dist
 COPY --from=backend /build/server /app/server
+COPY --from=backend /go/bin/hc /app/hc
 
-HEALTHCHECK --interval=1s --timeout=1s --start-period=2s --retries=3 CMD [ "PORT=8080 ./healthcheck" ]
+ENV PORT=8080
+HEALTHCHECK --interval=1s --timeout=1s --start-period=2s --retries=3 CMD [ "/app/hc" ]
 
 EXPOSE 8080
 
