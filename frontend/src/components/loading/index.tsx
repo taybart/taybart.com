@@ -6,7 +6,7 @@ interface Props {
   className?: string;
 }
 
-const inner = `absolute w-20 h-20 rounded-full border-btnPrimary`
+const inner = `absolute w-20 h-20 rounded-full border-dark dark:border-white`
 
 const Loading: FC<Props> = (props: Props) => {
   const {size = 64, style: styles = {}} = props

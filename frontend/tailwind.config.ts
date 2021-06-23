@@ -40,8 +40,6 @@ export default defineConfig({
       },
     },
   },
-  variants: {
-    extend: {}
-  },
+  variants: {},
   plugins: []
 })

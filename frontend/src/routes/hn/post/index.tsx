@@ -37,7 +37,7 @@ const emptyItem = (): Item => ({
 
 // Note post and frontpage should move to display components
 const Post: FC = () => {
-  const [loading, setLoading] = useState(true)
+  const [ready, setReady] = useState(false)
   const [post, setPost] = useState<Item>(emptyItem())
   const [comments, setComments] = useState<Item[]>([])
   const { id, comment } = useParams<{id: string, comment: string}>();
@@ -53,7 +53,7 @@ const Post: FC = () => {
   useEffect(() => {
     getItem(+id).then((post: Item) => {
       setPost(post)
-      setLoading(false)
+      setReady(true)
     })
   }, [id])
 
@@ -73,9 +73,9 @@ const Post: FC = () => {
     })()
   }, [post, comment])
 
-  return loading ? (
+  return !ready ? (
       <div className="post flex h-screen">
-        <Loading className="m-auto" />
+        <Loading className="mx-auto mt-56" />
       </div>
   ) : (
     <div className="post">
