@@ -1,3 +1,3 @@
 #!/bin/zsh
-docker build -t taybart.com .
+docker build -f ./deploy/Dockerfile -t taybart.com .
 docker save taybart.com:latest -o taybart.com
