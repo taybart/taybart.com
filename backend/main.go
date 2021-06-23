@@ -37,15 +37,18 @@ func main() {
 				param.ErrorMessage,
 			)
 		},
-		SkipPaths: []string{"/health"},
+		SkipPaths: []string{"/hc"},
 	}))
 	r.Use(gin.Recovery())
 
 	// Serve frontend static files
-	r.Use(static.Serve("/", static.LocalFile("../frontend/dist", false)))
+	r.Use(static.Serve("/", static.LocalFile("/app/dist", false)))
 	r.NoRoute(func(c *gin.Context) {
-		c.File("../frontend/dist/index.html")
+		c.File("/app/dist/index.html")
 	})
+	r.GET("/hc", func(c *gin.Context) {
+    c.Status(http.StatusOK)
+  })
 
 	r.Use(func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
@@ -93,5 +96,5 @@ func main() {
 	})
 
 	log.Info("Running...")
-	log.Fatal(r.Run("localhost:8080"))
+	log.Fatal(r.Run(":8080"))
 }
