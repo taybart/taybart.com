@@ -1,0 +1,3 @@
+#!/bin/zsh
+docker build -t taybart.com .
+docker save taybart.com:latest
