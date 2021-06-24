@@ -1,0 +1,7 @@
+.input {
+  @apply border-b-2 dark:border-white border-dark dark:bg-dark bg-white focus:outline-none;
+}
+
+.input-label {
+  @apply flex flex-row justify-between;
+}
