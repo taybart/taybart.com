@@ -33,7 +33,7 @@ func (s server) loadUsers() error {
 	}
 
 	var users []user
-	err = json.Unmarshal(b, users)
+	err = json.Unmarshal(b, &users)
 	if err != nil {
 		return err
 	}
@@ -55,8 +55,6 @@ func (s server) newUser(id, pw string) {
 		Salt: salt,
 	}
 	u.derivePW(pw)
-
-	u.toJSON()
 
 	s.c.SetWithTTL(id, &u, cache.TTLNeverExpire)
 }

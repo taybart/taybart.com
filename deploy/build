@@ -1,3 +1,11 @@
 #!/bin/zsh
-docker build -f ./deploy/Dockerfile -t taybart.com .
+export DOCKER_BUILDKIT=1
+
+docker build --ssh default \
+  --build-arg NOTES_BUCKET=$NOTES_BUCKET \
+  --build-arg NOTES_ACCESS_KEY_ID=$NOTES_ACCESS_KEY_ID \
+  --build-arg NOTES_SECRET_KEY=$NOTES_SECRET_KEY \
+  -f ./deploy/Dockerfile \
+  -t taybart.com .
+
 docker save taybart.com:latest -o taybart.com

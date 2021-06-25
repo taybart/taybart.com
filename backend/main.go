@@ -12,8 +12,7 @@ import (
 
 const (
 	maxAllowedLoginAttempts = 3
-	sessionTTL              = 5 * time.Second
-	// sessionTTL              = 24 * time.Hour
+	sessionTTL              = 24 * time.Hour
 )
 
 type server struct {
@@ -41,8 +40,6 @@ func main() {
 	defer s.c.Finish()
 
 	s.loadUsers()
-	// test setup
-	s.newUser("taylor", "1234")
 
 	s.routes()
 
