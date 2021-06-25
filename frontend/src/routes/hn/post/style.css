@@ -1,5 +1,5 @@
 .post {
-    @apply pt-16 m-0 list-none w-full;
+    @apply m-0 list-none w-full;
 }
 
 .title {
@@ -45,8 +45,3 @@
     @apply border-2 border-black rounded-full dark:border-white;
 }
 
-pre {
-    @apply text-gray-700 bg-blue-100 bg-opacity-25 dark:text-gray-50;
-    @apply break-words whitespace-pre-wrap;
-    @apply max-w-full p-4;
-}

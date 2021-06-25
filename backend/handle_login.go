@@ -9,6 +9,7 @@ import (
 )
 
 func (s *server) handleLogin() gin.HandlerFunc {
+	// POST /api/login
 
 	type request struct {
 		User     string `json:"user" binding:"required"`
@@ -56,6 +57,29 @@ func (s *server) handleLogin() gin.HandlerFunc {
 		if err := session.Save(); err != nil {
 			c.Status(http.StatusInternalServerError)
 		}
+		c.Status(http.StatusOK)
+	}
+}
+
+func (s *server) handleLogout() gin.HandlerFunc {
+	// POST /api/logout
+
+	return func(c *gin.Context) {
+
+		session := sessions.Default(c)
+
+		session.Delete("authorized")
+		if err := session.Save(); err != nil {
+			c.Status(http.StatusInternalServerError)
+		}
+		c.Status(http.StatusOK)
+	}
+}
+
+func (s *server) handleCheckAuthorized() gin.HandlerFunc {
+	// GET /api/authorized
+
+	return func(c *gin.Context) {
 		c.Status(http.StatusOK)
 	}
 }

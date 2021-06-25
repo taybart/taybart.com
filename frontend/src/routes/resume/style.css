@@ -1,7 +1,7 @@
 @tailwind base;
 
 .resume {
-    @apply h-full pt-16 mx-0 md:mx-28 lg:mx-36 xl:mx-52;
+    @apply h-full mx-0 md:mx-28 lg:mx-36 xl:mx-52;
 }
 
 .jobs {

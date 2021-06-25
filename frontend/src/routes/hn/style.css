@@ -1,5 +1,5 @@
 .hn {
-    @apply pt-16 m-0 list-none md:mx-28 lg:mx-36 xl:mx-52;
+    @apply m-0 list-none md:mx-28 lg:mx-36 xl:mx-52;
 }
 
 .fp-title {

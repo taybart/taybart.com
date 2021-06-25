@@ -20,8 +20,14 @@ func (s *server) routes() {
 	store.Options(sessions.Options{MaxAge: 60 * 60 * 24}) // expire in a day
 	s.r.Use(sessions.Sessions("user", store))
 
-	s.r.POST("/login", s.handleLogin())
-	s.r.GET("/notes", protected(s.handleNotes()))
+	api := s.r.Group("api")
+	{
+		api.POST("/login", s.handleLogin())
+		api.POST("/logout", s.handleLogout())
+		api.GET("/authorized", protected(s.handleCheckAuthorized()))
+		api.GET("/notes", protected(s.handleGetNotes()))
+		api.GET("/note/:id", protected(s.handleGetNote()))
+	}
 
 	s.r.GET("/ip", func(c *gin.Context) {
 		c.String(http.StatusOK, c.Request.Header.Get("X-Forwarded-For"))

@@ -12,6 +12,7 @@
 **/dist
 **/certs
 backend/server
+backend/users.json
 taybart.com
 
 # misc

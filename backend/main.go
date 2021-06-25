@@ -12,7 +12,8 @@ import (
 
 const (
 	maxAllowedLoginAttempts = 3
-	sessionTTL              = 24 * time.Hour
+	sessionTTL              = 5 * time.Second
+	// sessionTTL              = 24 * time.Hour
 )
 
 type server struct {
@@ -23,7 +24,11 @@ type server struct {
 
 func main() {
 
-	env := environment.New([]string{})
+	env := environment.New([]string{
+		"NOTES_BUCKET",
+		"NOTES_ACCESS_KEY_ID",
+		"NOTES_SECRET_KEY",
+	})
 
 	gin.SetMode(gin.ReleaseMode)
 
@@ -35,6 +40,7 @@ func main() {
 	s.c.SetPruneRate(time.Second)
 	defer s.c.Finish()
 
+	s.loadUsers()
 	// test setup
 	s.newUser("taylor", "1234")
 

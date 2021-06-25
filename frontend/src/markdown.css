@@ -1,0 +1,11 @@
+.markdown h1 {
+  @apply text-3xl;
+}
+
+.markdown ul li {
+  @apply list-disc;
+}
+
+.markdown ol li {
+  @apply list-decimal;
+}

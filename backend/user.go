@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"crypto/rand"
 	"crypto/sha1"
+	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"time"
 
 	"github.com/taybart/cache"
@@ -24,6 +26,24 @@ type user struct {
 	PW   []byte `json:"pw,omitempty"`
 }
 
+func (s server) loadUsers() error {
+	b, err := ioutil.ReadFile("./users.json")
+	if err != nil {
+		return err
+	}
+
+	var users []user
+	err = json.Unmarshal(b, users)
+	if err != nil {
+		return err
+	}
+
+	for _, u := range users {
+		s.c.SetWithTTL(u.ID, &u, cache.TTLNeverExpire)
+	}
+	return nil
+}
+
 func (s server) newUser(id, pw string) {
 	salt := make([]byte, PWSaltBytes)
 	_, err := io.ReadFull(rand.Reader, salt)
@@ -35,6 +55,9 @@ func (s server) newUser(id, pw string) {
 		Salt: salt,
 	}
 	u.derivePW(pw)
+
+	u.toJSON()
+
 	s.c.SetWithTTL(id, &u, cache.TTLNeverExpire)
 }
 
@@ -46,6 +69,10 @@ func (u *user) getLoginAttempts(c *cache.Cache) int {
 
 func (u *user) setLoginAttempts(c *cache.Cache, attempts int) error {
 	return c.SetWithTTL(fmt.Sprintf("%s-attempts", u.ID), &attempts, LoginRetryTTL)
+}
+
+func (u *user) toJSON() ([]byte, error) {
+	return json.Marshal(u)
 }
 
 func (u user) checkPW(pw string) bool {

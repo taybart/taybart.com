@@ -1,0 +1,9 @@
+taybart.com {
+  reverse_proxy localhost:8080
+}
+
+proxy.taybart.com {
+  reverse_proxy localhost:9000
+}
+
+import /etc/caddy/sites/*

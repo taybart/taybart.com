@@ -1,21 +1,20 @@
 import React, {FC, SyntheticEvent, useState} from 'react'
-import Loading from '../../components/loading'
+import {useHistory} from 'react-router-dom'
+import {setAuthorized, useAppDispatch} from '../../store'
 
-import {login, notes} from '../../util/api'
-
+import {login} from '../../util/api'
 
 import './style.css'
 
-
 const Login: FC = () => {
   const [user, setUser] = useState<string>('')
-  const [note, setNote] = useState<{title: string, body: string}>({title: '', body: ''})
   const [password, setPassword] = useState<string>('')
   const [error, setError] = useState<string>('')
   const [badCreds, setBadCreds] = useState<boolean>(false)
-  const [success, setSuccess] = useState<boolean>(false)
   const [to, setTO] = useState<number>(-1)
 
+  const history = useHistory()
+  const dispatch = useAppDispatch()
 
   const onSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
@@ -33,27 +32,8 @@ const Login: FC = () => {
       }
       return
     }
-    try {
-      const {msg, error} = await notes()
-      if (error) {
-        setSuccess(false)
-        return
-      }
-      if (typeof msg != "string") {
-        setNote(msg)
-      }
-      setSuccess(true)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  if (success) {
-    // <Loading className="mx-auto mt-56" />
-    return (<div className="flex flex-col items-center justify-center w-full h-screen">
-      <h1 className="text-3xl border-b border-dark dark:border-white">{note.title}</h1>
-      <p>{note.body}</p>
-    </div>)
+    dispatch(setAuthorized(true))
+    history.push('/')
   }
 
   return (
