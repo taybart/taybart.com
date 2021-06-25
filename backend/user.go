@@ -69,8 +69,9 @@ func (u *user) setLoginAttempts(c *cache.Cache, attempts int) error {
 	return c.SetWithTTL(fmt.Sprintf("%s-attempts", u.ID), &attempts, LoginRetryTTL)
 }
 
-func (u *user) toJSON() ([]byte, error) {
-	return json.Marshal(u)
+func (u *user) toJSON() (string, error) {
+	b, err := json.Marshal(u)
+	return string(b), err
 }
 
 func (u user) checkPW(pw string) bool {
