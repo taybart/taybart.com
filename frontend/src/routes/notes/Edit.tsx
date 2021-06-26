@@ -1,5 +1,5 @@
 import React, {FC, useState, useEffect, useMemo} from 'react'
-import {BaseEditor, createEditor, Node, Text} from 'slate'
+import {BaseEditor, createEditor, Node} from 'slate'
 import {Slate, Editable, ReactEditor, withReact, } from 'slate-react'
 
 const serialize = (nodes: Node[]) => {
@@ -33,10 +33,10 @@ const Edit: FC<Props> = ({note, onExit}) => {
   }, [])
 
   return (<div className="flex flex-col w-full items-left justify-center py-10">
-    <div className="back pl-10 cursor-pointer" onClick={() => onExit(serialize(value))}>
+    <div className="back pl-10 cursor-pointer lg:pb-0 pb-14 underline" onClick={() => onExit(serialize(value))}>
       finish
     </div>
-    <div className="mx-56 p-10 border border-white h-full">
+    <div className="md:mx-56 mx-4 p-10 border border-dark dark:border-white h-full">
       <Slate editor={editor} value={value} onChange={update => setValue(update)}>
         <Editable />
       </Slate>

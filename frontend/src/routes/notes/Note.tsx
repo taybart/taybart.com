@@ -38,14 +38,16 @@ const Note: FC = () => {
     return <Edit note={note.body} onExit={(n: string) => {
       setNote({id: params.id, body: n})
       setEdit(false)
-      updateNote(params.id, n)
+      if (note.body !== n) {
+        updateNote(params.id, n)
+      }
     }} />
   }
 
-  return (<div className="flex flex-col items-left justify-center w-full pt-10">
-    <div className="flex flex-row w-full justify-between">
-      <Link className="back pl-10" to="/notes">back</Link>
-      <PencilIcon className="pr-10 cursor-pointer stroke-1" onClick={() => setEdit(true)} />
+  return (<div className="w-full pt-10">
+    <div className="flex flex-row w-full justify-between pb-10 px-10">
+      <Link className="back" to="/notes">back</Link>
+      <PencilIcon className="cursor-pointer stroke-1" onClick={() => setEdit(true)} />
     </div>
     <Markdown className="markdown">
       {note.body}

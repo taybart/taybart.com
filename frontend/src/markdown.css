@@ -1,15 +1,22 @@
 .markdown {
-  @apply prose text-black dark:text-white w-full px-72 max-w-full;
+  @apply text-black dark:text-white w-full lg:px-72 px-10 max-w-full;
+}
+
+.markdown > p {
+  @apply my-4;
+}
+
+.markdown ul > li {
+  @apply my-0;
+}
+
+.markdown ul {
+  @apply list-disc;
+}
+.markdown ul > li > ul {
+  @apply pl-10;
+  list-style: circle;
 }
 .markdown h1 {
-  @apply text-white;
-}
-.markdown h2 {
-  @apply text-white;
-}
-.markdown h3 {
-  @apply text-white;
-}
-.markdown h4 {
-  @apply text-white;
+  @apply text-4xl font-bold;
 }

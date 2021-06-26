@@ -9,22 +9,24 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func cors() gin.HandlerFunc {
+func (s *server) cors() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.Header("Access-Control-Allow-Origin", "http://localhost:3000")
-		c.Header("Access-Control-Allow-Credentials", "true")
-		c.Header("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE,OPTIONS")
-		c.Header("Access-Control-Allow-Headers", "authorization, origin, content-type, accept")
-		c.Header("Allow", "HEAD,GET,POST,OPTIONS")
-		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(http.StatusOK)
-			return
+		if s.env.Is("ENV", "development") {
+			c.Header("Access-Control-Allow-Origin", "http://localhost:3000")
+			c.Header("Access-Control-Allow-Credentials", "true")
+			c.Header("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE,OPTIONS")
+			c.Header("Access-Control-Allow-Headers", "authorization, origin, content-type, accept")
+			c.Header("Allow", "HEAD,GET,POST,OPTIONS")
+			if c.Request.Method == "OPTIONS" {
+				c.AbortWithStatus(http.StatusOK)
+				return
+			}
 		}
 		c.Next()
 	}
 }
 
-func protected(next gin.HandlerFunc) gin.HandlerFunc {
+func (s *server) protected(next gin.HandlerFunc) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 		authorized := session.Get("authorized")
@@ -36,7 +38,7 @@ func protected(next gin.HandlerFunc) gin.HandlerFunc {
 	}
 }
 
-func logger() gin.HandlerFunc {
+func (s *server) logger() gin.HandlerFunc {
 	return gin.LoggerWithConfig(gin.LoggerConfig{
 		Formatter: func(param gin.LogFormatterParams) string {
 			var statusColor, methodColor, resetColor string

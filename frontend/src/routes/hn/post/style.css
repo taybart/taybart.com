@@ -14,9 +14,6 @@
     @apply text-base text-right underline md:text-xl;
 }
 
-.back {
-}
-
 .comments {
     @apply pt-20 m-0 list-none md:pt-24 md:mx-28 lg:mx-36 xl:mx-52;
 }

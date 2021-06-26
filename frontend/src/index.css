@@ -23,3 +23,7 @@ pre {
     @apply break-words whitespace-pre-wrap;
     @apply max-w-full p-4;
 }
+
+.back {
+    @apply cursor-pointer underline;
+}
