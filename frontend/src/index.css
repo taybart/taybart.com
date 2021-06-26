@@ -1,12 +1,3 @@
-/* body { */
-/*   margin: 0; */
-/*   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', */
-/*     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', */
-/*     sans-serif; */
-/*   -webkit-font-smoothing: antialiased; */
-/*   -moz-osx-font-smoothing: grayscale; */
-/* } */
-
 html,
 body,
 #root {
@@ -22,6 +13,10 @@ pre {
     @apply text-gray-700 bg-blue-100 bg-opacity-25 dark:text-gray-50;
     @apply break-words whitespace-pre-wrap;
     @apply max-w-full p-4;
+}
+
+.button {
+    @apply focus:outline-none border border-black dark:border-white py-2;
 }
 
 .back {

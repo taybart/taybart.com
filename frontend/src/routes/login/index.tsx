@@ -57,7 +57,9 @@ const Login: FC = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit" />
+        {(user.length > 0 && password.length > 0) &&
+          <button className="button" type="submit">login</button>
+        }
       </form>
       {badCreds && <img className="absolute inset-0 m-auto" src="/img/jp_naw.gif" />}
     </div>
