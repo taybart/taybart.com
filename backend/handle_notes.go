@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 
 	"github.com/taybart/log"
@@ -40,31 +39,6 @@ func (s *server) handleGetNote() gin.HandlerFunc {
 			c.Status(http.StatusBadRequest)
 		}
 
-		session := sessions.Default(c)
-
-		uP := session.Get("user")
-		if uP == nil {
-			c.Status(http.StatusInternalServerError)
-			return
-		}
-		username := uP.(string)
-
-		var u user
-		err := s.c.Get(username, &u)
-		if err != nil {
-			log.Errorf("could not get user %s: %+v\n", username, err)
-			c.Status(http.StatusInternalServerError)
-			return
-		}
-
-		// NOTE: get from s3/minio/spaces
-		// b, err := ioutil.ReadFile(fmt.Sprintf("./notes/%s.md", in.Note))
-		// if err != nil {
-		// 	log.Error("Could not get note ", err)
-		// 	c.Status(http.StatusInternalServerError)
-		// 	return
-		// }
-
 		obj, err := mc.GetObject(context.Background(), "taybart", fmt.Sprintf("notes/%s", id), minio.GetObjectOptions{})
 		if err != nil {
 			log.Errorf("could not get note %s: %+v\n", id, err)
@@ -76,12 +50,64 @@ func (s *server) handleGetNote() gin.HandlerFunc {
 			c.Status(http.StatusInternalServerError)
 		}
 
-		c.JSON(http.StatusOK, gin.H{"title": "shh", "body": string(b)})
+		c.JSON(http.StatusOK, gin.H{"note": string(b)})
+	}
+}
+
+func (s *server) handleSetNote() gin.HandlerFunc {
+	// PATCH /note/:id
+
+	type request struct {
+		ID   string `json:"id"`
+		Note string `json:"note"`
+	}
+
+	issues := map[string]string{
+		"id":   "id  must be a string. {t:string}",
+		"note": "note name must be a string. {t:string}",
+	}
+
+	endpoint := s.env.Get("NOTES_BUCKET")
+	accessKeyID := s.env.Get("NOTES_ACCESS_KEY_ID")
+	secretAccessKey := s.env.Get("NOTES_SECRET_KEY")
+
+	// Initialize minio client object.
+	mc, err := minio.New(endpoint, &minio.Options{
+		Creds:  credentials.NewStaticV4(accessKeyID, secretAccessKey, ""),
+		Secure: true,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return func(c *gin.Context) {
+		var in request
+		if err := c.ShouldBindJSON(&in); err != nil {
+			errs := s.createErrorResponse(request{}, issues, err)
+			c.AbortWithStatusJSON(http.StatusUnprocessableEntity, errs)
+			return
+		}
+
+		info, err := mc.PutObject(
+			context.Background(),
+			"taybart",
+			fmt.Sprintf("notes/%s", in.ID),
+			strings.NewReader(in.Note),
+			int64(len(in.Note)),
+			minio.PutObjectOptions{ContentType: "application/octet-stream"},
+		)
+		if err != nil {
+			log.Errorf("could not get note %s: %+v\n", in.ID, err)
+			c.Status(http.StatusInternalServerError)
+		}
+		log.Infof("%+v\n", info)
+
+		c.Status(http.StatusOK)
 	}
 }
 
 func (s *server) handleGetNotes() gin.HandlerFunc {
-	// GET /note
+	// GET /notes
 
 	type request struct {
 		Note string `form:"note"`
@@ -110,23 +136,6 @@ func (s *server) handleGetNotes() gin.HandlerFunc {
 		if err := c.ShouldBind(&in); err != nil {
 			errs := s.createErrorResponse(request{}, issues, err)
 			c.AbortWithStatusJSON(http.StatusUnprocessableEntity, errs)
-			return
-		}
-
-		session := sessions.Default(c)
-
-		uP := session.Get("user")
-		if uP == nil {
-			c.Status(http.StatusInternalServerError)
-			return
-		}
-		username := uP.(string)
-
-		var u user
-		err := s.c.Get(username, &u)
-		if err != nil {
-			log.Errorf("could not get user %s: %+v\n", username, err)
-			c.Status(http.StatusInternalServerError)
 			return
 		}
 

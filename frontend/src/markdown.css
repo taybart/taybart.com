@@ -1,11 +1,15 @@
+.markdown {
+  @apply prose text-black dark:text-white w-full px-72 max-w-full;
+}
 .markdown h1 {
-  @apply text-3xl;
+  @apply text-white;
 }
-
-.markdown ul li {
-  @apply list-disc;
+.markdown h2 {
+  @apply text-white;
 }
-
-.markdown ol li {
-  @apply list-decimal;
+.markdown h3 {
+  @apply text-white;
+}
+.markdown h4 {
+  @apply text-white;
 }

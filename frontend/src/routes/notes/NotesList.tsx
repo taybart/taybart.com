@@ -32,7 +32,7 @@ const NotesList: FC = () => {
     <ul className="list-disc">
       {notes.map(n => (
         <li key={n}>
-          <Link className="underline" to={`/note/${n}`}>
+          <Link className="underline" to={`/notes/${n}`}>
             {n}
           </Link>
         </li>

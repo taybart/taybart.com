@@ -1,13 +1,17 @@
 import React, {FC, useState, useEffect} from 'react'
 import {Link, useHistory, useParams} from 'react-router-dom'
-import ReactMarkdown from 'react-markdown'
+import Markdown from 'markdown-to-jsx';
+
+import Edit from './Edit'
+import PencilIcon from './PencilIcon'
 import Loading from '../../components/loading'
 
-import {getNote} from '../../util/api'
+import {getNote, updateNote} from '../../util/api'
 
 const Note: FC = () => {
   const [ready, setReady] = useState<boolean>(false)
-  const [note, setNote] = useState<{title: string, body: string}>({title: '', body: ''})
+  const [edit, setEdit] = useState<boolean>(false)
+  const [note, setNote] = useState<{id: string, body: string}>({id: '', body: ''})
   const history = useHistory()
   const params = useParams<{id: string}>()
 
@@ -21,7 +25,7 @@ const Note: FC = () => {
         return
       }
       if (note) {
-        setNote(note)
+        setNote({id: params.id, body: note})
       }
       setReady(true)
     })
@@ -30,12 +34,24 @@ const Note: FC = () => {
   if (!ready) {
     return <Loading className="m-auto pt-16" />
   }
-  return (<div className="flex flex-col items-left justify-center py-10">
-    <Link className="back pl-10" to="/notes">back</Link>
-    <ReactMarkdown className="pl-80 markdown">
+  if (edit) {
+    return <Edit note={note.body} onExit={(n: string) => {
+      setNote({id: params.id, body: n})
+      setEdit(false)
+      updateNote(params.id, n)
+    }} />
+  }
+
+  return (<div className="flex flex-col items-left justify-center w-full pt-10">
+    <div className="flex flex-row w-full justify-between">
+      <Link className="back pl-10" to="/notes">back</Link>
+      <PencilIcon className="pr-10 cursor-pointer stroke-1" onClick={() => setEdit(true)} />
+    </div>
+    <Markdown className="markdown">
       {note.body}
-    </ReactMarkdown>
+    </Markdown>
   </div>)
 }
+
 
 export default Note

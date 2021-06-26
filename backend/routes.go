@@ -27,6 +27,7 @@ func (s *server) routes() {
 		api.GET("/authorized", protected(s.handleCheckAuthorized()))
 		api.GET("/notes", protected(s.handleGetNotes()))
 		api.GET("/note/:id", protected(s.handleGetNote()))
+		api.PATCH("/note", protected(s.handleSetNote()))
 	}
 
 	s.r.GET("/ip", func(c *gin.Context) {

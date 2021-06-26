@@ -1,4 +1,5 @@
 import {defineConfig} from 'windicss/helpers'
+import typography from 'windicss/plugin/typography'
 
 export default defineConfig({
   darkMode: "media", // or 'media' or 'class'
@@ -41,5 +42,7 @@ export default defineConfig({
     },
   },
   variants: {},
-  plugins: []
+  plugins: [
+    typography,
+  ]
 })

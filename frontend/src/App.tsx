@@ -42,7 +42,7 @@ const App: FC = () => {
           <Route exact path="/notes">
             <NotesList />
           </Route>
-          <Route exact path="/note/:id">
+          <Route path="/notes/:id">
             <Note />
           </Route>
           <Route exact path="/resume">
