@@ -3,7 +3,7 @@ import {Link, useHistory, useParams} from 'react-router-dom'
 import Markdown from 'markdown-to-jsx';
 
 import Edit from './Edit'
-import PencilIcon from './PencilIcon'
+import EditIcon from './EditIcon'
 import Loading from '../../components/loading'
 
 import {getNote, updateNote} from '../../util/api'
@@ -47,7 +47,7 @@ const Note: FC = () => {
   return (<div className="w-full pt-10">
     <div className="flex flex-row w-full justify-between pb-10 px-10">
       <Link className="back" to="/notes">back</Link>
-      <PencilIcon className="cursor-pointer stroke-1" onClick={() => setEdit(true)} />
+      <EditIcon className="cursor-pointer stroke-1" onClick={() => setEdit(true)} />
     </div>
     <Markdown className="markdown">
       {note.body}

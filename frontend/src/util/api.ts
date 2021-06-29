@@ -1,5 +1,4 @@
 const api = ''
-// const api = 'http://york.local:8080'
 
 export async function login(user: string, password: string): Promise<{msg: string, error: boolean}> {
   if (user.length === 0) {

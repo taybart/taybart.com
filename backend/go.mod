@@ -15,5 +15,5 @@ require (
 	github.com/taybart/cache v0.0.3
 	github.com/taybart/environment v0.0.0-20210624032526-14d3e74a882e
 	github.com/taybart/log v1.0.0
-	golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899
+	golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e
 )

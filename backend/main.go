@@ -8,6 +8,7 @@ import (
 	"github.com/taybart/cache"
 	"github.com/taybart/environment"
 	"github.com/taybart/log"
+	"server/notes"
 )
 
 const (
@@ -16,9 +17,10 @@ const (
 )
 
 type server struct {
-	r   *gin.Engine
-	c   *cache.Cache
-	env environment.Environment
+	r     *gin.Engine
+	c     *cache.Cache
+	env   environment.Environment
+	notes *notes.Client
 }
 
 func main() {
@@ -31,10 +33,26 @@ func main() {
 
 	gin.SetMode(gin.ReleaseMode)
 
+	endpoint := env.Get("NOTES_BUCKET")
+	accessKeyID := env.Get("NOTES_ACCESS_KEY_ID")
+	secretAccessKey := env.Get("NOTES_SECRET_KEY")
+
+	nc, err := notes.New(notes.Config{
+		Endpoint:        endpoint,
+		Bucket:          "taybart",
+		Prefix:          "notes/",
+		AccessKeyID:     accessKeyID,
+		SecretAccessKey: secretAccessKey,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	s := server{
-		r:   gin.New(),
-		c:   cache.New(),
-		env: env,
+		r:     gin.New(),
+		c:     cache.New(),
+		env:   env,
+		notes: nc,
 	}
 	s.c.SetPruneRate(time.Second)
 	defer s.c.Finish()

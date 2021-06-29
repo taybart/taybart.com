@@ -4,6 +4,8 @@ import Loading from '../../components/loading'
 
 import {listNotes} from '../../util/api'
 
+import "./index.css"
+
 const NotesList: FC = () => {
   const [ready, setReady] = useState<boolean>(false)
   const [notes, setNotes] = useState<string[]>([])
@@ -28,11 +30,11 @@ const NotesList: FC = () => {
   if (!ready) {
     return <Loading className="m-auto pt-16" />
   }
-  return (<div className="flex flex-col items-left justify-center py-10 pl-10">
-    <ul className="list-disc">
+  return (<div className="notes-list">
+    <ul>
       {notes.map(n => (
         <li key={n}>
-          <Link className="underline" to={`/notes/${n}`}>
+          <Link to={`/notes/${n}`}>
             {n}
           </Link>
         </li>

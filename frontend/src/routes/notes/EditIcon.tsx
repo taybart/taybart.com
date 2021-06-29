@@ -4,7 +4,7 @@ interface Props {
   className?: string;
   onClick?: () => void;
 }
-const PencilIcon: FC<Props> = ({className, onClick}) => {
+const EditIcon: FC<Props> = ({className, onClick}) => {
   return (<div className={className} onClick={onClick}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -22,4 +22,4 @@ const PencilIcon: FC<Props> = ({className, onClick}) => {
   </div>)
 }
 
-export default PencilIcon
+export default EditIcon
