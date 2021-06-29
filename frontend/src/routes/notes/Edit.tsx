@@ -40,6 +40,7 @@ const Edit: FC<Props> = ({ note, online, onExit }) => {
     }
     onExit(serialize(value));
   };
+
   return (
     <div className="flex flex-col w-full items-left justify-center py-10">
       <div className="flex flex-row justify-between w-full px-10">

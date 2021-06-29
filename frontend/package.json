@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "prepare": "cd .. && husky install frontend/.husky"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -38,7 +39,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": "eslint --fix src/**/*.{ts,tsx}"
+    "src/**/*.{ts,tsx}": "eslint --fix frontend/src/**/*.{ts,tsx}"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.0",
@@ -63,6 +64,8 @@
     "eslint": "^7.29.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "typescript": "^4.3.2",
     "vite": "^2.3.8",
     "vite-plugin-windicss": "^1.1.1",
