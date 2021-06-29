@@ -29,6 +29,7 @@ const NotesList: FC = () => {
   if (!ready) {
     return <Loading className="m-auto pt-16" />;
   }
+
   return (
     <div className="notes-list">
       <ul>
