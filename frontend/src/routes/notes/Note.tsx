@@ -11,6 +11,7 @@ import {getNote, updateNote} from '../../util/api'
 const Note: FC = () => {
   const [ready, setReady] = useState<boolean>(false)
   const [edit, setEdit] = useState<boolean>(false)
+  const [online, setOnline] = useState<boolean>(false)
   const [note, setNote] = useState<{id: string, body: string}>({id: '', body: ''})
   const history = useHistory()
   const params = useParams<{id: string}>()
@@ -31,11 +32,23 @@ const Note: FC = () => {
     })
   }, [])
 
+  useEffect(() => {
+    const handleStatus = () => setOnline(navigator.onLine)
+    window.addEventListener('offline', handleStatus)
+    window.addEventListener('online', handleStatus)
+
+    // cleanup if we unmount
+    return () => {
+      window.removeEventListener('offline', handleStatus)
+      window.removeEventListener('online', handleStatus)
+    }
+  }, []);
+
   if (!ready) {
     return <Loading className="m-auto pt-16" />
   }
   if (edit) {
-    return <Edit note={note.body} onExit={(n: string) => {
+    return <Edit note={note.body} online={online} onExit={(n: string) => {
       setNote({id: params.id, body: n})
       setEdit(false)
       if (note.body !== n) {
