@@ -13,7 +13,7 @@ require (
 	github.com/minio/minio-go/v7 v7.0.11
 	github.com/pkg/errors v0.8.1
 	github.com/taybart/cache v0.0.3
-	github.com/taybart/environment v0.0.0-20210624032526-14d3e74a882e
-	github.com/taybart/log v1.0.0
+	github.com/taybart/environment v0.0.0-20210629010539-be3fe77c66b0
+	github.com/taybart/log v1.4.1
 	golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e
 )
