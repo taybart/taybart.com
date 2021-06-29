@@ -12,19 +12,18 @@ const NotesList: FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    /* listNotes().then(({notes, msg, error}) => { */
-    /*   if (error) { */
-    /*     if (msg === 'unauthorized') { */
-    /*       history.push('/login') */
-    /*     } */
-    /*     return */
-    /*   } */
-    /*   if (notes) { */
-    /*     setNotes(notes) */
-    /*   } */
-    /*   setReady(true) */
-    /* }) */
-    setReady(true);
+    listNotes().then(({ notes, msg, error }) => {
+      if (error) {
+        if (msg === "unauthorized") {
+          history.push("/login");
+        }
+        return;
+      }
+      if (notes) {
+        setNotes(notes);
+      }
+      setReady(true);
+    });
   }, []);
 
   if (!ready) {
