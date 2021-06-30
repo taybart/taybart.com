@@ -18,6 +18,7 @@ interface Props {
   note: string;
   online: boolean;
   onExit: (note: string) => void;
+  onSave: (note: string) => void;
 }
 
 const parse = (note: string): Node[] => {
@@ -26,19 +27,33 @@ const parse = (note: string): Node[] => {
     .map((s) => ({ type: "paragraph", children: [{ text: s }] }));
 };
 
-const Edit: FC<Props> = ({ note, online, onExit }) => {
+const Edit: FC<Props> = ({ note, online, onSave, onExit }) => {
   const [value, setValue] = useState<Node[]>([]);
   const editor = useMemo(() => withReact(createEditor()), []);
 
   useEffect(() => {
+    const saveListener = (e) => {
+      if (
+        (window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey) &&
+        e.keyCode == 83
+      ) {
+        e.preventDefault();
+        onSave(serialize(value));
+        if (!online) {
+          alert("not online, your work will not be saved");
+        }
+      }
+    };
     setValue(parse(note));
+    document.addEventListener("keydown", saveListener, false);
+    return () => {
+      document.removeEventListener("keydown", saveListener);
+    };
   }, []);
 
   const onClick = () => {
-    if (!online) {
-      alert("not online, your work will not be saved");
-    }
-    onExit(serialize(value));
+    onSave(serialize(value));
+    onExit();
   };
 
   return (

@@ -6,13 +6,13 @@ import Edit from "./Edit";
 import EditIcon from "./EditIcon";
 import Loading from "../../components/loading";
 
-import { getNote, updateNote } from "../../util/api";
+import { getNote, updateNote, isOnline } from "../../util/api";
 
 const Note: FC = () => {
   const [ready, setReady] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
   const [online, setOnline] = useState<boolean>(true);
-  const [to, setTO] = useState<number>(-1);
+  const [intvl, setIntvl] = useState<number>(-1);
   const [note, setNote] = useState<{ id: string; body: string }>({
     id: "",
     body: "",
@@ -37,21 +37,26 @@ const Note: FC = () => {
 
   useEffect(() => {
     if (edit) {
-      if (to) {
-        clearTimeout(to);
+      if (intvl >= 0) {
+        clearInterval(intvl);
       }
-      setTO(
-        setTimeout(() => {
-          fetch("/hc")
-            .then((res) => setOnline(res.status === 200))
-            .catch(() => setOnline(false));
+      setIntvl(
+        setInterval(async () => {
+          setOnline(await isOnline());
         }, 5000)
       );
     }
     return () => {
-      clearTimeout(to);
+      clearInterval(intvl);
     };
   }, [edit]);
+
+  const save = (n: string) => {
+    setNote({ id: params.id, body: n });
+    if (note.body !== n) {
+      updateNote(params.id, n);
+    }
+  };
 
   if (!ready) {
     return <Loading className="m-auto pt-16" />;
@@ -61,12 +66,9 @@ const Note: FC = () => {
       <Edit
         note={note.body}
         online={online}
-        onExit={(n: string) => {
-          setNote({ id: params.id, body: n });
+        onSave={save}
+        onExit={() => {
           setEdit(false);
-          if (note.body !== n) {
-            updateNote(params.id, n);
-          }
         }}
       />
     );
