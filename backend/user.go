@@ -44,19 +44,43 @@ func (s server) loadUsers() error {
 	return nil
 }
 
-func (s server) newUser(id, pw string) {
+func (s server) newUser(id, pw string) error {
+	b, err := ioutil.ReadFile("./users.json")
+	if err != nil {
+		return err
+	}
+
+	var users []user
+	err = json.Unmarshal(b, &users)
+	if err != nil {
+		return err
+	}
+
+	for _, u := range users {
+		if u.ID == id {
+			return fmt.Errorf("user already exists")
+		}
+	}
+
 	salt := make([]byte, PWSaltBytes)
-	_, err := io.ReadFull(rand.Reader, salt)
+	_, err = io.ReadFull(rand.Reader, salt)
 	if err != nil {
 		log.Fatal(err)
 	}
-	u := &user{
+	u := user{
 		ID:   id,
 		Salt: salt,
 	}
 	u.derivePW(pw)
-
 	s.c.SetWithTTL(id, &u, cache.TTLNeverExpire)
+	users = append(users, u)
+
+	b, err = json.Marshal(&users)
+	if err != nil {
+		return err
+	}
+
+	return ioutil.WriteFile("./users.json", b, 0755)
 }
 
 func (u *user) getLoginAttempts(c *cache.Cache) int {

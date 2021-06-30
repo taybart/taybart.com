@@ -5,10 +5,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"server/notes"
+
 	"github.com/taybart/cache"
 	"github.com/taybart/environment"
 	"github.com/taybart/log"
-	"server/notes"
 )
 
 const (
@@ -57,7 +58,10 @@ func main() {
 	s.c.SetPruneRate(time.Second)
 	defer s.c.Finish()
 
-	s.loadUsers()
+	err = s.loadUsers()
+	if err != nil {
+		log.Error(err)
+	}
 
 	s.routes()
 
