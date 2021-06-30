@@ -60,7 +60,7 @@ func main() {
 
 	err = s.loadUsers()
 	if err != nil {
-		log.Error(err)
+		log.Fatal(err)
 	}
 
 	s.routes()
