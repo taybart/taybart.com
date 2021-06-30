@@ -17,7 +17,7 @@ declare module "slate" {
 interface Props {
   note: string;
   online: boolean;
-  onExit: (note: string) => void;
+  onExit: () => void;
   onSave: (note: string) => void;
 }
 
@@ -32,10 +32,10 @@ const Edit: FC<Props> = ({ note, online, onSave, onExit }) => {
   const editor = useMemo(() => withReact(createEditor()), []);
 
   useEffect(() => {
-    const saveListener = (e) => {
+    const saveListener = (e: KeyboardEvent) => {
       if (
         (window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey) &&
-        e.keyCode == 83
+        e.key == "s"
       ) {
         e.preventDefault();
         onSave(serialize(value));

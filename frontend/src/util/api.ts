@@ -100,7 +100,7 @@ export async function listNotes(): Promise<{
   }
 }
 
-export async function isOnline(): boolean {
+export async function isOnline(): Promise<boolean> {
   try {
     const res = await fetch(`${api}/hc`);
     return res.status === 200;
