@@ -1,27 +1,27 @@
-import React, { FC, useState, useEffect } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import React, {FC, useState, useEffect} from "react";
+import {Link, useHistory, useParams} from "react-router-dom";
 import Markdown from "markdown-to-jsx";
 
 import Edit from "./Edit";
 import EditIcon from "./EditIcon";
 import Loading from "../../components/loading";
 
-import { getNote, updateNote, isOnline } from "../../util/api";
+import {getNote, updateNote, isOnline} from "../../util/api";
 
 const Note: FC = () => {
   const [ready, setReady] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
   const [online, setOnline] = useState<boolean>(true);
   const [intvl, setIntvl] = useState<number>(-1);
-  const [note, setNote] = useState<{ id: string; body: string }>({
+  const [note, setNote] = useState<{id: string; body: string}>({
     id: "",
     body: "",
   });
   const history = useHistory();
-  const params = useParams<{ id: string }>();
+  const params = useParams<{id: string}>();
 
   useEffect(() => {
-    getNote(params.id).then(({ note, msg, error }) => {
+    getNote(params.id).then(({note, msg, error}) => {
       if (error) {
         if (msg === "unauthorized") {
           history.push("/login");
@@ -29,7 +29,7 @@ const Note: FC = () => {
         return;
       }
       if (note) {
-        setNote({ id: params.id, body: note });
+        setNote({id: params.id, body: note});
       }
       setReady(true);
     });
@@ -52,7 +52,7 @@ const Note: FC = () => {
   }, [edit]);
 
   const save = (n: string) => {
-    setNote({ id: params.id, body: n });
+    setNote({id: params.id, body: n});
     if (note.body !== n) {
       updateNote(params.id, n);
     }
