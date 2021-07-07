@@ -6,6 +6,7 @@ body,
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  @apply text-gray-700 bg-gray-200 dark:text-white dark:bg-gray-700 p-2;
 }
 
 
