@@ -8,7 +8,7 @@ import (
 	"server/notes"
 
 	"github.com/taybart/cache"
-	"github.com/taybart/environment"
+	"github.com/taybart/env"
 	"github.com/taybart/log"
 )
 
@@ -20,13 +20,12 @@ const (
 type server struct {
 	r     *gin.Engine
 	c     *cache.Cache
-	env   environment.Environment
 	notes *notes.Client
 }
 
 func main() {
 
-	env := environment.New([]string{
+	env.Set([]string{
 		"NOTES_BUCKET",
 		"NOTES_ACCESS_KEY_ID",
 		"NOTES_SECRET_KEY",
@@ -52,7 +51,6 @@ func main() {
 	s := server{
 		r:     gin.New(),
 		c:     cache.New(),
-		env:   env,
 		notes: nc,
 	}
 	s.c.SetPruneRate(time.Second)

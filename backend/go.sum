@@ -110,12 +110,8 @@ github.com/stretchr/testify v1.6.1 h1:hDPOHmpOpP40lSULcqw7IrRb/u7w6RpDC9399XyoNd
 github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/taybart/cache v0.0.3 h1:ykYhW7g2PnDZuJrXNsV85bpu/uvjbYuvZX6dvEEIkuM=
 github.com/taybart/cache v0.0.3/go.mod h1:KQRAK5O62bS0iFtYp9B3V/KYnJnRZmETFwpVW5Okm7c=
-github.com/taybart/environment v0.0.0-20210624032526-14d3e74a882e h1:+41jiRVkQiykKawyRQmSKcBsZ4peRNQk2/N8Z661LT4=
-github.com/taybart/environment v0.0.0-20210624032526-14d3e74a882e/go.mod h1:seMRFp5slqoTx5Gdbrsb4BlEEeLoocIgO1o4JM3hhsM=
-github.com/taybart/environment v0.0.0-20210629010539-be3fe77c66b0 h1:9pDAq/F3kQKrQBdEXkqAG73L+j+KrLtIXEQbHlPi+XA=
-github.com/taybart/environment v0.0.0-20210629010539-be3fe77c66b0/go.mod h1:6o+ueXLIil+ZWi0FsKq6LeZg8PMv2Ztyce/YHYeKZ74=
-github.com/taybart/log v1.0.0 h1:Cc0sE/z90FDwUgHuvFL409NsQFesHC7W1KkdR7vUa9c=
-github.com/taybart/log v1.0.0/go.mod h1:bCgtL+Wtq1ZRchiS8HS2El2S44c13N3WsjckA+I8wqU=
+github.com/taybart/env v0.0.1 h1:DmJT8Qyq07Q2EIguFQ5xlpJ/hNP6u+0/hdlKolEnl6E=
+github.com/taybart/env v0.0.1/go.mod h1:ddTHTLL+/kK9+S7EjT6SHjN9kvVf0drtX1Ln5BFXghU=
 github.com/taybart/log v1.4.1 h1:W33bTp9iviJxhohNXkU7Og7n63D2zKufP8hn2nO5Jfk=
 github.com/taybart/log v1.4.1/go.mod h1:zG3tAVOXRh0zQfyxs0dTqarj1hTKFOUWk/oKeiugmZA=
 github.com/ugorji/go v1.1.4/go.mod h1:uQMGLiO92mf5W77hV/PUCpI3pbzQx3CRekS0kk+RGrc=
