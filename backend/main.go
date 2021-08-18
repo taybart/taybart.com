@@ -25,7 +25,7 @@ type server struct {
 
 func main() {
 
-	env.Set([]string{
+	env.Add([]string{
 		"NOTES_BUCKET",
 		"NOTES_ACCESS_KEY_ID",
 		"NOTES_SECRET_KEY",
