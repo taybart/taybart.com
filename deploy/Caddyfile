@@ -3,7 +3,14 @@ taybart.com {
 }
 
 proxy.taybart.com {
-  reverse_proxy localhost:9000
+  @blocked not remote_ip REPLACE_WITH_SOME_IP
+  respond @blocked 403
+  reverse_proxy localhost:9000 {
+    header_up Host {host}
+    header_up X-Real-IP {remote_host}
+    header_up X-Forwarded-For {remote_host}
+    header_up X-Forwarded-Proto {scheme}
+  }
 }
 
 import /etc/caddy/sites/*
