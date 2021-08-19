@@ -1,26 +1,28 @@
-import React, {FC, useEffect} from 'react'
+import React, { FC, useEffect } from 'react'
 import {
   Switch,
   BrowserRouter as Router,
   Route,
   Redirect,
 } from 'react-router-dom'
-import {setAuthorized, useAppDispatch} from './store'
+import { setAuthorized, useAppDispatch } from './store'
 
 import Login from './routes/login'
-import {NotesList, Note} from './routes/notes'
+// import { NotesList, Note } from './routes/notes'
+import { Note } from './routes/notes'
 import Resume from './routes/resume'
 import HN from './routes/hn'
 import Post from './routes/hn/post'
 import NotFoundPage from './routes/notfound'
 import Header from './components/header'
 
-import {checkLoggedin} from './util/api'
+import { checkLoggedin } from './util/api'
 
 import "virtual:windi.css";
 import "./index.css"
 import "./markdown.css"
 
+// comment
 const App: FC = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
@@ -40,7 +42,8 @@ const App: FC = () => {
             <Login />
           </Route>
           <Route exact path="/notes">
-            <NotesList />
+            {/*<NotesList />*/}
+            <Note />
           </Route>
           <Route path="/notes/:id">
             <Note />

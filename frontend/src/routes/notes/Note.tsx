@@ -1,38 +1,46 @@
 import React, {FC, useState, useEffect} from "react";
-import {Link, useHistory, useParams} from "react-router-dom";
+import {
+  Link,
+  // useHistory,
+  useParams,
+} from "react-router-dom";
 import Markdown from "markdown-to-jsx";
 
 import Edit from "./Edit";
 import EditIcon from "./EditIcon";
 import Loading from "../../components/loading";
 
-import {getNote, updateNote, isOnline} from "../../util/api";
+import {
+  // getNote,
+  updateNote,
+  isOnline,
+} from "../../util/api";
 
 const Note: FC = () => {
   const [ready, setReady] = useState<boolean>(false);
-  const [edit, setEdit] = useState<boolean>(false);
+  const [edit, setEdit] = useState<boolean>(true);
   const [online, setOnline] = useState<boolean>(true);
   const [intvl, setIntvl] = useState<number>(-1);
   const [note, setNote] = useState<{id: string; body: string}>({
     id: "",
-    body: "",
+    body: "# header\nhello world!",
   });
-  const history = useHistory();
+  // const history = useHistory();
   const params = useParams<{id: string}>();
 
   useEffect(() => {
-    getNote(params.id).then(({note, msg, error}) => {
-      if (error) {
-        if (msg === "unauthorized") {
-          history.push("/login");
-        }
-        return;
-      }
-      if (note) {
-        setNote({id: params.id, body: note});
-      }
-      setReady(true);
-    });
+    // getNote(params.id).then(({note, msg, error}) => {
+    //   if (error) {
+    //     if (msg === "unauthorized") {
+    //       history.push("/login");
+    //     }
+    //     return;
+    //   }
+    //   if (note) {
+    //     setNote({id: params.id, body: note});
+    //   }
+    setReady(true);
+    // });
   }, []);
 
   useEffect(() => {
