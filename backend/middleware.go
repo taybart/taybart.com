@@ -7,11 +7,12 @@ import (
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"github.com/taybart/env"
 )
 
 func (s *server) cors() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		if s.env.Is("ENV", "development") {
+		if env.Is("ENV", "development") {
 			c.Header("Access-Control-Allow-Origin", "http://localhost:3000")
 			c.Header("Access-Control-Allow-Credentials", "true")
 			c.Header("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE,OPTIONS")
