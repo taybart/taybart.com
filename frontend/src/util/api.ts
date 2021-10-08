@@ -54,7 +54,7 @@ export async function getNote(
     const json = await res.json();
     return { msg: "finished", note: json.note, error: !(res.status === 200) };
   } catch (err) {
-    return { msg: err, error: true };
+    return { msg: (err as Error).message, error: true };
   }
 }
 export async function updateNote(
@@ -96,7 +96,7 @@ export async function listNotes(): Promise<{
     const json = await res.json();
     return { msg: "", notes: json.notes, error: !(res.status === 200) };
   } catch (err) {
-    return { msg: err, error: true };
+    return { msg: (err as Error).message, error: true };
   }
 }
 
