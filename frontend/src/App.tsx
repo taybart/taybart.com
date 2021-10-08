@@ -10,7 +10,7 @@ import { setAuthorized, useAppDispatch } from './store'
 import Login from './routes/login'
 import { NotesList, Note } from './routes/notes'
 import Resume from './routes/resume'
-import HN from './routes/hn'
+import HackerNews from './routes/hn'
 import Post from './routes/hn/post'
 import NotFoundPage from './routes/notfound'
 import Header from './components/header'
@@ -49,7 +49,7 @@ const App: FC = () => {
             <Resume />
           </Route>
           <Route exact path="/hn">
-            <HN />
+            <HackerNews />
           </Route>
           <Route path="/hn/:id/:comment?">
             <Post />
