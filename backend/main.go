@@ -25,6 +25,7 @@ type server struct {
 
 func main() {
 
+	// set up env requirements
 	env.Add([]string{
 		"NOTES_BUCKET",
 		"NOTES_ACCESS_KEY_ID",
@@ -33,16 +34,13 @@ func main() {
 
 	gin.SetMode(gin.ReleaseMode)
 
-	endpoint := env.Get("NOTES_BUCKET")
-	accessKeyID := env.Get("NOTES_ACCESS_KEY_ID")
-	secretAccessKey := env.Get("NOTES_SECRET_KEY")
-
+	// connect to notes storage
 	nc, err := notes.New(notes.Config{
-		Endpoint:        endpoint,
+		Endpoint:        env.Get("NOTES_BUCKET"),
 		Bucket:          "taybart",
 		Prefix:          "notes/",
-		AccessKeyID:     accessKeyID,
-		SecretAccessKey: secretAccessKey,
+		AccessKeyID:     env.Get("NOTES_ACCESS_KEY_ID"),
+		SecretAccessKey: env.Get("NOTES_SECRET_KEY"),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -53,14 +51,17 @@ func main() {
 		c:     cache.New(),
 		notes: nc,
 	}
+	// prune cache every 1s
 	s.c.SetPruneRate(time.Second)
 	defer s.c.Finish()
 
+	// populate users in cache
 	err = s.loadUsers()
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	// set routes
 	s.routes()
 
 	// run it baby

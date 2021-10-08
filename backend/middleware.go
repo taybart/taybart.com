@@ -10,6 +10,7 @@ import (
 	"github.com/taybart/env"
 )
 
+// cors: allow dev urls
 func (s *server) cors() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if env.Is("ENV", "development") {
@@ -27,6 +28,7 @@ func (s *server) cors() gin.HandlerFunc {
 	}
 }
 
+// protected: checks if session cookie is set
 func (s *server) protected(next gin.HandlerFunc) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
@@ -39,6 +41,7 @@ func (s *server) protected(next gin.HandlerFunc) gin.HandlerFunc {
 	}
 }
 
+// logger: log requests to gin
 func (s *server) logger() gin.HandlerFunc {
 	return gin.LoggerWithConfig(gin.LoggerConfig{
 		Formatter: func(param gin.LogFormatterParams) string {

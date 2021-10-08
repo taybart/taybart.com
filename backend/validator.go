@@ -36,7 +36,7 @@ func (s server) createErrorResponse(j interface{}, msgMap map[string]string, err
 			if tag, ok := reflect.TypeOf(j).FieldByName(e.Field()); ok {
 				errs.Errors = append(errs.Errors, ValidationError{
 					Param:   tag.Tag.Get("json"),
-					Message: fmt.Sprintf("%s", msgMap[tag.Tag.Get("json")]),
+					Message: msgMap[tag.Tag.Get("json")],
 				})
 			}
 		}
