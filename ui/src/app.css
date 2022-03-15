@@ -4,6 +4,7 @@
 @tailwind utilities;
 
 html,
-body {
-  @apply bg-dark text-white;
+body,
+#app {
+  @apply h-full bg-dark text-white;
 }

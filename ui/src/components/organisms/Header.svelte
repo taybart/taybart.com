@@ -6,7 +6,7 @@
   <div class="text-2xl">TB</div>
   <div>
     <Router>
-      <Link to="/">resume</Link>
+      <a href="/">resume</a>
       <Link to="/hn">hn</Link>
     </Router>
   </div>
@@ -14,6 +14,6 @@
 
 <style lang="postcss">
   .header {
-    @apply flex h-16 w-full flex-row items-center justify-between border-b px-8;
+    @apply fixed flex h-16 w-full flex-row items-center justify-between border-b bg-dark px-12;
   }
 </style>

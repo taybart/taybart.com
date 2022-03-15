@@ -3,16 +3,21 @@
   import Header from './components/organisms/Header.svelte'
   import HN from './routes/HN.svelte'
   import Resume from './routes/Resume.svelte'
+  import NotFound from './routes/NotFound.svelte'
 </script>
 
-<main>
-  <Header />
+<main class="h-full">
   <Router>
     <Route path="hn/*">
+      <Header />
       <HN />
     </Route>
-    <Route>
+    <Route path="/">
+      <Header />
       <Resume />
+    </Route>
+    <Route>
+      <NotFound />
     </Route>
   </Router>
 </main>
