@@ -1,14 +1,24 @@
 import { defineConfig } from 'vite'
-import reactRefresh from '@vitejs/plugin-react-refresh'
-import WindiCSS from "vite-plugin-windicss"
+import { svelte } from '@sveltejs/vite-plugin-svelte'
+import { svelteSVG } from 'rollup-plugin-svelte-svg'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    reactRefresh(),
-    WindiCSS(),
+    svelte(),
+    // svelteSVG()
+    svelteSVG({
+      // optional SVGO options
+      // pass empty object to enable defaults
+      svgo: {},
+      // vite-specific
+      // https://vitejs.dev/guide/api-plugin.html#plugin-ordering
+      // enforce: 'pre' | 'post'
+      enforce: 'pre',
+    }),
   ],
-  // define: {
-  //   process: {env:""},
-  // },
+  server: {
+    host: 'tbjrny.local',
+    port: 4000,
+  },
 })
