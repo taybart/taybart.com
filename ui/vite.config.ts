@@ -18,7 +18,7 @@ export default defineConfig({
     }),
   ],
   server: {
-    host: 'tbjrny.local',
+    host: '0.0.0.0',
     port: 4000,
   },
 })

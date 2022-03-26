@@ -14,6 +14,6 @@
 
 <style lang="postcss">
   .header {
-    @apply fixed flex h-16 w-full flex-row items-center justify-between border-b bg-dark px-12;
+    @apply flex h-16 w-full flex-row items-center justify-between border-b bg-dark px-4 md:px-12;
   }
 </style>
