@@ -6,7 +6,6 @@ import { svelteSVG } from 'rollup-plugin-svelte-svg'
 export default defineConfig({
   plugins: [
     svelte(),
-    // svelteSVG()
     svelteSVG({
       // optional SVGO options
       // pass empty object to enable defaults

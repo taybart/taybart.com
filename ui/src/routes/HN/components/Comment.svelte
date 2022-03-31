@@ -12,13 +12,13 @@
 
 <div>
   {#await getItem(id) then post}
-    <button on:click={toggleHidden} class="-ml-3">
-      [{hidden ? '+' : '−'}] <span class="opacity-20">{post.by}</span>
-    </button>
-    {#if post.text}
+    {#if post.text && !post.deleted}
+      <button on:click={toggleHidden} class="-ml-3">
+        [{hidden ? '+' : '−'}] <span class="opacity-20">{post.by}</span>
+      </button>
       <div class="comment" class:top class:hidden>
         <div class="flex flex-row">
-          <div class="w-[5px] -ml-4 min-h-full" on:click={toggleHidden} />
+          <div class="w-[10px] -ml-4 min-h-full" on:click={toggleHidden} />
           <div class="comment-content ml-4">
             {@html post.text}
           </div>

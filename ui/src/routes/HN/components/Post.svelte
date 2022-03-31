@@ -11,7 +11,7 @@
   }
 </script>
 
-<div class="mx-4 md:mx-20">
+<div class="container">
   {#await getItem(id) then post}
     <div class="title">
       <div class="flex flex-row items-center">
@@ -22,6 +22,9 @@
           <a href={post.url} target="_blank">
             {post.title}
           </a>
+          <div class="text-xs opacity-20">
+            {post.by}
+          </div>
         </div>
       </div>
       {#if post.text}
@@ -42,6 +45,9 @@
 </div>
 
 <style lang="postcss">
+  .container {
+    @apply mx-4 md:mx-20;
+  }
   .title {
     @apply -mx-4 mb-4 border-b px-4 py-4 md:-mx-8;
   }
