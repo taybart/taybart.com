@@ -46,7 +46,7 @@
 
 <style lang="postcss">
   .container {
-    @apply mx-4 md:mx-20;
+    @apply max-w-full px-4 md:px-20;
   }
   .title {
     @apply -mx-4 mb-4 border-b px-4 py-4 md:-mx-8;

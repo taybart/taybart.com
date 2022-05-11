@@ -1,15 +1,16 @@
 <script lang="ts">
-  import { Link, Router } from 'svelte-routing'
+  import { Router, Link } from 'svelte-routing'
+  import NavLink from '../atoms/NavLink.svelte'
 </script>
 
 <nav class="header">
-  <div class="text-2xl">TB</div>
-  <div>
-    <Router>
-      <a href="/">resume</a>
-      <Link to="/hn">hn</Link>
-    </Router>
-  </div>
+  <Link to="/" class="text-2xl">TB</Link>
+  <Router>
+    <nav>
+      <NavLink only to="/">resume</NavLink>
+      <NavLink to="/hn">hn</NavLink>
+    </nav>
+  </Router>
 </nav>
 
 <style lang="postcss">

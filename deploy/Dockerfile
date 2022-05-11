@@ -3,13 +3,13 @@
 FROM node:lts-alpine as frontend
 
 WORKDIR /build
-ADD ./frontend .
+ADD ./ui .
 
-RUN npm i -g npm
-RUN npm i && npm run build
+# RUN npm i -g npm
+RUN yarn && yarn build
 
 ### Backend
-FROM golang:1.17-alpine as backend
+FROM golang:1.18-alpine as backend
 
 RUN apk add --update git openssh
 

@@ -14,20 +14,22 @@
   {#await getItem(id) then post}
     {#if post.text && !post.deleted}
       <button on:click={toggleHidden} class="-ml-3">
-        [{hidden ? '+' : '−'}] <span class="opacity-20">{post.by}</span>
+        [{hidden ? '+' : '−'}] <span class="opacity-40">{post.by}</span>
       </button>
-      <div class="comment" class:top class:hidden>
-        <div class="flex flex-row">
-          <div class="w-[10px] -ml-4 min-h-full" on:click={toggleHidden} />
-          <div class="comment-content ml-4">
-            {@html post.text}
+      <div class:top class:hidden>
+        <div class="comment" class:top class:hidden>
+          <div class="w-[20px] -ml-4 min-h-full" on:click={toggleHidden} />
+          <div class="flex flex-col ml-2">
+            <div class="comment-content">
+              {@html post.text}
+            </div>
+            {#if post.kids}
+              {#each post.kids as id}
+                <svelte:self {id} top={false} />
+              {/each}
+            {/if}
           </div>
         </div>
-        {#if post.kids}
-          {#each post.kids as id}
-            <svelte:self {id} top={false} />
-          {/each}
-        {/if}
       </div>
     {/if}
   {/await}
@@ -35,13 +37,13 @@
 
 <style lang="postcss">
   .top {
-    @apply pb-4;
+    @apply max-w-full pb-4;
   }
   .comment {
-    @apply border-l pl-4;
+    @apply flex flex-row border-l pl-4;
   }
   .comment-content {
-    @apply w-full overflow-x-scroll;
+    @apply w-full;
   }
   /*.comment-content > code {
     @apply opacity-50;
