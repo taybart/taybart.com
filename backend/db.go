@@ -22,6 +22,7 @@ type DB struct {
 }
 
 func NewDB() (*DB, error) {
+	return nil, nil
 	env.Add([]string{
 		"DB_LOCATION",
 	})

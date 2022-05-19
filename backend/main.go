@@ -5,8 +5,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"server/notes"
-
 	"github.com/taybart/cache"
 	"github.com/taybart/env"
 	"github.com/taybart/log"
@@ -20,7 +18,7 @@ const (
 type server struct {
 	r     *gin.Engine
 	c     *cache.Cache
-	notes *notes.Client
+	notes *StorageClient
 	db    *DB
 }
 
@@ -36,7 +34,7 @@ func main() {
 	gin.SetMode(gin.ReleaseMode)
 
 	// connect to notes storage
-	nc, err := notes.New(notes.Config{
+	nc, err := NewStorageClient(StorageConfig{
 		Endpoint:        env.Get("NOTES_BUCKET"),
 		Bucket:          "taybart",
 		Prefix:          "notes/",
@@ -54,7 +52,7 @@ func main() {
 
 	s := server{
 		r:     gin.New(),
-		c:     cache.New(),
+		c:     cache.New(cache.Default()),
 		notes: nc,
 		db:    db,
 	}
@@ -67,5 +65,5 @@ func main() {
 
 	// run it baby
 	log.Info("Running...")
-	// log.Fatal(s.r.Run(":8080"))
+	log.Fatal(s.r.Run(":8080"))
 }

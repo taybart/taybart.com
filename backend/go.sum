@@ -134,8 +134,8 @@ github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/
 github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5CcY=
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/taybart/args v0.0.0-20210718035434-490aa1694337/go.mod h1:l8CZDnKNf9iNMfX7UOSq7BbwpmwOLcJ7A6DehAP6A+g=
-github.com/taybart/cache v0.0.3 h1:ykYhW7g2PnDZuJrXNsV85bpu/uvjbYuvZX6dvEEIkuM=
-github.com/taybart/cache v0.0.3/go.mod h1:KQRAK5O62bS0iFtYp9B3V/KYnJnRZmETFwpVW5Okm7c=
+github.com/taybart/cache v0.0.4 h1:iYYrdm5Nv9n2KqjSGE8lLADhdQZC2NONOsrKud353eM=
+github.com/taybart/cache v0.0.4/go.mod h1:KQRAK5O62bS0iFtYp9B3V/KYnJnRZmETFwpVW5Okm7c=
 github.com/taybart/env v0.0.2 h1:nXAj5G6z/xA4H8NzIiEasUQEDGi4BfI8nMx5tagQvqY=
 github.com/taybart/env v0.0.2/go.mod h1:pNFeOW9xaFUZJ7BplSBvUT96nhY/4Yh0fTmY4oel50k=
 github.com/taybart/log v1.4.1/go.mod h1:zG3tAVOXRh0zQfyxs0dTqarj1hTKFOUWk/oKeiugmZA=

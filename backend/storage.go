@@ -1,4 +1,4 @@
-package notes
+package main
 
 import (
 	"context"
@@ -10,13 +10,13 @@ import (
 	"github.com/minio/minio-go/v7/pkg/credentials"
 )
 
-type Client struct {
+type StorageClient struct {
 	mc     *minio.Client
 	bucket string
 	prefix string
 }
 
-type Config struct {
+type StorageConfig struct {
 	Endpoint        string
 	Bucket          string
 	Prefix          string
@@ -25,7 +25,7 @@ type Config struct {
 	UseTLS          bool
 }
 
-func New(c Config) (*Client, error) {
+func NewStorageClient(c StorageConfig) (*StorageClient, error) {
 	// Initialize minio client object.
 	mc, err := minio.New(c.Endpoint, &minio.Options{
 		Creds:  credentials.NewStaticV4(c.AccessKeyID, c.SecretAccessKey, ""),
@@ -34,14 +34,14 @@ func New(c Config) (*Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Client{
+	return &StorageClient{
 		mc:     mc,
 		bucket: c.Bucket,
 		prefix: c.Prefix,
 	}, nil
 }
 
-func (c Client) List() ([]string, error) {
+func (c StorageClient) List() ([]string, error) {
 	ch := c.mc.ListObjects(context.Background(), c.bucket, minio.ListObjectsOptions{
 		Prefix: c.prefix,
 	})
@@ -59,7 +59,7 @@ func (c Client) List() ([]string, error) {
 	return res, nil
 }
 
-func (c Client) Get(id string) (string, error) {
+func (c StorageClient) Get(id string) (string, error) {
 	obj, err := c.mc.GetObject(
 		context.Background(),
 		c.bucket,
@@ -76,7 +76,7 @@ func (c Client) Get(id string) (string, error) {
 	}
 	return string(b), nil
 }
-func (c Client) Set(id string, note string) error {
+func (c StorageClient) Set(id string, note string) error {
 	info, err := c.mc.PutObject(
 		context.Background(),
 		c.bucket,

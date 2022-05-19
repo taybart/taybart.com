@@ -9,9 +9,9 @@ ADD ./ui .
 RUN yarn && yarn build
 
 ### Backend
-FROM golang:1.18-alpine as backend
+FROM golang:1.18 as backend
 
-RUN apk add --update git openssh
+# RUN apk add --update git openssh gcc libc ca-certificates
 
 RUN mkdir /user
 RUN echo 'nobody:x:65534:65534:nobody:/:' > /user/passwd
@@ -31,7 +31,7 @@ ENV GOPRIVATE github.com/taybart
 RUN --mount=type=ssh go mod download
 
 ADD ./backend .
-RUN CGO_ENABLED=0 go build -a -installsuffix cgo -ldflags="-w -s" .
+RUN CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -ldflags='-w -s -linkmode external -extldflags "-static"' .
 
 ### App
 FROM scratch
@@ -42,7 +42,7 @@ COPY --from=backend /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 WORKDIR /app
 COPY --from=frontend /build/dist /app/dist
 COPY --from=backend /build/server /app/server
-COPY --from=backend /build/users.json /app/users.json
+# COPY --from=backend /build/users.json /app/users.json
 COPY --from=backend /go/bin/hc /app/hc
 
 ENV PORT=8080
