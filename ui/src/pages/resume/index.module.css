@@ -1,5 +1,5 @@
 .resume {
-  @apply mx-1 flex h-full flex-col items-start pt-20 md:mx-32;
+  @apply mx-1 flex h-full flex-row items-start pt-5 md:mx-32;
 }
 
 .job-description {

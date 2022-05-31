@@ -1,0 +1,7 @@
+.header {
+  @apply flex h-16 w-full flex-row items-center justify-between border-b bg-dark px-4 md:px-12;
+}
+
+.links a {
+  @apply pr-1;
+}

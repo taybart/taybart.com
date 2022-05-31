@@ -5,7 +5,7 @@
 }
 
 .top {
-  @apply max-w-full pb-4;
+  @apply mb-4 max-w-full;
 }
 .comment {
   @apply flex flex-row border-l pl-4;

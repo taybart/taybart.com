@@ -1,1 +1,3 @@
-// do interviews on a voice channel
+// TODO: move from old version
+
+export default ''

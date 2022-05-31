@@ -9,15 +9,14 @@ function App() {
   return (
     <>
       <Header />
-
       <Route path="/">
         <Resume />
       </Route>
-      <Route path="/hn">
-        <HN />
-      </Route>
-      <Route path="/hn/:id">
-        {(params) => <HNPost top={true} id={+params.id} />}
+      {/* TODO: clean this up */}
+      <Route path="/hn/:id?">
+        {(params) =>
+          params.id ? <HNPost top={true} id={+params.id} /> : <HN />
+        }
       </Route>
     </>
   )
