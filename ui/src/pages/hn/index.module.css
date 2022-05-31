@@ -1,0 +1,25 @@
+.post {
+  @apply flex items-center justify-between;
+  @apply border-b border-white;
+  @apply h-20 px-2 md:mx-8 md:h-16 md:px-4;
+}
+
+.top {
+  @apply max-w-full pb-4;
+}
+.comment {
+  @apply flex flex-row border-l pl-4;
+}
+.comment-content {
+  @apply w-full;
+}
+
+.container {
+  @apply max-w-full px-4 md:px-20;
+}
+.title {
+  @apply -mx-4 mb-4 border-b px-4 py-4 md:-mx-8;
+}
+.title-contents {
+  @apply mx-6 text-xl font-semibold;
+}

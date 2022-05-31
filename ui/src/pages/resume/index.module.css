@@ -1,0 +1,13 @@
+.resume {
+  @apply mx-1 flex h-full flex-col items-start pt-20 md:mx-32;
+}
+
+.job-description {
+  @apply pb-4;
+}
+.job {
+  @apply pl-3 font-extralight;
+}
+.description {
+  @apply pl-6 text-sm font-light;
+}
