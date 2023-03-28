@@ -1,0 +1,38 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Comment from "../../components/Comment.tsx";
+
+const { id } = Astro.params;
+
+type Story = {
+  type: 'story';
+  by: string;
+  descendants: number;
+  id: number;
+  kids: number[];
+  score: number;
+  time: number;
+  title: string;
+  url: string;
+};
+
+const story: Story = await fetch(
+  `https://hacker-news.firebaseio.com/v0/item/${id}.json`
+).then((res) => res.json());
+---
+
+<Layout title="HN">
+  <main class="w-[90%]">
+    <div class="flex flex-row items-center  border-b">
+      <a class="text-2xl pr-5" href="/">&larr;</a>
+      <h1 class="underline pb-5"><a href={story.url} target="_blank" class="pb-5 mb-2">{story.title}</a></h1>
+    </div>
+    {story.kids.map((id) => <Comment client:load id={id} level={0} />)}
+  </main>
+</Layout>
+
+<style>
+  h1 {
+    @apply text-2xl;
+  }
+</style>
