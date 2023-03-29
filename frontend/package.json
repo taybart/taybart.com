@@ -1,74 +1,24 @@
 {
-  "version": "0.0.0",
+  "name": "@taybart/site",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "dev": "vite --host",
-    "build": "tsc && vite build",
-    "serve": "vite preview",
-    "prepare": "cd .. && husky install frontend/.husky"
-  },
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaVersion": 2018,
-      "sourceType": "module"
-    },
-    "plugins": [
-      "@typescript-eslint",
-      "react-hooks"
-    ],
-    "extends": [
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/recommended"
-    ],
-    "settings": {
-      "react": {
-        "version": "detect"
-      }
-    },
-    "rules": {
-      "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": [
-        "error"
-      ],
-      "react/prop-types": "off",
-      "semi": "off",
-      "@typescript-eslint/semi": [
-        "off",
-        "never"
-      ]
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{ts,tsx}": "eslint --fix src/**/*.{ts,tsx}"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.6.0",
-    "@types/react-router": "^5.1.15",
-    "@types/react-router-dom": "^5.1.7",
-    "markdown-to-jsx": "^7.1.3",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "react-redux": "^7.2.4",
-    "react-router-dom": "^5.2.0",
-    "sanitize-html": "^2.4.0",
-    "slate": "^0.84.0",
-    "slate-react": "^0.65.2"
+    "@astrojs/solid-js": "^2.1.0",
+    "@astrojs/tailwind": "^3.1.1",
+    "@astrojs/vercel": "^3.2.1",
+    "astro": "^2.1.8",
+    "solid-js": "^1.6.16",
+    "tailwindcss": "^3.3.0"
   },
   "devDependencies": {
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@types/sanitize-html": "^2.3.1",
-    "@typescript-eslint/eslint-plugin": "^4.28.0",
-    "@typescript-eslint/parser": "^4.28.0",
-    "@vitejs/plugin-react-refresh": "^1.3.1",
-    "eslint": "^7.29.0",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^7.0.1",
-    "lint-staged": "^11.0.0",
-    "typescript": "^4.3.2",
-    "vite": "^2.9.13",
-    "vite-plugin-windicss": "^1.1.1",
-    "windicss": "^3.1.3"
+    "typescript": "^5.0.2"
   }
 }

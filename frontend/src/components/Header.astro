@@ -1,0 +1,30 @@
+---
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1);
+---
+
+<header>
+  <h1><a href="/">TB</a></h1>
+  <nav>
+    <a class={currentPath == "" ? "active" : ""} href="/">resume</a>
+    <a
+      class={currentPath == "hn" || /post\/*/.test(currentPath) ? "active" : ""}
+      href="/hn">hn</a
+    >
+  </nav>
+</header>
+
+<style>
+  header {
+    @apply border-b w-screen min-h-[75px] flex items-center justify-between;
+  }
+  h1 {
+    @apply text-2xl pl-3;
+  }
+  nav a {
+    @apply pr-3;
+  }
+  .active {
+    @apply text-xl underline;
+  }
+</style>
