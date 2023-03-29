@@ -1,17 +1,18 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Comment from "../../components/Comment.tsx";
+import Comment from "../../components/Comment";
 
 const { id } = Astro.params;
 
 type Story = {
-  type: 'story';
+  type: "story";
   by: string;
   descendants: number;
   id: number;
   kids: number[];
   score: number;
   time: number;
+  text: string;
   title: string;
   url: string;
 };
@@ -23,9 +24,26 @@ const story: Story = await fetch(
 
 <Layout title="HN">
   <main class="w-[90%]">
-    <div class="flex flex-row items-center  border-b">
-      <a class="text-2xl pr-5" href="/">&larr;</a>
-      <h1 class="underline pb-5"><a href={story.url} target="_blank" class="pb-5 mb-2">{story.title}</a></h1>
+    <div class="flex flex-col items-center border-b pt-5">
+      <div class="flex flex-row items-center w-full pb-5">
+        <h1>
+          <a class="pr-5" href="/hn">&larr;</a>
+          <a href={story.url} target="_blank" class="underline">{story.title}</a
+          >
+        </h1>
+      </div>
+      {
+        story.text && (
+          <div class="pt-4 border-t">
+            <Fragment
+              set:html={story.text.replace(
+                /news.ycombinator.com\/item\?id=/g,
+                "taybart.com/hn/"
+              )}
+            />
+          </div>
+        )
+      }
     </div>
     {story.kids.map((id) => <Comment client:load id={id} level={0} />)}
   </main>

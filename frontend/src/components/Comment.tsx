@@ -36,7 +36,7 @@ const Comment: Component<Props> = ({ id, level }) => {
   })
 
   return (
-    <Switch fallback={<div>Loading...</div>}>
+    <Switch fallback={<div>loading...</div>}>
       <Match when={comment().deleted}>
         <div />
       </Match>
@@ -48,17 +48,24 @@ const Comment: Component<Props> = ({ id, level }) => {
       <Match when={comment().text !== ''}>
         <div class={`flex flex-col pb-1 items-start`}>
           <button onClick={() => setCollapse(true)}>[-]</button>
-          <div class={`flex flex-row pl-2 w-screen`}>
-            <div class={`w-[2px] bg-white mr-3`} />
-            <div class="flex flex-col">
-              {/* <p>{level}</p> */}
-              <p innerHTML={comment().text} />
-              <p class="opacity-50 pb-2">{comment().by}&nbsp;</p>
-              {comment().kids && leaderCollapse() && (
-                <For each={comment().kids} fallback={<div>Loading...</div>}>
-                  {(id) => <Comment id={id} level={level + 1} />}
-                </For>
-              )}
+          <div class={`flex flex-row pl-2 max-w-screen`}>
+            <div class={`min-w-[2px] bg-white mr-3`} />
+            <div class="flex flex-col items-start">
+              <div innerHTML={comment().text} />
+              <span class="opacity-50 pb-2">{comment().by}&nbsp;</span>
+              {comment().kids &&
+                (!leaderCollapse() ? (
+                  <For each={comment().kids} fallback={<div>loading...</div>}>
+                    {(id) => <Comment id={id} level={level + 1} />}
+                  </For>
+                ) : (
+                  <button
+                    class="underline"
+                    onClick={() => setLeaderCollapse(false)}
+                  >
+                    more replies ({comment().kids.length})
+                  </button>
+                ))}
             </div>
           </div>
         </div>
