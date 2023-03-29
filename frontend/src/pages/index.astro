@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Story from "../components/Story";
+
+let frontpage: number[] = await fetch(
+  "https://hacker-news.firebaseio.com/v0/topstories.json"
+)
+  .then((res) => res.json())
+  .then((frontpage) => frontpage.slice(0, 10));
+---
+
+<Layout title="HN">
+  <main class="w-screen">
+    <ul>
+      {frontpage.map((id) => <Story client:load id={id} />)}
+    </ul>
+  </main>
+</Layout>
