@@ -36,11 +36,11 @@ const Story: Component<Props> = ({ id }) => {
   })
 
   return (
-    <li class="flex list-none text-white items-center min-h-[75px] px-2 border-b">
+    <li class="flex flex-row list-none text-white items-center min-h-[75px] border-b w-screen">
       {entry().url === '' ? (
-        <>loading...</>
+        <div class="md:mx-10 mx-5">loading...</div>
       ) : (
-        <>
+        <div class="flex flex-row md:mx-10 mx-5 w-screen">
           <h2 class="w-3/4">
             <a href={entry().url} target="_blank">
               {entry().title}
@@ -50,7 +50,7 @@ const Story: Component<Props> = ({ id }) => {
           {entry().kids && (
             <a href={`/post/${id}`}>{entry().kids.length} &rarr;</a>
           )}
-        </>
+        </div>
       )}
     </li>
   )
