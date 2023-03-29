@@ -8,7 +8,7 @@ let frontpage: number[] = await fetch(
 // .then((frontpage) => frontpage.slice(0, 10));
 ---
 
-<Layout title="HN">
+<Layout>
   <main class="w-screen">
     <ul>
       {frontpage.map((id) => <Story client:load id={id} />)}
