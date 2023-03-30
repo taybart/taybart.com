@@ -46,7 +46,9 @@ const Comment: Component<Props> = ({ id, level }) => {
         </div>
       </Match>
       <Match when={comment().text !== ''}>
-        <div class={`flex flex-col pb-1 items-start max-w-screen`}>
+        <div
+          class={`flex flex-col pb-1 items-start max-w-full overflow-x-auto`}
+        >
           <button onClick={() => setCollapse(true)}>[-]</button>
           <div class={`flex flex-row pl-2 max-w-screen`}>
             <div class={`min-w-[2px] bg-white mr-3`} />
