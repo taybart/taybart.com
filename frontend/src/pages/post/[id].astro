@@ -22,7 +22,7 @@ const story: Story = await fetch(
 ).then((res) => res.json());
 ---
 
-<Layout>
+<Layout title={story.title}>
   <main class="w-[90%]">
     <div class="flex flex-col items-center border-b pt-5">
       <div class="flex flex-row items-center w-full pb-5">
