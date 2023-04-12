@@ -1,24 +1,22 @@
 {
   "name": "@taybart/site",
-  "type": "module",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "astro": "astro",
     "build": "astro build",
+    "dev": "astro dev",
     "preview": "astro preview",
-    "astro": "astro"
+    "start": "astro dev"
   },
-  "dependencies": {
+  "devDependencies": {
     "@astrojs/solid-js": "^2.1.0",
     "@astrojs/tailwind": "^3.1.1",
     "@astrojs/vercel": "^3.2.1",
     "astro": "^2.1.8",
     "solid-js": "^1.6.16",
-    "tailwindcss": "^3.3.0"
-  },
-  "devDependencies": {
+    "tailwindcss": "^3.3.0",
     "typescript": "^5.0.2"
   }
 }

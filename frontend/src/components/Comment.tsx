@@ -1,4 +1,5 @@
 import { createSignal, onMount, Component, For, Switch, Match } from 'solid-js'
+import Loading from './Loading'
 
 type Comment = {
   type: 'comment'
@@ -11,6 +12,16 @@ type Comment = {
   deleted?: boolean
 }
 
+const defaultComment = (): Comment => ({
+  type: 'comment',
+  by: '',
+  id: 0,
+  parent: 0,
+  text: '',
+  time: 0,
+  kids: [],
+})
+
 export interface Props {
   id: number
   level: number
@@ -19,24 +30,14 @@ export interface Props {
 const Comment: Component<Props> = ({ id, level }) => {
   const [collapse, setCollapse] = createSignal(false)
   const [leaderCollapse, setLeaderCollapse] = createSignal(level === 0)
-  const [comment, setComment] = createSignal<Comment>({
-    type: 'comment',
-    by: '',
-    id: 0,
-    parent: 0,
-    text: '',
-    time: 0,
-    kids: [],
-  })
+  const [comment, setComment] = createSignal<Comment>(defaultComment())
   onMount(async () => {
-    const res = await fetch(
-      `https://hacker-news.firebaseio.com/v0/item/${id}.json`
-    )
+    const res = await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
     setComment(await res.json())
   })
 
   return (
-    <Switch fallback={<div>loading...</div>}>
+    <Switch fallback={<Loading Class="pt-2 pb-10" />}>
       <Match when={comment().deleted}>
         <div />
       </Match>
@@ -46,9 +47,7 @@ const Comment: Component<Props> = ({ id, level }) => {
         </div>
       </Match>
       <Match when={comment().text !== ''}>
-        <div
-          class={`flex flex-col pb-1 items-start max-w-full overflow-x-auto`}
-        >
+        <div class={`flex flex-col pb-1 items-start max-w-full overflow-x-auto`}>
           <button onClick={() => setCollapse(true)}>[-]</button>
           <div class={`flex flex-row pl-2 max-w-screen`}>
             <div class={`min-w-[2px] bg-white mr-3`} />
@@ -57,14 +56,9 @@ const Comment: Component<Props> = ({ id, level }) => {
               <span class="opacity-50 pb-2">{comment().by}&nbsp;</span>
               {comment().kids &&
                 (!leaderCollapse() ? (
-                  <For each={comment().kids} fallback={<div>loading...</div>}>
-                    {(id) => <Comment id={id} level={level + 1} />}
-                  </For>
+                  <For each={comment().kids}>{(id) => <Comment id={id} level={level + 1} />}</For>
                 ) : (
-                  <button
-                    class="underline"
-                    onClick={() => setLeaderCollapse(false)}
-                  >
+                  <button class="underline" onClick={() => setLeaderCollapse(false)}>
                     more replies ({comment().kids.length})
                   </button>
                 ))}
