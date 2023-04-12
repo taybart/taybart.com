@@ -34,7 +34,7 @@ const story: Story = await fetch(
       </div>
       {
         story.text && (
-          <div class="pt-4 border-t">
+          <div class="py-4 border-t w-full">
             <Fragment
               set:html={story.text.replace(
                 /news.ycombinator.com\/item\?id=/g,
