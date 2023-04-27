@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { 
+  text-align: center; 
+  @apply h-full w-full bg-dark text-white;
+}
