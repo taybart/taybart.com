@@ -1,10 +1,12 @@
 use crate::components::header::{Header, HeaderProps};
-use cfg_if::cfg_if;
 use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
-use serde::{Deserialize, Serialize};
 use std::iter::Iterator;
+use cfg_if::cfg_if;
+use serde::{Deserialize, Serialize};
+
+const API_DELAY: u64 = 0;
 
 cfg_if! {
     if #[cfg(feature = "ssr")] {
@@ -48,8 +50,8 @@ pub async fn get_todos(_cx: Scope) -> Result<Vec<Todo>, ServerFnError> {
         println!("req.path = {:#?}", req.path());
     }
 
-    // fake API delay
-    std::thread::sleep(std::time::Duration::from_millis(250));
+    std::thread::sleep(std::time::Duration::from_millis(API_DELAY));
+
     use futures::TryStreamExt;
 
     let mut conn = db().await?;
@@ -73,8 +75,7 @@ pub async fn get_todos(_cx: Scope) -> Result<Vec<Todo>, ServerFnError> {
 pub async fn add_todo(title: String) -> Result<(), ServerFnError> {
     let mut conn = db().await?;
 
-    // fake API delay
-    std::thread::sleep(std::time::Duration::from_millis(1250));
+    std::thread::sleep(std::time::Duration::from_millis(API_DELAY));
 
     match sqlx::query("INSERT INTO todos (title, completed) VALUES ($1, false)")
         .bind(title)
@@ -90,6 +91,8 @@ pub async fn add_todo(title: String) -> Result<(), ServerFnError> {
 pub async fn delete_todo(id: u16) -> Result<(), ServerFnError> {
     let mut conn = db().await?;
 
+    std::thread::sleep(std::time::Duration::from_millis(API_DELAY));
+
     sqlx::query("DELETE FROM todos WHERE id = $1")
         .bind(id)
         .execute(&mut conn)
@@ -97,27 +100,6 @@ pub async fn delete_todo(id: u16) -> Result<(), ServerFnError> {
         .map(|_| ())
         .map_err(|e| ServerFnError::ServerError(e.to_string()))
 }
-
-#[component]
-pub fn Todo(cx: Scope, todo: Todo) -> impl IntoView {
-    let delete_todo = create_server_action::<DeleteTodo>(cx);
-
-    view! {
-        cx,
-        <li class="flex flex-row items-center">
-            {todo.title}
-            <ActionForm action=delete_todo>
-                <input type="hidden" name="id" value={todo.id}/>
-                <input
-                    type="submit"
-                    value="X"
-                    class="bg-amber-600 hover:bg-sky-700 ml-2 px-2 py-1 text-white rounded-lg"
-                />
-            </ActionForm>
-        </li>
-    }
-}
-
 #[component]
 pub fn Todos(cx: Scope) -> impl IntoView {
     if use_context::<MetaContext>(cx).is_none() {
@@ -165,7 +147,19 @@ pub fn Todos(cx: Scope) -> impl IntoView {
                             todos
                                 .into_iter()
                                 .map(move |todo| {
-                                    view! { cx, <Todo todo=todo /> }
+                                    view! { cx, 
+                                        <li class="flex flex-row justify-center w-full">
+                                            {todo.title}
+                                            <ActionForm action=delete_todo class="flex justify-between">
+                                                <input type="hidden" name="id" value={todo.id}/>
+                                                <input
+                                                    type="submit"
+                                                    value="X"
+                                                    class="bg-amber-600 hover:bg-sky-700 ml-2 px-2 py-1 text-white rounded-lg"
+                                                />
+                                            </ActionForm>
+                                        </li>
+                                    }
                                 })
                                 .collect::<Vec<_>>()
                                 .into_view(cx)
@@ -183,6 +177,7 @@ pub fn Todos(cx: Scope) -> impl IntoView {
         <h1>"Todo List"</h1>
             <MultiActionForm
                 action=add_todo
+                // class="w-[500px] flex flex-col items-center justify-center"
                 on:submit=move |ev| {
                     let data = AddTodo::from_event(&ev).expect("to parse form data");
                     if data.title == "" {
@@ -201,7 +196,7 @@ pub fn Todos(cx: Scope) -> impl IntoView {
                 {move || {
                      view! {
                          cx,
-                         <ul class="flex flex-col items-center">
+                         <ul class="flex flex-col w-1/2 justify-center">
                              {existing_todos}
                              {pending_todos}
                          </ul>

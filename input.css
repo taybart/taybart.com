@@ -3,6 +3,26 @@
 @tailwind utilities;
 
 html, body { 
-  text-align: center; 
-  @apply h-full w-full bg-dark text-white;
+  @apply bg-dark text-white w-full h-full flex items-center flex-col;
+}
+
+[aria-current="page"] {
+    @apply text-xl underline;
+}
+
+nav a {
+    @apply pr-3;
+}
+
+.resume li {
+  @apply pb-4;
+}
+.location {
+  @apply font-bold;
+}
+.description {
+  @apply pl-3;
+}
+.job {
+  @apply pl-5;
 }

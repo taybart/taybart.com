@@ -13,8 +13,8 @@ pub fn App(cx: Scope) -> impl IntoView {
         <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
         <Router>
             <Routes>
-                <Route path="" view=  move |cx| view! { cx, <Home/> }/>
-                <Route path="/todo" view=  move |cx| view! { cx, <Todos/> }/>
+                <Route path="/" view=move |cx| view! { cx, <Home/> }/>
+                <Route path="/todo" view=move |cx| view! { cx, <Todos/> }/>
             </Routes>
         </Router>
     }

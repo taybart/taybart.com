@@ -521,9 +521,9 @@ video {
   margin-right: 0.5rem;
 }
 
-.my-0 {
-  margin-top: 0px;
-  margin-bottom: 0px;
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
 }
 
 .ml-2 {
@@ -538,12 +538,40 @@ video {
   display: none;
 }
 
+.h-full {
+  height: 100%;
+}
+
 .min-h-\[75px\] {
   min-height: 75px;
 }
 
+.w-1\/2 {
+  width: 50%;
+}
+
+.w-\[500px\] {
+  width: 500px;
+}
+
+.w-full {
+  width: 100%;
+}
+
 .w-screen {
   width: 100vw;
+}
+
+.w-3\/4 {
+  width: 75%;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.list-none {
+  list-style-type: none;
 }
 
 .flex-row {
@@ -584,11 +612,6 @@ video {
   background-color: rgb(30 34 39 / var(--tw-bg-opacity));
 }
 
-.bg-gray-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
-}
-
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -613,12 +636,24 @@ video {
   padding-left: 0.75rem;
 }
 
-.pr-3 {
-  padding-right: 0.75rem;
+.pt-5 {
+  padding-top: 1.25rem;
 }
 
 .pt-8 {
   padding-top: 2rem;
+}
+
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
+
+.pl-8 {
+  padding-left: 2rem;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .text-2xl {
@@ -626,9 +661,18 @@ video {
   line-height: 2rem;
 }
 
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.underline {
+  text-decoration-line: underline;
 }
 
 .filter {
@@ -636,16 +680,59 @@ video {
 }
 
 html, body {
-  text-align: center;
+  display: flex;
   height: 100%;
   width: 100%;
+  flex-direction: column;
+  align-items: center;
   --tw-bg-opacity: 1;
   background-color: rgb(30 34 39 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+[aria-current="page"] {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  text-decoration-line: underline;
+}
+
+nav a {
+  padding-right: 0.75rem;
+}
+
+.resume li {
+  padding-bottom: 1rem;
+}
+
+.location {
+  font-weight: 700;
+}
+
+.description {
+  padding-left: 0.75rem;
+}
+
+.job {
+  padding-left: 1.25rem;
+}
+
 .hover\:bg-sky-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(3 105 161 / var(--tw-bg-opacity));
+}
+
+@media (min-width: 768px) {
+  .md\:mx-10 {
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+  }
+
+  .md\:pl-24 {
+    padding-left: 6rem;
+  }
+
+  .md\:pt-32 {
+    padding-top: 8rem;
+  }
 }
