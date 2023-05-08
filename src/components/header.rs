@@ -8,7 +8,8 @@ pub fn Header(cx: Scope) -> impl IntoView {
             <h1 class="text-2xl pl-3"> <a href="/">"TB"</a> </h1>
             <nav>
                 <A exact=true href="/">"resume"</A>
-                <A href="/todo">"todo"</A>
+                <A href="/hn">"hn"</A>
+                // <A href="/todo">"todo"</A>
             </nav>
         </header>
     }

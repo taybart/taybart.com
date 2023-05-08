@@ -1,4 +1,3 @@
-use crate::components::header::{Header, HeaderProps};
 use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
@@ -172,7 +171,6 @@ pub fn Todos(cx: Scope) -> impl IntoView {
 
     view! {
         cx,
-        <Header />
         <main class="pt-8">
         <h1>"Todo List"</h1>
             <MultiActionForm

@@ -1,10 +1,8 @@
-use crate::components::header::{Header, HeaderProps};
 use leptos::*;
 
 #[component]
 pub fn Home(cx: Scope) -> impl IntoView {
     view! { cx,
-        <Header />
         <main class="w-screen h-full flex md:pl-24 md:pt-32 pt-5 text-left">
             <ul class="resume">
               <li>

@@ -10,7 +10,7 @@ cfg_if! {
         use actix_files::Files;
         use actix_web::*;
         use leptos_actix::{generate_route_list, LeptosRoutes};
-        use crate::pages::*;
+        // use crate::pages::*;
 
         #[get("/style.css")]
         async fn css() -> impl Responder {
@@ -24,13 +24,13 @@ cfg_if! {
         #[actix_web::main]
         async fn main() -> std::io::Result<()> {
 
-         let mut conn = todo::db().await.expect("couldn't connect to DB");
-            sqlx::migrate!()
-                .run(&mut conn)
-                .await
-                .expect("could not run SQLx migrations");
+         // let mut conn = todo::db().await.expect("couldn't connect to DB");
+         //    sqlx::migrate!()
+         //        .run(&mut conn)
+         //        .await
+         //        .expect("could not run SQLx migrations");
 
-            todo::register_server_functions();
+            // todo::register_server_functions();
 
             // Generate the list of routes in your Leptos App
             let routes = generate_route_list(|cx| view! { cx, <App/> });
