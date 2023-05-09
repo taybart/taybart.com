@@ -28,7 +28,7 @@ pub fn FrontPage(cx: Scope) -> impl IntoView {
         move |_| async move { api::get_front_page(cx).await },
     );
     view! { cx,
-        <Suspense fallback=move || view! { cx, <Loading /> }>
+        <Suspense fallback=move || view! { cx, <Loading class="pt-20".into() /> }>
             {move || match fp.read(cx) {
                 None => view! { cx, <><h1>"could not load frontpage"</h1></> },
                 Some(fp) => {

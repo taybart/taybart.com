@@ -19,7 +19,7 @@ pub fn StoryHeader(cx: Scope, story: api::Story) -> impl IntoView {
         <div class="flex flex-col items-center border-b pt-5 mb-2">
             <div class="flex flex-row items-center w-full pb-5">
                 <h1 class="text-xl">
-                    <A class="pr-5" href="/hn" >
+                    <A class="pr-5 !no-underline" href="/hn" >
                         <span inner_html="&larr;" />
                     </A>
                     <a href=story.url target="_blank" class="underline">{story.title}</a>
@@ -41,7 +41,7 @@ pub fn Comment(cx: Scope, comment: api::Comment, level: usize) -> impl IntoView 
 
     view! { cx, <div class="flex flex-col pb-1 items-start max-w-full overflow-x-auto">
         <button on:click=move |_| set_open(!open())>{
-            move || if open() { "[+]" } else { "[-]" }
+            move || if open() { "[-]" } else { "[+]" }
         }</button>
         {move || { open().then(|| {
             let comment = comment.clone();
@@ -91,7 +91,7 @@ pub fn Story(cx: Scope) -> impl IntoView {
         },
     );
     view! { cx,
-        <Suspense fallback=move || view! { cx, <Loading /> }>
+        <Suspense fallback=move || view! { cx, <Loading class="pt-20".into() /> }>
             {move || match story.read(cx) {
                 None => view! { cx, <><h1>"could not load story"</h1></> },
                 Some(story) => {
