@@ -2503,7 +2503,6 @@ dependencies = [
  "serde",
  "simple_logger",
  "sqlx",
- "stylers",
  "wasm-bindgen",
 ]
 
@@ -2662,16 +2661,6 @@ checksum = "8ee348cb74b87454fff4b551cbf727025810a004f88aeacae7f85b87f4e9a1c1"
 dependencies = [
  "unicode-bidi",
  "unicode-normalization",
-]
-
-[[package]]
-name = "stylers"
-version = "0.3.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "28f308b3edc63ce86f2ffd4ab4b04e441afb11539ef5e15c08a7c895e460b63e"
-dependencies = [
- "proc-macro2",
- "quote",
 ]
 
 [[package]]

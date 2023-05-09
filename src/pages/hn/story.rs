@@ -14,80 +14,66 @@ fn clean_content(dirty: String) -> String {
 }
 
 #[component]
-pub fn Comment(cx: Scope, comment: api::Comment) -> impl IntoView {
-    let (collapse, set_collapse) = create_signal(cx, false);
-
-    if collapse() {
-        return view! { cx,
-            <div class="flex flex-col pb-1 items-start">
-                <button on:click=move |_| set_collapse(false)>"[+]"</button>
-            </div>
-        };
-    }
-
-    let content = comment.content.unwrap_or_default();
-    view! { cx,
-        <div class="flex flex-col pb-1 items-start max-w-full overflow-x-auto">
-            <button on:click=move |_| set_collapse(!collapse())>{
-                move || if collapse() {
-                    "[+]"
-                } else {
-                    "[-]"
-                }
-            }</button>
-            // {(!collapse()).then(|| { view! { cx,
-                <div class="flex flex-row pl-2 max-w-screen">
-                    <div class="min-w-[2px] bg-white mr-3" />
-                    <div class="flex flex-col items-start">
-                        <div> {clean_content(content)} </div>
-                        <span class="opacity-50 pb-2">{comment.user} " "</span>
-                        {(!comment.comments.is_empty()).then(|| {
-                          view! { cx,
-                            <For
-                                each=move || comment.comments.clone()
-                                key=|comment| comment.id
-                                view=move |cx, comment| view! { cx,
-                                    <Comment comment />
-                                }
-                            />
-                          }
-                        })}
-                    </div>
-                </div>
-            // }})}
-        </div>
-    }
-
-    // {comment().kids &&
-    //   (!leaderCollapse() ? (
-    //     <For each={comment().kids}>{(id) => <Comment id={id} level={level + 1} />}</For>
-    //   ) : (
-    //     <button class="underline" onClick={() => setLeaderCollapse(false)}>
-    //       more replies ({comment().kids.length})
-    //     </button>
-    //   ))}
-}
-
-#[component]
 pub fn StoryHeader(cx: Scope, story: api::Story) -> impl IntoView {
     view! { cx,
         <div class="flex flex-col items-center border-b pt-5 mb-2">
             <div class="flex flex-row items-center w-full pb-5">
                 <h1 class="text-xl">
-                    <a class="pr-5" href="/hn">"←"</a>
+                    <A class="pr-5" href="/hn" >
+                        <span inner_html="&larr;" />
+                    </A>
                     <a href=story.url target="_blank" class="underline">{story.title}</a>
                 </h1>
             </div>
-            {(story.content.is_some()).then(|| {
-                let content = story.content.unwrap_or_default();
-                view! { cx,
-                    <div class="py-4 border-t w-full">
-                        {clean_content(content)}
-                    </div>
-                }
-            })}
+            {(story.content.is_some()).then(|| { view! { cx,
+                <div class="py-4 border-t w-full">
+                    {clean_content(story.content.unwrap_or_default())}
+                </div>
+            }})}
         </div>
     }
+}
+
+#[component]
+pub fn Comment(cx: Scope, comment: api::Comment, level: usize) -> impl IntoView {
+    let (open, set_open) = create_signal(cx, true);
+    let (leader_collapse, set_leader_collapse) = create_signal(cx, level == 0);
+
+    view! { cx, <div class="flex flex-col pb-1 items-start max-w-full overflow-x-auto">
+        <button on:click=move |_| set_open(!open())>{
+            move || if open() { "[+]" } else { "[-]" }
+        }</button>
+        {move || { open().then(|| {
+            let comment = comment.clone();
+            view! { cx, <div class="flex flex-row pl-2 max-w-screen">
+                <div class="min-w-[2px] bg-white mr-3" />
+                <div class="flex flex-col items-start">
+                    <div inner_html=clean_content(comment.content.unwrap_or_default()) />
+                    <span class="opacity-50 pb-2">{comment.user}</span>
+                    {(!comment.comments.is_empty()).then(move || {
+                        if leader_collapse() {
+                            view! { cx, <>
+                            <button class="underline" on:click=move |_| set_leader_collapse(false)>
+                                {format!("more replies ({})", comment.comments.len())}
+                            </button>
+                            </>}
+                        } else {
+                            let level = level+1;
+                            view! { cx, <>
+                            <For
+                                each=move || comment.comments.clone()
+                                key=|comment| comment.id
+                                view=move |cx, comment| {
+                                    view! { cx, <Comment comment level /> }
+                                }
+                            />
+                            </>}
+                        }
+                    })}
+                </div>
+            </div> }
+        })}}
+    </div>}
 }
 
 #[component]
@@ -118,7 +104,7 @@ pub fn Story(cx: Scope) -> impl IntoView {
                                 each=move || comments.clone()
                                 key=|comment| comment.id
                                 view=move |cx, comment| view! { cx,
-                                    <Comment comment />
+                                    <Comment comment level=0 />
                                 }
                             />
                         </main>

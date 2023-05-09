@@ -39,8 +39,7 @@ pub struct Comment {
 
 #[allow(dead_code)]
 pub async fn get_item(_cx: Scope, id: &str) -> Option<Story> {
-    let path = format!("https://api.hackerwebapp.com/item/{id}");
-    let json = reqwest::get(path)
+    let json = reqwest::get(format!("https://api.hackerwebapp.com/item/{id}"))
         .await
         .map_err(|e| log::error!("{e}"))
         .ok()?
@@ -52,8 +51,7 @@ pub async fn get_item(_cx: Scope, id: &str) -> Option<Story> {
 
 #[allow(dead_code)]
 pub async fn get_front_page(_cx: Scope) -> Option<FrontPage> {
-    let path = format!("https://api.hackerwebapp.com/news");
-    let json = reqwest::get(path)
+    let json = reqwest::get("https://api.hackerwebapp.com/news")
         .await
         .map_err(|e| log::error!("{e}"))
         .ok()?

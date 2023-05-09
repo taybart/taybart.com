@@ -1,5 +1,8 @@
 use crate::components::header::*;
-use crate::pages::{hn::*, home::*};
+use crate::pages::{
+    hn::{front_page::*, story::*},
+    home::*,
+};
 use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
@@ -16,7 +19,8 @@ pub fn App(cx: Scope) -> impl IntoView {
             <Header />
             <Routes>
                 <Route path="/" view=move |cx| view! { cx, <Home/> }/>
-                <Route path="/hn/:id?" view=move |cx| view! { cx, <HN/> }/>
+                <Route path="/hn" view=move |cx| view! { cx, <FrontPage/> }/>
+                <Route path="/hn/:id" view=move |cx| view! { cx, <Story/> }/>
                 // <Route path="/todo" view=move |cx| view! { cx, <Todos/> }/>
             </Routes>
         </Router>

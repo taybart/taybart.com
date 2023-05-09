@@ -1,6 +1,7 @@
 use crate::components::loading::*;
 use crate::pages::hn::api;
 use leptos::*;
+use leptos_router::*;
 
 #[component]
 pub fn Entry(cx: Scope, story: api::Story) -> impl IntoView {
@@ -9,12 +10,11 @@ pub fn Entry(cx: Scope, story: api::Story) -> impl IntoView {
             <div class="flex flex-row md:mx-10 mx-5 w-screen">
                 <a class="w-3/4" href=story.url target="_blank">{story.title}</a>
                 <div class="grow" />
-                <Show
-                    when=move || {story.comments_count > Some(0)}
-                    fallback=|cx| view! { cx, <div /> }
-                >
-                    <a href=format!("/hn/{}", story.id)>{story.comments_count} " →"</a>
-                </Show>
+                {(story.comments_count > Some(0)).then(|| { view! { cx,
+                    <A href=format!("/hn/{}", story.id)>
+                    <span inner_html=format!("{} &rarr;",story.comments_count.unwrap()) />
+                    </A>
+                }})}
             </div>
         </div>
     }
