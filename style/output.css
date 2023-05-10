@@ -516,14 +516,6 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.\!collapse {
-  visibility: collapse !important;
-}
-
-.collapse {
-  visibility: collapse;
-}
-
 .absolute {
   position: absolute;
 }
@@ -773,12 +765,16 @@ video {
   padding-left: 0.5rem;
 }
 
-.pl-3 {
-  padding-left: 0.75rem;
+.pl-5 {
+  padding-left: 1.25rem;
 }
 
 .pr-5 {
   padding-right: 1.25rem;
+}
+
+.pt-20 {
+  padding-top: 5rem;
 }
 
 .pt-5 {
@@ -787,14 +783,6 @@ video {
 
 .pt-8 {
   padding-top: 2rem;
-}
-
-.pt-20 {
-  padding-top: 5rem;
-}
-
-.pt-10 {
-  padding-top: 2.5rem;
 }
 
 .text-left {
@@ -818,10 +806,6 @@ video {
 
 .underline {
   text-decoration-line: underline;
-}
-
-.no-underline {
-  text-decoration-line: none;
 }
 
 .\!no-underline {
@@ -855,7 +839,7 @@ html, body {
 }
 
 nav a {
-  padding-right: 0.75rem;
+  padding-right: 1rem;
 }
 
 .resume li {

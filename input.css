@@ -11,7 +11,7 @@ html, body {
 }
 
 nav a {
-    @apply pr-3;
+    @apply pr-4;
 }
 
 .resume li {

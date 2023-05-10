@@ -5,7 +5,7 @@ use leptos_router::*;
 pub fn Header(cx: Scope) -> impl IntoView {
     view! { cx,
         <header class="border-b w-screen min-h-[75px] flex items-center justify-between">
-            <h1 class="text-2xl pl-3"> <a href="/">"TB"</a> </h1>
+            <a class="text-2xl pl-5" href="/">"TB"</a>
             <nav>
                 <A exact=true href="/">"resume"</A>
                 <A href="/hn">"hn"</A>

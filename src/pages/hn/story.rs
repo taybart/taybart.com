@@ -1,16 +1,23 @@
 use crate::components::loading::*;
 use crate::pages::hn::api;
 use leptos::*;
+use leptos_meta::*;
 use leptos_router::*;
 use regex::Regex;
 
 #[allow(dead_code)]
 fn clean_content(dirty: String) -> String {
-    let re = Regex::new(r"news.ycombinator.com/item?id=")
+    let re = Regex::new(r"news.ycombinator.com/item\?id=")
         .map_err(|e| log::error!("regex err {}", e))
         .ok()
         .unwrap();
-    re.replace_all(&dirty, "taybart.com/hn/").to_string()
+    let plain: String = re.replace_all(&dirty, "taybart.com/hn/").into();
+    let re = Regex::new(r"news.ycombinator.com&#x2F;item\?id=")
+        .map_err(|e| log::error!("regex err {}", e))
+        .ok()
+        .unwrap();
+    re.replace_all(&plain, "proxy.taybart.com&#x2F;hn&#x2F;")
+        .into()
 }
 
 #[component]
@@ -90,8 +97,18 @@ pub fn Story(cx: Scope) -> impl IntoView {
             }
         },
     );
+
+    let meta_description = move || {
+        story
+            .read(cx)
+            .and_then(|story| story.map(|story| story.title))
+            .unwrap_or_else(|| "Loading story...".to_string())
+    };
+
     view! { cx,
+        // <Meta http_equiv="refresh" content="3"/>
         <Suspense fallback=move || view! { cx, <Loading class="pt-20".into() /> }>
+            <Meta name="description" content=meta_description/>
             {move || match story.read(cx) {
                 None => view! { cx, <><h1>"could not load story"</h1></> },
                 Some(story) => {

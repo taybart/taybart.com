@@ -13,6 +13,7 @@ pub fn App(cx: Scope) -> impl IntoView {
 
     view! {
         cx,
+        <Title text="TB dev" />
         <Stylesheet id="leptos" href="/pkg/site.css"/>
         <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
         <Router>
