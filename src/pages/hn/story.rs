@@ -33,9 +33,10 @@ pub fn StoryHeader(cx: Scope, story: api::Story) -> impl IntoView {
                 </h1>
             </div>
             {(story.content.is_some()).then(|| { view! { cx,
-                <div class="py-4 border-t w-full">
-                    {clean_content(story.content.unwrap_or_default())}
-                </div>
+                <div
+                    class="py-4 border-t w-full"
+                    inner_html=clean_content(story.content.unwrap_or_default())
+                />
             }})}
         </div>
     }

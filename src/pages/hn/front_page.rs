@@ -6,7 +6,7 @@ use leptos_router::*;
 #[component]
 pub fn Entry(cx: Scope, story: api::Story) -> impl IntoView {
     view! { cx,
-        <div class="flex flex-row list-none text-white items-center min-h-[75px] border-b w-screen">
+        <div class="flex flex-row list-none items-center min-h-[75px] border-b w-screen">
             <div class="flex flex-row md:mx-10 mx-5 w-screen">
                 <a class="w-3/4" href=story.url target="_blank">{story.title}</a>
                 <div class="grow" />
