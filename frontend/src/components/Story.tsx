@@ -32,9 +32,9 @@ export interface Props {
 const Story: Component<Props> = ({ id }) => {
   const [entry, setEntry] = createSignal<Entry>(defaultEntry())
   onMount(async () => {
-    const res = await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then((res) =>
-      res.json(),
-    )
+    const res = await fetch(
+      `https://hacker-news.firebaseio.com/v0/item/${id}.json`
+    ).then((res) => res.json())
     setEntry(res)
   })
 
@@ -45,12 +45,18 @@ const Story: Component<Props> = ({ id }) => {
       ) : (
         <div class="flex flex-row md:mx-10 mx-5 w-screen">
           <h2 class="w-3/4">
-            <a href={entry().url} target="_blank">
+            <a
+              href={entry().url}
+              target="_blank"
+              onclick={() => (window.location.href = `/post/${id}`)}
+            >
               {entry().title}
             </a>
           </h2>
           <div class="grow" />
-          {entry().kids && <a href={`/post/${id}`}>{entry().kids.length} &rarr;</a>}
+          {entry().kids && (
+            <a href={`/post/${id}`}>{entry().kids.length} &rarr;</a>
+          )}
         </div>
       )}
     </li>
