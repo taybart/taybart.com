@@ -2,17 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { 
+html,
+body {
   @apply w-full h-full flex items-center flex-col;
-  @apply bg-white text-black dark:bg-dark dark:text-white ;
+  @apply bg-white text-black dark:bg-dark dark:text-white;
 }
 
-[aria-current="page"] {
-    @apply text-xl underline;
+[aria-current='page'] {
+  @apply text-xl underline;
 }
 
 nav a {
-    @apply pr-4;
+  @apply pr-4;
 }
 
 .resume li {

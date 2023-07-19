@@ -8,12 +8,12 @@ use regex::Regex;
 #[allow(dead_code)]
 fn clean_content(dirty: String) -> String {
     let re = Regex::new(r"news.ycombinator.com/item\?id=")
-        .map_err(|e| log::error!("regex err {}", e))
+        .map_err(|e| log::error!("regex err {e}"))
         .ok()
         .unwrap();
     let plain: String = re.replace_all(&dirty, "taybart.com/hn/").into();
     let re = Regex::new(r"news.ycombinator.com&#x2F;item\?id=")
-        .map_err(|e| log::error!("regex err {}", e))
+        .map_err(|e| log::error!("regex err {e}"))
         .ok()
         .unwrap();
     re.replace_all(&plain, "proxy.taybart.com&#x2F;hn&#x2F;")
@@ -47,10 +47,12 @@ pub fn Comment(cx: Scope, comment: api::Comment, level: usize) -> impl IntoView 
     let (open, set_open) = create_signal(cx, true);
     let (leader_collapse, set_leader_collapse) = create_signal(cx, level == 0);
 
+    let user = comment.clone().user;
     view! { cx, <div class="flex flex-col pb-1 items-start max-w-full overflow-x-auto">
         <button on:click=move |_| set_open(!open())>{
-            move || if open() { "[-]" } else { "[+]" }
-        }</button>
+            move || if open() { view!{cx,<div>"[-]"</div>} } else {
+                view!{cx, <div> "[+] " <span class="opacity-50 pb-2">{user.clone()}</span></div>}
+        }}</button>
         {move || { open().then(|| {
             let comment = comment.clone();
             view! { cx, <div class="flex flex-row pl-2 max-w-screen">

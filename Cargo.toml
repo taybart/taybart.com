@@ -15,10 +15,11 @@ console_error_panic_hook = { version = "0.1", optional = true }
 console_log = { version = "1", optional = true }
 futures = { version = "0.3", optional = true }
 gloo-net = { version = "0.2", features = ["http"] }
-leptos = { version = "0.2.5", default-features = false, features = ["serde"] }
-leptos_actix = { version = "0.2.5", optional = true }
-leptos_meta = "0.2.5"
-leptos_router = "0.2.5"
+leptos = { version = "0.3.1", default-features = false, features = ["serde"] }
+# leptos = { path = "/Users/taylor/.tmp/leptos/leptos", features = ["nightly", "serde"] }
+leptos_actix = { version = "0.3.1", optional = true }
+leptos_meta = { version = "0.3.1" }
+leptos_router = { version = "0.3.1" }
 log = "0.4"
 regex = "1.8.1"
 reqwest = "0.11.17"
@@ -76,6 +77,8 @@ site-addr = "127.0.0.1:3000"
 reload-port = 3001
 # [Optional] Command to use when running end2end tests. It will run in the end2end dir.
 end2end-cmd = "npx playwright test"
+
+tailwind-input-file = "style/tailwind.css"
 #  The browserlist query used for optimizing the CSS.
 browserquery = "defaults"
 # Set by cargo-leptos watch when building with tha tool. Controls whether autoreload JS will be included in the head
@@ -101,3 +104,5 @@ lib-features = ["hydrate"]
 #
 # Optional. Defaults to false.
 lib-default-features = false
+
+
