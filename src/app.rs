@@ -8,21 +8,20 @@ use leptos_meta::*;
 use leptos_router::*;
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
-    provide_meta_context(cx);
+pub fn App() -> impl IntoView {
+    provide_meta_context();
 
     view! {
-        cx,
-        <Title text="TB dev" />
+        <Title text="TB"/>
         <Stylesheet id="leptos" href="/pkg/site.css"/>
         <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
         <Router>
-            <Header />
+            <Header/>
             <Routes>
-                <Route path="/" view=move |cx| view! { cx, <Home/> }/>
-                <Route path="/hn" view=move |cx| view! { cx, <FrontPage/> }/>
-                <Route path="/hn/:id" view=move |cx| view! { cx, <Story/> }/>
-                // <Route path="/todo" view=move |cx| view! { cx, <Todos/> }/>
+                <Route path="/" view=move || view! { <Home/> }/>
+                <Route path="/hn" view=move || view! { <FrontPage/> }/>
+                <Route path="/hn/:id" view=move || view! { <Story/> }/>
+                // <Route path="/todo" view=move || view! { <Todos/> }/>
             </Routes>
         </Router>
     }

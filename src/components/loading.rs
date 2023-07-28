@@ -1,7 +1,7 @@
 use leptos::*;
 
 #[component]
-pub fn Loading(cx: Scope, #[prop(default = "".into())] class: String) -> impl IntoView {
+pub fn Loading(#[prop(default = "".into())] class: String) -> impl IntoView {
     let inner = "w-10 h-10 absolute rounded-full border-dark dark:border-white";
     view! { cx,
         <div class=format!("radius r-50 {class}")>

@@ -2,8 +2,8 @@ use leptos::*;
 use leptos_router::*;
 
 #[component]
-pub fn Header(cx: Scope) -> impl IntoView {
-    view! { cx,
+pub fn Header() -> impl IntoView {
+    view! {
         <header class="border-b w-screen min-h-[75px] flex items-center justify-between">
             <a class="text-2xl pl-5" href="/">"TB"</a>
             <nav>

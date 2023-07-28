@@ -1,4 +1,4 @@
-use leptos::{Scope, Serializable};
+use leptos::Serializable;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, Serialize, PartialEq, Eq, Clone)]
@@ -38,7 +38,7 @@ pub struct Comment {
 }
 
 #[allow(dead_code)]
-pub async fn get_item(_cx: Scope, id: &str) -> Option<Story> {
+pub async fn get_item(id: &str) -> Option<Story> {
     let json = reqwest::get(format!("https://api.hackerwebapp.com/item/{id}"))
         .await
         .map_err(|e| log::error!("{e}"))
@@ -50,7 +50,7 @@ pub async fn get_item(_cx: Scope, id: &str) -> Option<Story> {
 }
 
 #[allow(dead_code)]
-pub async fn get_front_page(_cx: Scope) -> Option<FrontPage> {
+pub async fn get_front_page() -> Option<FrontPage> {
     let json = reqwest::get("https://api.hackerwebapp.com/news")
         .await
         .map_err(|e| log::error!("{e}"))

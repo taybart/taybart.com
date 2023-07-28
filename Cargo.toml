@@ -15,11 +15,10 @@ console_error_panic_hook = { version = "0.1", optional = true }
 console_log = { version = "1", optional = true }
 futures = { version = "0.3", optional = true }
 gloo-net = { version = "0.2", features = ["http"] }
-leptos = { version = "0.3.1", default-features = false, features = ["serde"] }
-# leptos = { path = "/Users/taylor/.tmp/leptos/leptos", features = ["nightly", "serde"] }
-leptos_actix = { version = "0.3.1", optional = true }
-leptos_meta = { version = "0.3.1" }
-leptos_router = { version = "0.3.1" }
+leptos = { version = "0.5.0-alpha", default-features = false, features = ["serde"] }
+leptos_actix = { version = "0.5.0-alpha", optional = true }
+leptos_meta = { version = "0.5.0-alpha" }
+leptos_router = { version = "0.5.0-alpha" }
 log = "0.4"
 regex = "1.8.1"
 reqwest = "0.11.17"
@@ -104,5 +103,3 @@ lib-features = ["hydrate"]
 #
 # Optional. Defaults to false.
 lib-default-features = false
-
-
