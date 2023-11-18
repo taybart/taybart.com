@@ -1,40 +1,20 @@
 import { createSignal, onMount, Component, For, Switch, Match } from 'solid-js'
 import Loading from './Loading'
-
-type Comment = {
-  type: 'comment'
-  by: string
-  id: number
-  parent: number
-  text: string
-  time: number
-  kids: number[]
-  deleted?: boolean
-}
-
-const defaultComment = (): Comment => ({
-  type: 'comment',
-  by: '',
-  id: 0,
-  parent: 0,
-  text: '',
-  time: 0,
-  kids: [],
-})
+import { Comment, defaultComment } from '../types/hn'
 
 export interface Props {
   id: number
   level: number
+  comment: Comment
 }
 
-const Comment: Component<Props> = ({ id, level }) => {
+// const Comment: Component<Props> = ({ id, level }) => {
+const Comment: Component<Props> = ({ comment: { id, level } }) => {
   const [collapse, setCollapse] = createSignal(false)
   const [leaderCollapse, setLeaderCollapse] = createSignal(level === 0)
   const [comment, setComment] = createSignal<Comment>(defaultComment())
   onMount(async () => {
-    const res = await fetch(
-      `https://hacker-news.firebaseio.com/v0/item/${id}.json`
-    )
+    const res = await fetch(`https://api.hackerwebapp.com/item/${id}`)
     setComment(await res.json())
   })
 
@@ -46,11 +26,11 @@ const Comment: Component<Props> = ({ id, level }) => {
       <Match when={collapse()}>
         <div class={`flex flex-col pb-1 items-start`}>
           <button onClick={() => setCollapse(false)}>
-            [+] <span class="opacity-50 pb-2">{comment().by}&nbsp;</span>
+            [+] <span class="opacity-50 pb-2">{comment().user}&nbsp;</span>
           </button>
         </div>
       </Match>
-      <Match when={comment().text !== ''}>
+      <Match when={comment().content !== ''}>
         <div
           class={`flex flex-col pb-1 items-start max-w-full overflow-x-auto`}
         >
@@ -58,19 +38,19 @@ const Comment: Component<Props> = ({ id, level }) => {
           <div class={`flex flex-row pl-2 max-w-screen`}>
             <div class={`min-w-[2px] bg-white mr-3`} />
             <div class="flex flex-col items-start">
-              <div innerHTML={comment().text} />
-              <span class="opacity-50 pb-2">{comment().by}&nbsp;</span>
-              {comment().kids &&
+              <div innerHTML={comment().content} />
+              <span class="opacity-50 pb-2">{comment().user}&nbsp;</span>
+              {comment().comments.length > 0 &&
                 (!leaderCollapse() ? (
-                  <For each={comment().kids}>
-                    {(id) => <Comment id={id} level={level + 1} />}
+                  <For each={comment().comments}>
+                    {(comment) => <Comment comment={comment} />}
                   </For>
                 ) : (
                   <button
                     class="underline"
                     onClick={() => setLeaderCollapse(false)}
                   >
-                    more replies ({comment().kids.length})
+                    more replies ({comment().comments.length})
                   </button>
                 ))}
             </div>

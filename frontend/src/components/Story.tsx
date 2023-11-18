@@ -1,62 +1,37 @@
 import { createSignal, onMount, Component } from 'solid-js'
 import Loading from './Loading'
-
-type Entry = {
-  type: 'story'
-  by: string
-  descendants: number
-  id: number
-  kids: number[]
-  score: number
-  time: number
-  title: string
-  url: string
-}
-
-const defaultEntry = (): Entry => ({
-  type: 'story',
-  by: '',
-  descendants: 0,
-  id: 0,
-  kids: [],
-  score: 0,
-  time: 0,
-  title: '',
-  url: '',
-})
+import { Item, defaultItem } from '../types/hn'
 
 export interface Props {
   id: number
 }
 
 const Story: Component<Props> = ({ id }) => {
-  const [entry, setEntry] = createSignal<Entry>(defaultEntry())
+  const [item, setItem] = createSignal<Item>(defaultItem())
   onMount(async () => {
-    const res = await fetch(
-      `https://hacker-news.firebaseio.com/v0/item/${id}.json`
-    ).then((res) => res.json())
-    setEntry(res)
+    const res = await fetch(`https://api.hackerwebapp.com/item/${id}`).then(
+      (res) => res.json()
+    )
+    setItem(res)
   })
 
   return (
     <li class="flex flex-row list-none text-white items-center min-h-[75px] border-b w-screen">
-      {entry().url === '' ? (
+      {item().url === '' ? (
         <Loading Class="pl-8 pb-10" />
       ) : (
         <div class="flex flex-row md:mx-10 mx-5 w-screen">
           <h2 class="w-3/4">
             <a
-              href={entry().url}
+              href={item().url}
               target="_blank"
               onclick={() => (window.location.href = `/post/${id}`)}
             >
-              {entry().title}
+              {item().title}
             </a>
           </h2>
           <div class="grow" />
-          {entry().kids && (
-            <a href={`/post/${id}`}>{entry().kids.length} &rarr;</a>
-          )}
+          <a href={`/post/${id}`}>{item().comments_count} &rarr;</a>
         </div>
       )}
     </li>

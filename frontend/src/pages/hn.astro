@@ -1,17 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Story from "../components/Story";
+import type { Item } from "../types/hn";
 
-let frontpage: number[] = await fetch(
-  "https://hacker-news.firebaseio.com/v0/topstories.json"
-).then((res) => res.json());
-// .then((frontpage) => frontpage.slice(0, 10));
+let frontpage: Item[] = await fetch("https://api.hackerwebapp.com/news").then(
+  (res) => res.json()
+);
+console.log(frontpage[0]);
 ---
 
 <Layout>
   <main class="w-screen">
     <ul>
-      {frontpage.map((id) => <Story client:load id={id} />)}
+      {frontpage.map((item) => <Story client:load id={item.id} />)}
     </ul>
   </main>
 </Layout>
