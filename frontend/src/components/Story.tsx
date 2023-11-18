@@ -21,13 +21,16 @@ const Story: Component<Props> = ({ id }) => {
         <Loading Class="pl-8 pb-10" />
       ) : (
         <div class="flex flex-row md:mx-10 mx-5 w-screen">
-          <h2 class="w-3/4">
+          <h2 class="w-3/4 flex flex-col">
             <a
               href={item().url}
               target="_blank"
               onclick={() => (window.location.href = `/post/${id}`)}
             >
               {item().title}
+              <span class="opacity-50 pb-2 text-xs">
+                &nbsp;&nbsp;{item().time_ago}
+              </span>
             </a>
           </h2>
           <div class="grow" />

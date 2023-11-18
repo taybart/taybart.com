@@ -3,8 +3,8 @@ import Loading from './Loading'
 import { Comment, defaultComment } from '../types/hn'
 
 export interface Props {
-  id: number
-  level: number
+  // id: number
+  // level: number
   comment: Comment
 }
 
@@ -20,9 +20,9 @@ const Comment: Component<Props> = ({ comment: { id, level } }) => {
 
   return (
     <Switch fallback={<Loading Class="pt-2 pb-10" />}>
-      <Match when={comment().deleted}>
-        <div />
-      </Match>
+      {/* <Match when={comment().deleted}> */}
+      {/*   <div /> */}
+      {/* </Match> */}
       <Match when={collapse()}>
         <div class={`flex flex-col pb-1 items-start`}>
           <button onClick={() => setCollapse(false)}>
@@ -39,7 +39,9 @@ const Comment: Component<Props> = ({ comment: { id, level } }) => {
             <div class={`min-w-[2px] bg-white mr-3`} />
             <div class="flex flex-col items-start">
               <div innerHTML={comment().content} />
-              <span class="opacity-50 pb-2">{comment().user}&nbsp;</span>
+              <span class="opacity-50 pb-2">
+                {comment().user}&nbsp; {comment().time_ago}
+              </span>
               {comment().comments.length > 0 &&
                 (!leaderCollapse() ? (
                   <For each={comment().comments}>
