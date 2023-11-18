@@ -16,6 +16,11 @@ const item = await fetch(`https://api.hackerwebapp.com/item/${id}`).then(
         <h1>
           <a class="pr-5" href="/hn">&larr;</a>
           <a href={item.url} target="_blank" class="underline">{item.title}</a>
+
+          <div class="opacity-50 pl-12 text-xs">
+            {item.user}
+            {item.time_ago}
+          </div>
         </h1>
       </div>
       {
@@ -32,8 +37,8 @@ const item = await fetch(`https://api.hackerwebapp.com/item/${id}`).then(
       }
     </div>
     {
-      item.comments.map((comment) => (
-        <Comment client:load comment={comment} level={0} />
+      item.comments.map((comment: Comment) => (
+        <Comment client:load comment={comment} />
       ))
     }
   </main>

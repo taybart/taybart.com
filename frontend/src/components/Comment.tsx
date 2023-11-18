@@ -20,9 +20,6 @@ const Comment: Component<Props> = ({ comment: { id, level } }) => {
 
   return (
     <Switch fallback={<Loading Class="pt-2 pb-10" />}>
-      {/* <Match when={comment().deleted}> */}
-      {/*   <div /> */}
-      {/* </Match> */}
       <Match when={collapse()}>
         <div class={`flex flex-col pb-1 items-start`}>
           <button onClick={() => setCollapse(false)}>
