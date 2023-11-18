@@ -4,8 +4,8 @@ const currentPath = pathname.slice(1);
 ---
 
 <header>
-  <h1><a href="/">TB</a></h1>
-  <nav>
+  <h1><a href="/" class="pl-5">TB</a></h1>
+  <nav class="pr-5">
     <a class={currentPath == "" ? "active" : ""} href="/">resume</a>
     <a
       class={currentPath == "hn" || /post\/*/.test(currentPath) ? "active" : ""}
