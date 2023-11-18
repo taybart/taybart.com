@@ -8,7 +8,6 @@ export interface Props {
   comment: Comment
 }
 
-// const Comment: Component<Props> = ({ id, level }) => {
 const Comment: Component<Props> = ({ comment: { id, level } }) => {
   const [collapse, setCollapse] = createSignal(false)
   const [leaderCollapse, setLeaderCollapse] = createSignal(level === 0)
@@ -28,6 +27,7 @@ const Comment: Component<Props> = ({ comment: { id, level } }) => {
         </div>
       </Match>
       <Match when={comment().content !== ''}>
+        {/* TODO: get rid of weird scrolling issues */}
         <div
           class={`flex flex-col pb-1 items-start max-w-full overflow-x-auto`}
         >
