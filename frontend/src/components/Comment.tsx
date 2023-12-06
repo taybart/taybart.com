@@ -1,17 +1,19 @@
-import { createSignal, onMount, Component, For, Switch, Match } from 'solid-js'
+import { createSignal, onMount, For, Switch, Match } from 'solid-js'
+import type { Component } from 'solid-js'
 import Loading from './Loading'
-import { Comment, defaultComment } from '../types/hn'
+import { defaultComment } from '../types/hn'
+import type { Comment as CommentType } from '../types/hn'
 
 export interface Props {
   // id: number
   // level: number
-  comment: Comment
+  comment: CommentType
 }
 
 const Comment: Component<Props> = ({ comment: { id, level } }) => {
   const [collapse, setCollapse] = createSignal(false)
   const [leaderCollapse, setLeaderCollapse] = createSignal(level === 0)
-  const [comment, setComment] = createSignal<Comment>(defaultComment())
+  const [comment, setComment] = createSignal<CommentType>(defaultComment())
   onMount(async () => {
     const res = await fetch(`https://api.hackerwebapp.com/item/${id}`)
     setComment(await res.json())
