@@ -5,8 +5,6 @@ import { defaultComment } from '../types/hn'
 import type { Comment as CommentType } from '../types/hn'
 
 export interface Props {
-  // id: number
-  // level: number
   comment: CommentType
 }
 
@@ -37,7 +35,14 @@ const Comment: Component<Props> = ({ comment: { id, level } }) => {
           <div class={`flex flex-row pl-2 max-w-screen`}>
             <div class={`min-w-[2px] bg-white mr-3`} />
             <div class="flex flex-col items-start">
-              <div innerHTML={comment().content} />
+              <div
+                innerHTML={comment()
+                  .content.replace(/<a /g, '<a target="_blank" ')
+                  .replace(
+                    /news.ycombinator.com&#x2F;item\?id=/g,
+                    'taybart.com&#x2F;post&#x2F;',
+                  )}
+              />
               <span class="opacity-50 pb-2">
                 {comment().user}&nbsp; {comment().time_ago}
               </span>

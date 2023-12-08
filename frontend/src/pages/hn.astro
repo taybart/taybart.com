@@ -6,7 +6,6 @@ import type { Item } from "../types/hn";
 let frontpage: Item[] = await fetch("https://api.hackerwebapp.com/news").then(
   (res) => res.json()
 );
-// console.log(frontpage[0]);
 ---
 
 <Layout>

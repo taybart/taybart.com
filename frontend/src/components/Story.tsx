@@ -1,6 +1,8 @@
-import { createSignal, onMount, Component } from 'solid-js'
+import { createSignal, onMount } from 'solid-js'
+import type { Component } from 'solid-js'
 import Loading from './Loading'
-import { Item, defaultItem } from '../types/hn'
+import { defaultItem } from '../types/hn'
+import type { Item } from '../types/hn'
 
 export interface Props {
   id: number
@@ -10,7 +12,7 @@ const Story: Component<Props> = ({ id }) => {
   const [item, setItem] = createSignal<Item>(defaultItem())
   onMount(async () => {
     const res = await fetch(`https://api.hackerwebapp.com/item/${id}`).then(
-      (res) => res.json()
+      (res) => res.json(),
     )
     setItem(res)
   })
