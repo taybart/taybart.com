@@ -11,12 +11,12 @@
     "start": "astro dev"
   },
   "devDependencies": {
-    "@astrojs/solid-js": "^3.0.2",
-    "@astrojs/tailwind": "^5.0.3",
-    "@astrojs/vercel": "^6.0.0",
-    "astro": "^4.0.2",
-    "solid-js": "^1.8.7",
-    "tailwindcss": "^3.3.0",
-    "typescript": "^5.0.2"
+    "@astrojs/solid-js": "^3.0.3",
+    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/vercel": "^6.1.4",
+    "astro": "^4.5.9",
+    "solid-js": "^1.8.16",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.4.3"
   }
 }
