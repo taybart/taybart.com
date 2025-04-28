@@ -26,3 +26,8 @@ taybart.com
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# Added by cargo
+
+/target
