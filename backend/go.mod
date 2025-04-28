@@ -21,7 +21,7 @@ require (
 	github.com/taybart/env v0.0.2
 	github.com/taybart/log v1.5.1
 	github.com/ugorji/go v1.2.6 // indirect
-	golang.org/x/crypto v0.31.0
+	golang.org/x/crypto v0.35.0
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
 )
