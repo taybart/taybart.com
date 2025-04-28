@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block head %} 
+{{ super() }} 
+<link rel="stylesheet" href="/assets/style/hn/frontpage.css">
+<script type="module" src="/assets/js/hn.js"></script>
+{% endblock head %} 
+{% block header %}
+<h2 style="padding-left: 20px;">Frontpage</h2>
+{% endblock header %} 
+{% block content %}
+<ul class="frontpage-list">
+{% for item in frontpage %}
+<li class="frontpage-item">
+  <a href="{{item.url}}" target="_blank">{{item.title}}</a>
+  <a href="/hn/item?id={{item.id}}">{{item.comments_count}}</a>
+</li>
+{% endfor %}
+</ul>
+
+{% endblock content %}

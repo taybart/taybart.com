@@ -1,0 +1,54 @@
+:root {
+  --main-bg-color: #1e2227;
+  --main-fg-color: #ffffff;
+  /* --main-highlight-color: #feccc7; */
+  --main-highlight-color: red;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  /* height: 100%; */
+  /* font-size: calc(60% + 0.8vmin); */
+  font-family: sans-serif;
+  background-color: var(--main-bg-color);
+  color: var(--main-fg-color);
+}
+
+* {
+  font-size: 1rem;
+}
+h1 {
+  font-size: 2.2rem;
+}
+h2 {
+  font-size: 1.6rem;
+}
+h3 {
+  font-size: 1.3rem;
+}
+
+/* big */
+main {
+  max-width: 60rem;
+  margin: 0 auto;
+  /* margin: 0 10em; */
+  /* padding: 0 2em; */
+  margin-top: 5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* small */
+@media screen and (max-width: 50em) {
+  main {
+    /* width: 100%; */
+    padding: 0 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

@@ -1,0 +1,9 @@
+.frontpage-list {
+  width: 100%;
+}
+.frontpage-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3em;
+}

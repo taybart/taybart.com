@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{% if title %}{{ title }}{% else %}TB{% endif %}</title>
+    <link rel="icon" type="image/png" href="/assets/favicon.ico">
+    <link rel="stylesheet" href="/assets/style/builtins.css">
+    <link rel="stylesheet" href="/assets/style/index.css">
+    <link rel="stylesheet" href="/assets/style/header.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block head %}{% endblock head %}
+  </head>
+  <body>
+    <header>
+      <h3>TB</h3>
+      {% block header %}{% endblock header %}
+      <nav>
+        <a href="/" class="{%if page == "/" %}nav-active{%endif%}">resume</a>
+        <a href="/hn" class="{%if page == "/hn" %}nav-active{%endif%}">hn</a>
+      </nav>
+    </header>
+    <main class="content">{% block content %}{% endblock content %}</main>
+  </body>
+</html>

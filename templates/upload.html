@@ -1,0 +1,160 @@
+{% extends "base.html" %} {% block head %} 
+{{ super() }} 
+<style>
+  #dropzone {
+    border: 1px solid var(--main-fg-color);
+    padding-top: 10em;
+    padding-bottom: 10em;
+    width: 100%;
+    & form {
+      display: flex;
+      justify-content: center;
+    }
+    &.highlight {
+      border: 1px solid var(--main-highlight-color);
+      color: var(--main-highlight-color);
+    }
+  }
+  #preview {
+    flex-direction: row;
+    align-items: center;
+    & ul {
+      padding-right: 10em;
+    }
+  }
+  #upload {
+    flex-direction: row;
+    align-items: center;
+    & path {
+      fill: var(--main-fg-color);
+    }
+  }
+  #done {
+    font-size: 24px;
+  }
+</style>
+<script type="module">
+  import { Uploader, humanFileSize } from '/assets/js/util.js'
+  window.addEventListener('DOMContentLoaded', () => {
+    //let files = [{name:'test.jpg'},{name:'other.jpg'}]
+    let files = []
+    const dz = document.getElementById('dropzone')
+    const fileInput = document.getElementById('file-input')
+    const preview = document.getElementById('preview')
+    const upload = document.getElementById('upload')
+    const done = document.getElementById('done')
+    const uploadBtn = document.getElementById("btn-upload") 
+    const cancelBtn = document.getElementById("btn-cancel") 
+
+
+    const uploader = new Uploader({
+      progressBar: document.getElementById('progress-bar'),
+      progressSpeed: document.getElementById('progress-speed'),
+      url: '/api/upload', 
+      finished: () => {
+        upload.style.display = 'none'
+        done.style.display = 'block'
+      },
+      onError: () => {
+        alert('problem occurred while uploading file')
+      },
+    })
+
+    uploadBtn.addEventListener('click', (e) => {
+      preview.style.display = 'none'
+      upload.style.display = 'flex'
+      const note = document.getElementById('upload-note')
+      if (note.value !== ''){
+        files.push(new File([note.value], "___note.txt", {type: "text/plain"}))
+      }
+      uploader.initializeProgress(files.length)
+      files.forEach((f, i) => uploader.uploadFile(f,i))
+    })
+    cancelBtn.addEventListener('click', (e) => {
+      preview.style.display = 'none'
+      dz.style.display = 'block'
+      files = []
+    })
+
+    function handleFiles() {
+      preview.style.display = 'flex'
+      dz.style.display = 'none'
+      const fileNames = document.getElementById("file-names") 
+      fileNames.innerHTML = files.map(file => `<li>${file.name} [${humanFileSize(file.size)}]</li>`).join('')
+    }
+
+    ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(ev => {
+      dz.addEventListener(ev, e => {
+        e.preventDefault()
+        e.stopPropagation()
+      }, false)
+    })
+
+    ;['dragenter', 'dragover'].forEach(ev => {
+      dz.addEventListener(ev, () => dz.classList.add('highlight'), false)
+    })
+    ;['dragleave', 'drop'].forEach(ev => {
+      dz.addEventListener(ev, () => dz.classList.remove('highlight'), false)
+    })
+
+    dz.addEventListener('dragstart', e => {
+      e.dataTransfer.dropEffect = 'copy';
+    })
+    dz.addEventListener('drop', e => {
+      let dt = e.dataTransfer
+      files = [...dt.files]
+      handleFiles()
+    }, false)
+    fileInput.addEventListener('change', e => {
+      files = [...e.target.files]
+      handleFiles()
+    })
+
+  })
+</script>
+
+{% endblock head %} 
+{% block header %}
+{# <h2 style="padding-left: 20px;">Contribute to the hive</h2> #}
+<h2 style="padding-left: 20px;">Feed the queen</h2>
+{% endblock header %} 
+{% block content %}
+
+{# Choose File(s) #}
+<div id="dropzone" draggable="true">
+  <form class="upload-form">
+    <input id="file-input" type="file" multiple style="display: none;" />
+    <label class="button" for="file-input">Drag files or click me 🐝</label>
+  </form>
+</div>
+
+{# Preview #}
+<div id="preview" style="display: none;">
+  <div>
+    <ul id="file-names"></ul>
+  </div>
+  <div style="display: flex; flex-direction: column;">
+    <textarea id="upload-note" placeholder="note"></textarea>
+    <button id="btn-upload"> upload </button>
+    <button id="btn-cancel"> cancel </button>
+  </div>
+</div>
+
+{# Upload #}
+<div id="upload" style="display: none;">
+  {# <div style="display: flex; flex-direction: column;"> #}
+  <div>
+  <progress id="progress-bar" max=100 value=0></progress>
+  (<span id="progress-speed"></span>)
+  </div>
+  <img src="/assets/img/fly_bee.svg" height=100></img>
+</div>
+
+{# Done #}
+<div id="done" style="display: none;">
+  <img src="/assets/img/fly_bee.svg" height=100></img>
+  <span>thanks! :)</span>
+  {# <span class="checkmark">&#10003;</span>  #}
+</div>
+
+{% endblock content %}

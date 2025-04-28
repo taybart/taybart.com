@@ -1,0 +1,41 @@
+{% extends "base.html" %} 
+{% block head %} 
+{{ super() }} 
+<link rel="stylesheet" href="/assets/style/hn/item.css">
+<script type="module"> </script>
+{% endblock head %} 
+
+{% block content %}
+<div class="title">
+  <h2>
+    <a style="font-size: 1.2rem" href="/hn">&larr;</a>
+    <a href="{{item.url}}" target="_blank">{{item.title}}</a>
+  </h2>
+  <div class="title-by">
+    {{item.user}}
+    {{item.time_ago}}
+  </div>
+</div>
+
+      {#
+      {% if item.text != "" %}
+          <div class="py-4 border-t w-full">
+            <Fragment
+              set:html={item.content.replace(
+                /news.ycombinator.com\/item\?id=/g,
+                "taybart.com/hn/"
+              )}
+            />
+          </div>
+      {%endif%}
+      #}
+    </div>
+
+    <div class="comment-section">
+    {% for comment in item.comments %}
+      {% include "hn/comment.html" %}
+    {% endfor %}
+    </div>
+  </main>
+
+{% endblock content %}

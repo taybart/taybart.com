@@ -1,0 +1,13 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  border-bottom: 1px solid var(--main-fg-color);
+  padding: 0 2em;
+}
+
+.nav-active {
+  text-decoration: underline;
+  font-weight: bold;
+}

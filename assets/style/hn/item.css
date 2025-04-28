@@ -1,0 +1,33 @@
+.title {
+  padding-left: 2em;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  width: 100%;
+  border-bottom: 1px solid var(--main-fg-color);
+}
+.title-by {
+  opacity: 50%;
+  align-self: end;
+  /*pl-12 text-xs*/
+}
+.comment-section {
+  padding-top: 1em;
+  width: 100%;
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  border-bottom: 1px solid var(--main-fg-color);
+  padding: 0.5em 0;
+  width: 100%;
+}
+
+.comment-by {
+  opacity: 50%;
+  align-self: end;
+}

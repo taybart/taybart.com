@@ -1,0 +1,5 @@
+<div class="comment">
+  {{comment.content|safe}}
+  <div class="comment-by">{{ comment.user }} {{comment.time_ago}}</div>
+  <div>{{comment.comments | length}}</div>
+</div>

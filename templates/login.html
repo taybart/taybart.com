@@ -1,0 +1,55 @@
+{% extends "base.html" %} {% block head %} 
+{{ super() }} 
+<style>
+#login {
+  display: flex;
+  flex-direction: column;
+  width: 20em;
+}
+.error {
+  color: red;
+  display: none;
+}
+</style>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('login').addEventListener('submit', (e) => {
+      e.preventDefault()
+      const form = Object.fromEntries(new FormData(e.target))
+      {% if oneshot %}
+      const username = "tmp"
+      const { password } = form
+      {% else %}
+      const { username, password } = form
+      {% endif %}
+      fetch('/api/login', {
+        method: 'POST',
+        redirect: 'follow',
+        body: new URLSearchParams({ username, password })
+      }).then(res => {
+        if (res.redirected) { window.location.href = res.url }
+        if (res.status === 401) {
+          document.getElementById('auth-error').style.display = 'block'
+          console.error(res)
+        } else if (res.status >= 500) {
+          document.getElementById('internal-error').style.display = 'block'
+          console.error(res)
+        }
+      })
+    })
+  })
+</script>
+{% endblock head %} 
+{% block header %}
+{% endblock header %} 
+{% block content %}
+<form id="login" action="/api/login" method="POST">
+  <span id="auth-error" class="error"> Username or Password incorrect </span>
+  <span id="internal-error" class="error"> Something went wrong </span>
+  {% if not oneshot %}
+  <input id="username" name="username" type="text" placeholder="username" />
+  {% endif %}
+  <input id="password" name="password" type="password" placeholder="password" />
+  <button type="submit" style="margin-top: 1em;">login</button>
+</form>
+{% endblock content %}
