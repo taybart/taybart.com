@@ -4,6 +4,8 @@ import Loading from './Loading'
 import { defaultComment } from '../types/hn'
 import type { Comment as CommentType } from '../types/hn'
 
+import './Comment.css'
+
 export interface Props {
   comment: CommentType
 }
