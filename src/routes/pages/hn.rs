@@ -1,4 +1,4 @@
-use crate::{macros::page, routes::ErrResponse};
+use crate::{macros::{page, request}, routes::ErrResponse};
 use axum::{
     Json,
     extract::Query,
@@ -36,13 +36,7 @@ struct Item {
 }
 
 pub async fn frontpage() -> impl IntoResponse {
-    let frontpage = match reqwest::get("https://api.hackerwebapp.com/news").await {
-        Ok(x) => x.json::<Vec<Item>>().await.expect("deserialize frontpage"),
-        Err(err) => {
-            error!("sad {err}");
-            return (StatusCode::INTERNAL_SERVER_ERROR, "idk".into_response());
-        }
-    };
+    let frontpage = request::get!(Vec<Item>,"https://api.hackerwebapp.com/news", "frontpage");
 
     #[derive(Serialize)]
     struct Page {
@@ -64,25 +58,10 @@ pub struct ItemQuery {
 }
 pub async fn item(query: Query<ItemQuery>) -> impl IntoResponse {
     // TODO: add cache
-    let Some(id) = query.id.clone() else {
+    let Some(ref id) = query.id else {
         return (StatusCode::SEE_OTHER, Redirect::to("/hn").into_response());
     };
-    let item = match reqwest::get(format!("https://api.hackerwebapp.com/item/{id}")).await {
-        Ok(x) => {
-            if !x.status().is_success() {
-                error!("bad response from api {}", x.status());
-                return (
-                    StatusCode::INTERNAL_SERVER_ERROR,
-                    "bad response from api".into_response(),
-                );
-            }
-            x.json::<Item>().await.expect("deserialize json")
-        }
-        Err(err) => {
-            error!("sad {err}");
-            return (StatusCode::INTERNAL_SERVER_ERROR, "idk".into_response());
-        }
-    };
+    let item = request::get!(Item, format!("https://api.hackerwebapp.com/item/{id}"), format!("hackernews item {id}"));
 
     #[derive(Serialize)]
     struct Page {

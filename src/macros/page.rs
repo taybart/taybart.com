@@ -7,10 +7,11 @@ macro_rules! page_handler {
             {
                 Ok(p) => p,
                 Err(e) => {
+                    tracing::error!("rendering template {e}");
                     return (
                         StatusCode::INTERNAL_SERVER_ERROR,
                         Json(ErrResponse {
-                            error: e.to_string(),
+                            error: "server error: template failed to render".to_string(),
                         })
                         .into_response(),
                     );
@@ -29,10 +30,11 @@ macro_rules! page {
         {
             Ok(p) => p,
             Err(e) => {
+                tracing::error!("rendering template {e}");
                 return (
                     StatusCode::INTERNAL_SERVER_ERROR,
                     Json(ErrResponse {
-                        error: e.to_string(),
+                        error: "server error: template failed to render".to_string(),
                     })
                     .into_response(),
                 );
@@ -45,10 +47,11 @@ macro_rules! page {
         let context = match tera::Context::from_serialize($struct) {
             Ok(c) => c,
             Err(e) => {
+                tracing::error!("template context {e}");
                 return (
                     StatusCode::INTERNAL_SERVER_ERROR,
                     Json(ErrResponse {
-                        error: e.to_string(),
+                        error: "server error: template failed to render".to_string(),
                     })
                     .into_response(),
                 );
@@ -58,10 +61,11 @@ macro_rules! page {
         let page = match crate::TEMPLATES.render($page_path, &context).map(Html) {
             Ok(p) => p,
             Err(e) => {
+                tracing::error!("rendering template {e}");
                 return (
                     StatusCode::INTERNAL_SERVER_ERROR,
                     Json(ErrResponse {
-                        error: e.to_string(),
+                        error: "server error: template failed to render".to_string(),
                     })
                     .into_response(),
                 );

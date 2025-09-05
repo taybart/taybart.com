@@ -1,5 +1,7 @@
 <div class="comment">
   {{comment.content|safe}}
   <div class="comment-by">{{ comment.user }} {{comment.time_ago}}</div>
+  {% if comment.comments | length > 0 %}
   <div>{{comment.comments | length}}</div>
+  {% endif %}
 </div>
