@@ -15,8 +15,14 @@ const item = await fetch(`https://api.hackerwebapp.com/item/${id}`).then(
       <div class="flex flex-row items-center w-full pb-5">
         <h1>
           <a class="pr-5" href="/hn">&larr;</a>
-          <a href={item.url} target="_blank" class="underline">{item.title}</a>
-
+          <a
+            href={item.url.match(/item\?id\=\d+/) ?
+              item.url.replace(/item\?id\=/, "/post/") : item.url}
+            target="_blank"
+            class="underline"
+          >
+            {item.title}
+          </a>
           <div class="opacity-50 pl-12 text-xs">
             {item.user}
             {item.time_ago}
@@ -24,12 +30,12 @@ const item = await fetch(`https://api.hackerwebapp.com/item/${id}`).then(
         </h1>
       </div>
       {
-        item.text && (
+        item.content && (
           <div class="py-4 border-t w-full">
             <Fragment
               set:html={item.content.replace(
                 /news.ycombinator.com\/item\?id=/g,
-                "taybart.com/hn/"
+                "taybart.com/post/"
               )}
             />
           </div>
