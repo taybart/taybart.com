@@ -1,7 +1,7 @@
-import { $ as $$Layout } from './Layout_Aq0owomM.mjs';
-import { c as createComponent } from './astro-component_AF7yI6d5.mjs';
+import { $ as $$Layout } from './Layout_Dx-yBWFk.mjs';
+import { c as createComponent } from './astro-component_B0fcdV5B.mjs';
 import 'piccolore';
-import { l as renderComponent, r as renderTemplate, m as maybeRenderHead } from './entrypoint_CQ9smGKD.mjs';
+import { l as renderComponent, r as renderTemplate, m as maybeRenderHead } from './entrypoint_B2cFTU3Y.mjs';
 
 const $$Index = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "data-astro-cid-j7pv25f6": true }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="w-screen h-full flex md:pl-24 md:pt-32 pt-5" data-astro-cid-j7pv25f6> <ul class="resume" data-astro-cid-j7pv25f6> <li data-astro-cid-j7pv25f6> <div class="location" data-astro-cid-j7pv25f6>@journeyid</div> <div class="description" data-astro-cid-j7pv25f6>
@@ -14,9 +14,9 @@ factory optimization, city air quality monitoring via IoT devices
 </div> <div class="job" data-astro-cid-j7pv25f6>2014-2017 ⇀ co-founder</div> </li> <li data-astro-cid-j7pv25f6> <div class="location" data-astro-cid-j7pv25f6>@university of colorado, boulder</div> <div class="job" data-astro-cid-j7pv25f6>
 2011-2015 ⇀ bs, electrical and computer engineering
 </div> </li> </ul> </main> ` })}`;
-}, "/Users/taylor/dev/taybart/taybart.com/frontend/src/pages/index.astro", void 0);
+}, "/Users/taylor/dev/taybart/taybart.com/src/pages/index.astro", void 0);
 
-const $$file = "/Users/taylor/dev/taybart/taybart.com/frontend/src/pages/index.astro";
+const $$file = "/Users/taylor/dev/taybart/taybart.com/src/pages/index.astro";
 const $$url = "";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

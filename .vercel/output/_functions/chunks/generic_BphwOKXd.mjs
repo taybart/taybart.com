@@ -1,5 +1,5 @@
-import { t as typeHandlers, a as types, A as AstroError, N as NoImageMetadata, F as FailedToFetchRemoteImageDimensions, i as isRemoteAllowed, R as RemoteImageNotAllowed, j as joinPaths, E as ExpectedImage, b as isRemotePath, L as LocalImageUsedWrongly, M as MissingImageDimension, U as UnsupportedImageFormat, I as IncompatibleDescriptorOptions, c as UnsupportedImageConversion, d as InvalidImageService, e as ExpectedImageOptions, f as ExpectedNotESMImage, g as ImageMissingAlt, m as maybeRenderHead, h as addAttribute, s as spreadAttributes, r as renderTemplate, k as FontFamilyNotFound, u as unescapeHTML } from './entrypoint_CQ9smGKD.mjs';
-import { c as createComponent } from './astro-component_AF7yI6d5.mjs';
+import { t as typeHandlers, a as types, A as AstroError, N as NoImageMetadata, F as FailedToFetchRemoteImageDimensions, i as isRemoteAllowed, R as RemoteImageNotAllowed, j as joinPaths, E as ExpectedImage, b as isRemotePath, L as LocalImageUsedWrongly, M as MissingImageDimension, U as UnsupportedImageFormat, I as IncompatibleDescriptorOptions, c as UnsupportedImageConversion, d as InvalidImageService, e as ExpectedImageOptions, f as ExpectedNotESMImage, g as ImageMissingAlt, m as maybeRenderHead, h as addAttribute, s as spreadAttributes, r as renderTemplate, k as FontFamilyNotFound, u as unescapeHTML } from './entrypoint_B2cFTU3Y.mjs';
+import { c as createComponent } from './astro-component_B0fcdV5B.mjs';
 import 'clsx';
 import * as mime from 'mrmime';
 import 'piccolore';
@@ -524,7 +524,7 @@ async function getConfiguredImageService() {
   if (!globalThis?.astroAsset?.imageService) {
     const { default: service } = await import(
       // @ts-expect-error
-      './sharp_B2QS6nFR.mjs'
+      './sharp_DdVf_LOZ.mjs'
     ).catch((e) => {
       const error = new AstroError(InvalidImageService);
       error.cause = e;
@@ -723,7 +723,7 @@ const $$Image = createComponent(async ($$result, $$props, $$slots) => {
   }
   const { class: className, ...attributes } = { ...additionalAttributes, ...image.attributes };
   return renderTemplate`${maybeRenderHead()}<img${addAttribute(image.src, "src")}${spreadAttributes(attributes)}${addAttribute(className, "class")}>`;
-}, "/Users/taylor/dev/taybart/taybart.com/frontend/node_modules/astro/components/Image.astro", void 0);
+}, "/Users/taylor/dev/taybart/taybart.com/node_modules/astro/components/Image.astro", void 0);
 
 const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$props, $$slots);
@@ -800,7 +800,7 @@ const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
     const srcsetAttribute = props.densities || !props.densities && !props.widths && !useResponsive ? `${image.src}${image.srcSet.values.length > 0 ? ", " + image.srcSet.attribute : ""}` : image.srcSet.attribute;
     return renderTemplate`<source${addAttribute(srcsetAttribute, "srcset")}${addAttribute(mime.lookup(image.options.format ?? image.src) ?? `image/${image.options.format}`, "type")}${spreadAttributes(sourceAdditionalAttributes)}>`;
   })}  <img${addAttribute(fallbackImage.src, "src")}${spreadAttributes(attributes)}${addAttribute(className, "class")}> </picture>`;
-}, "/Users/taylor/dev/taybart/taybart.com/frontend/node_modules/astro/components/Picture.astro", void 0);
+}, "/Users/taylor/dev/taybart/taybart.com/node_modules/astro/components/Picture.astro", void 0);
 
 const componentDataByCssVariable = new Map([]);
 
@@ -852,7 +852,7 @@ const $$Font = createComponent(($$result, $$props, $$slots) => {
   }
   const filteredPreloadData = filterPreloads(data.preloads, preload);
   return renderTemplate`<style>${unescapeHTML(data.css)}</style>${filteredPreloadData?.map(({ url, type }) => renderTemplate`<link rel="preload"${addAttribute(url, "href")} as="font"${addAttribute(`font/${type}`, "type")} crossorigin>`)}`;
-}, "/Users/taylor/dev/taybart/taybart.com/frontend/node_modules/astro/components/Font.astro", void 0);
+}, "/Users/taylor/dev/taybart/taybart.com/node_modules/astro/components/Font.astro", void 0);
 
 const assetQueryParams = undefined;
 					const imageConfig = {"endpoint":{"route":"/_image"},"service":{"entrypoint":"astro/assets/services/sharp","config":{}},"domains":[],"remotePatterns":[],"responsiveStyles":false};

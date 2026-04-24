@@ -1,7 +1,7 @@
-import { $ as $$Layout } from './Layout_Aq0owomM.mjs';
-import { c as createComponent$1 } from './astro-component_AF7yI6d5.mjs';
+import { $ as $$Layout } from './Layout_Dx-yBWFk.mjs';
+import { c as createComponent$1 } from './astro-component_B0fcdV5B.mjs';
 import 'piccolore';
-import { l as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute, n as Fragment, u as unescapeHTML } from './entrypoint_CQ9smGKD.mjs';
+import { l as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute, n as Fragment, u as unescapeHTML } from './entrypoint_B2cFTU3Y.mjs';
 import { createComponent, ssr, ssrHydrationKey, escape } from 'solid-js/web';
 import { createSignal, onMount, Switch, Match, For } from 'solid-js';
 import { a as defaultComment, L as Loading } from './hn_Ds20rUod.mjs';
@@ -63,10 +63,10 @@ const $$id = createComponent$1(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": item.title, "data-astro-cid-z6omihxq": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="w-[90%]" data-astro-cid-z6omihxq> <div class="flex flex-col items-center border-b pt-5" data-astro-cid-z6omihxq> <div class="flex flex-row items-center w-full pb-5" data-astro-cid-z6omihxq> <h1 data-astro-cid-z6omihxq> <a class="pr-5" href="/hn" data-astro-cid-z6omihxq>&larr;</a> <a${addAttribute(item.url.match(/item\?id\=\d+/) ? item.url.replace(/item\?id\=/, "/post/") : item.url, "href")} target="_blank" class="underline" data-astro-cid-z6omihxq> ${item.title} </a> <div class="opacity-50 pl-12 text-xs" data-astro-cid-z6omihxq> ${item.user} ${item.time_ago} </div> </h1> </div> ${item.content && renderTemplate`<div class="py-4 border-t w-full" data-astro-cid-z6omihxq> ${renderComponent($$result2, "Fragment", Fragment, {}, { "default": async ($$result3) => renderTemplate`${unescapeHTML(item.content.replace(
     /news.ycombinator.com\/item\?id=/g,
     "taybart.com/post/"
-  ))}` })} </div>`} </div> ${item.comments.map((comment) => renderTemplate`${renderComponent($$result2, "Comment", Comment, { "client:load": true, "comment": comment, "client:component-hydration": "load", "client:component-path": "/Users/taylor/dev/taybart/taybart.com/frontend/src/components/Comment", "client:component-export": "default", "data-astro-cid-z6omihxq": true })}`)} </main> ` })}`;
-}, "/Users/taylor/dev/taybart/taybart.com/frontend/src/pages/post/[id].astro", void 0);
+  ))}` })} </div>`} </div> ${item.comments.map((comment) => renderTemplate`${renderComponent($$result2, "Comment", Comment, { "client:load": true, "comment": comment, "client:component-hydration": "load", "client:component-path": "/Users/taylor/dev/taybart/taybart.com/src/components/Comment", "client:component-export": "default", "data-astro-cid-z6omihxq": true })}`)} </main> ` })}`;
+}, "/Users/taylor/dev/taybart/taybart.com/src/pages/post/[id].astro", void 0);
 
-const $$file = "/Users/taylor/dev/taybart/taybart.com/frontend/src/pages/post/[id].astro";
+const $$file = "/Users/taylor/dev/taybart/taybart.com/src/pages/post/[id].astro";
 const $$url = "/post/[id]";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

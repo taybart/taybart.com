@@ -1,7 +1,7 @@
-import { $ as $$Layout } from './Layout_Aq0owomM.mjs';
-import { c as createComponent$1 } from './astro-component_AF7yI6d5.mjs';
+import { $ as $$Layout } from './Layout_Dx-yBWFk.mjs';
+import { c as createComponent$1 } from './astro-component_B0fcdV5B.mjs';
 import 'piccolore';
-import { l as renderComponent, r as renderTemplate, m as maybeRenderHead } from './entrypoint_CQ9smGKD.mjs';
+import { l as renderComponent, r as renderTemplate, m as maybeRenderHead } from './entrypoint_B2cFTU3Y.mjs';
 import { ssr, ssrHydrationKey, escape, createComponent, ssrAttribute } from 'solid-js/web';
 import { createSignal, onMount } from 'solid-js';
 import { d as defaultItem, L as Loading } from './hn_Ds20rUod.mjs';
@@ -24,10 +24,10 @@ const $$Hn = createComponent$1(async ($$result, $$props, $$slots) => {
   let frontpage = await fetch("https://api.hackerwebapp.com/news").then(
     (res) => res.json()
   );
-  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, {}, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="w-screen"> <ul> ${frontpage.map((item) => renderTemplate`${renderComponent($$result2, "Story", Story, { "client:load": true, "id": item.id, "client:component-hydration": "load", "client:component-path": "/Users/taylor/dev/taybart/taybart.com/frontend/src/components/Story", "client:component-export": "default" })}`)} </ul> </main> ` })}`;
-}, "/Users/taylor/dev/taybart/taybart.com/frontend/src/pages/hn.astro", void 0);
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, {}, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="w-screen"> <ul> ${frontpage.map((item) => renderTemplate`${renderComponent($$result2, "Story", Story, { "client:load": true, "id": item.id, "client:component-hydration": "load", "client:component-path": "/Users/taylor/dev/taybart/taybart.com/src/components/Story", "client:component-export": "default" })}`)} </ul> </main> ` })}`;
+}, "/Users/taylor/dev/taybart/taybart.com/src/pages/hn.astro", void 0);
 
-const $$file = "/Users/taylor/dev/taybart/taybart.com/frontend/src/pages/hn.astro";
+const $$file = "/Users/taylor/dev/taybart/taybart.com/src/pages/hn.astro";
 const $$url = "/hn";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
