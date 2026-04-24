@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Story from "../components/Story";
+import type { Item } from "../types/hn";
+
+let frontpage: Item[] = await fetch("https://api.hackerwebapp.com/news").then(
+  (res) => res.json()
+);
+---
+
+<Layout>
+  <main class="w-screen">
+    <ul>
+      {frontpage.map((item) => <Story client:load id={item.id} />)}
+    </ul>
+  </main>
+</Layout>
