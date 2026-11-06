@@ -1,0 +1,50 @@
+local { css } = require('erde.markup')
+local Layout = require('src/layout')
+
+local s = css({
+  resume = {
+    li = { padding_bottom = '1rem' },
+  },
+  location = { font_weight = 'bold' },
+  description = { padding_left = '.75rem' },
+  job = { padding_left = '1.25rem' },
+})
+return <Layout>
+  <main class="w-screen h-full flex md:pl-24 md:pt-32 pt-5">
+    <ul class={s.resume}>
+      <li>
+        <div class={s.location}>@journeyid</div>
+        <div class={s.description}>
+          journey is bringing trust, identity and zero-knowledge privacy to the
+          market
+        </div>
+        <div class={s.job}>2021-now ⇀ director of engineering</div>
+        <div class={s.job}>
+          2020-2021 ⇀ principal engineer & developement manager
+        </div>
+        <div class={s.job}>2018-2020 ⇀ lead software engineer</div>
+      </li>
+
+      <li>
+        <div class={s.location}>@the spiga group</div>
+        <div class={s.description}>real time crypto index fund</div>
+        <div class={s.job}>2017-2018 ⇀ lead software engineer</div>
+      </li>
+
+      <li>
+        <div class={s.location}>@mfactor engineering</div>
+        <div class={s.description}>
+          factory optimization, city air quality monitoring via IoT devices
+        </div>
+        <div class={s.job}>2014-2017 ⇀ co-founder</div>
+      </li>
+
+      <li>
+        <div class={s.location}>@university of colorado, boulder</div>
+        <div class={s.job}>
+          2011-2015 ⇀ bs, electrical and computer engineering
+        </div>
+      </li>
+    </ul>
+  </main>
+</Layout>

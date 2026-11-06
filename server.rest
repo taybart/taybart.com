@@ -1,0 +1,21 @@
+
+imports = ["./src/clients/hn.rest"]
+
+server {
+  address = "localhost:8083"
+  # css (tailwind, see src/app.css), favicon, icons: whatever no handler matches
+  directory = "./public"
+
+  # an interactive page: its actions are POSTs to the same path (handled by rest)
+  handler "GET" "/{$}" {
+    page = read("src/app.erde")
+  }
+
+  handler "GET" "/hn" {
+    page = read("src/pages/hn.erde")
+  }
+
+  handler "GET" "/hn/post/{id}" {
+    page = read("src/pages/post.erde")
+  }
+}

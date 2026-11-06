@@ -1,0 +1,12 @@
+
+locals {
+  url = "https://api.hackerwebapp.com"
+}
+
+request "frontpage" {
+  url    = "${locals.url}/news"
+  expect = 200
+}
+request "item" {
+  url = "${locals.url}/item/${exports.id}"
+}

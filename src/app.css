@@ -1,0 +1,77 @@
+/* tailwind input, built into public/app.css:
+ *   tailwindcss -i src/app.css -o public/app.css --watch
+ * class names are found by scanning the erde sources (as text), so build them
+ * as whole strings ("pl-4", not "pl-{n}") */
+@import "tailwindcss";
+@source "./**/*.erde";
+
+/* was tailwind.config.cjs */
+@theme {
+  --color-dark: #1e2227;
+
+  --animate-loadingone: rotateone 1s linear infinite;
+  --animate-loadingtwo: rotatetwo 1s linear infinite;
+  --animate-loadingthree: rotatethree 1s linear infinite;
+
+  @keyframes rotateone {
+    0% { transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg); }
+    100% { transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg); }
+  }
+  @keyframes rotatetwo {
+    0% { transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg); }
+    100% { transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg); }
+  }
+  @keyframes rotatethree {
+    0% { transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg); }
+    100% { transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg); }
+  }
+}
+
+/* tailwind v4's default border color is currentColor (white here), v3's was
+ * gray-200 (from tailwind's upgrade guide) */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+/* was layout.erde's <style> */
+html {
+  font-family: system-ui, sans-serif;
+}
+html,
+body {
+  @apply bg-dark text-white w-full h-full flex items-center flex-col;
+}
+code {
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+  @apply overflow-x-auto w-full max-w-full block;
+  text-wrap: wrap; /* was Comment.css */
+}
+p {
+  @apply mb-3;
+}
+
+/* was header.erde's (astro scoped) <style> */
+header {
+  @apply border-b w-screen min-h-[75px] flex items-center justify-between;
+}
+header h1 {
+  @apply text-2xl pl-3;
+}
+header nav a {
+  @apply pr-3;
+}
+header .active {
+  @apply text-xl underline;
+}
+
+/* was the post page's (astro scoped) <style> */
+main h1 {
+  @apply text-2xl;
+}
