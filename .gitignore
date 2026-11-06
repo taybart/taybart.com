@@ -26,3 +26,6 @@ taybart.com
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# built by tailwindcss (see src/app.css)
+public/app.css

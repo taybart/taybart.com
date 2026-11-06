@@ -1,0 +1,18 @@
+imports = ["./rest/hn.rest"]
+
+server {
+  address   = "localhost:8083"
+  directory = "./public"
+  handler "GET" "/{$}" {
+    page  = read("src/app.erde")
+    cache = "5m"
+  }
+  handler "GET" "/hn" {
+    page  = read("src/pages/hn.erde")
+    cache = "1m"
+  }
+  handler "GET" "/hn/post/{id}" {
+    page  = read("src/pages/post.erde")
+    cache = "1m"
+  }
+}

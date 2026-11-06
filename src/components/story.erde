@@ -1,0 +1,18 @@
+local Loading = require('src/components/loading')
+
+return ({ item }) -> <li class="flex flex-row list-none text-white items-center min-h-[75px] border-b w-screen">
+  {item.url == '' && <Loading Class="pl-8 pb-10" /> || 
+    <div class="flex flex-row md:mx-10 mx-5 w-screen">
+        <h2 class="w-3/4 flex flex-col">
+          <a href={item.url} target="_blank">
+            {item.title}
+            <span class="opacity-50 pb-2 text-xs">
+              &nbsp;&nbsp;{item.time_ago}
+            </span>
+          </a>
+        </h2>
+      <div class="grow" />
+      <a href={"/hn/post/{item.id}"}>{item.comments_count} &rarr;</a>
+    </div>
+  }
+</li>

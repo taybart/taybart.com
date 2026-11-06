@@ -1,0 +1,14 @@
+local { map } = require('erde.markup')
+local Layout = require('src/layout')
+local Story = require('src/components/story')
+-- local type { Item } from "../types/hn";
+
+local frontpage = rest.request('hn::frontpage'):json()
+
+return <Layout>
+  <main class="w-screen">
+    <ul>
+      {map(frontpage, (item) -> <Story item={item} />)}
+    </ul>
+  </main>
+</Layout>

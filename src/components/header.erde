@@ -1,0 +1,5 @@
+return () -> <header>
+  <h1><a href="/" class="pl-5">TB</a></h1>
+  <nav class="pr-5">
+  </nav>
+</header>
