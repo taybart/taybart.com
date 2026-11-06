@@ -28,4 +28,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # built by tailwindcss (see src/app.css)
-public/app.css
+# public/app.css
