@@ -1,21 +1,18 @@
-
-imports = ["./src/clients/hn.rest"]
+imports = ["./rest/hn.rest"]
 
 server {
-  address = "localhost:8083"
-  # css (tailwind, see src/app.css), favicon, icons: whatever no handler matches
+  address   = "localhost:8083"
   directory = "./public"
-
-  # an interactive page: its actions are POSTs to the same path (handled by rest)
   handler "GET" "/{$}" {
-    page = read("src/app.erde")
+    page  = read("src/app.erde")
+    cache = "5m"
   }
-
   handler "GET" "/hn" {
-    page = read("src/pages/hn.erde")
+    page  = read("src/pages/hn.erde")
+    cache = "1m"
   }
-
   handler "GET" "/hn/post/{id}" {
-    page = read("src/pages/post.erde")
+    page  = read("src/pages/post.erde")
+    cache = "1m"
   }
 }
