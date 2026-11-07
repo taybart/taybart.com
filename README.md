@@ -1,3 +1,3 @@
 # taybart.com
 
-stack playground
+stack sandbox
