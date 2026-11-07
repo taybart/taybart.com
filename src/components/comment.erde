@@ -1,28 +1,42 @@
-local { map, raw } = require('erde.markup')
+local { map, raw, css } = require('erde.markup')
 
-local html = (content) -> (content
+local clean_content = (content) -> (content
   :gsub('<a ', '<a target="_blank" ')
   :gsub('news%.ycombinator%.com&#x2F;item%?id=', 'taybart.com&#x2F;hn&#x2F;post&#x2F;'))
 
--- collapse is native <details>: no per-comment state, works before hydration,
--- and find-in-page can open collapsed threads. see src/app.css for the
--- [+]/[-] summary swap.
+local s = css({
+  -- placeholders for targeting via $open / $closed below
+  open = {},
+  closed = {},
+  comment = {
+    ['& > summary'] = { cursor = 'pointer', list_style = 'none' },
+    ['& > summary::-webkit-details-marker'] = { display = 'none' },
+    ['&[open] > summary $closed'] = { display = 'none' },
+    ['&:not([open]) > summary $open'] = { display = 'none' },
+  },
+  replies = {
+    ['& > summary'] = { cursor = 'pointer', list_style = 'none' },
+    ['& > summary::-webkit-details-marker'] = { display = 'none' },
+    ['&[open] > summary'] = { display = 'none' },
+  },
+})
+
 local function Comment({ comment, level = 0 }) {
   local replies = comment.comments || {}
   local children = map(replies, (c) -> <Comment key={c.id} comment={c} level={level + 1}/>)
 
-  return <details open class="comment flex flex-col pb-1 items-start max-w-full overflow-x-auto">
+  return <details open class={{ s.comment, 'flex flex-col pb-1 items-start max-w-full overflow-x-auto' }}>
       <summary>
-        <span class="when-open">[-]</span>
-        <span class="when-closed">[+] <span class="opacity-50">{comment.user}&nbsp;</span></span>
+        <span class={s.open}>[-]</span>
+        <span class={s.closed}>[+] <span class="opacity-50">{comment.user}&nbsp;</span></span>
       </summary>
       <div class="flex flex-row pl-2 max-w-screen">
         <div class="min-w-[2px] bg-white mr-3"/>
         <div class="flex flex-col items-start">
-          <div>{raw(html(comment.content || ''))}</div>
+          <div>{raw(clean_content(comment.content || ''))}</div>
           <span class="opacity-50 pb-2">{comment.user}&nbsp; {comment.time_ago}</span>
           {#replies > 0 && (level == 0
-            && <details class="replies">
+            && <details class={s.replies}>
                  <summary class="underline">more replies ({#replies})</summary>
                  {children}
                </details>

@@ -75,16 +75,3 @@ header .active {
 main h1 {
   @apply text-2xl;
 }
-
-/* comment collapse (components/comment.erde): native <details> */
-details > summary {
-  @apply cursor-pointer list-none;
-}
-details > summary::-webkit-details-marker {
-  display: none;
-}
-details.comment[open] > summary .when-closed,
-details.comment:not([open]) > summary .when-open,
-details.replies[open] > summary {
-  display: none;
-}
