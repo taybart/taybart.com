@@ -402,6 +402,16 @@ main h1 {
   font-size: var(--text-2xl);
   line-height: var(--tw-leading, var(--text-2xl--line-height));
 }
+details > summary {
+  cursor: pointer;
+  list-style-type: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details.comment[open] > summary .when-closed, details.comment:not([open]) > summary .when-open, details.replies[open] > summary {
+  display: none;
+}
 @property --tw-border-style {
   syntax: "*";
   inherits: false;

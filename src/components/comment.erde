@@ -1,36 +1,35 @@
-local { state, map, raw } = require('erde.markup')
+local { map, raw } = require('erde.markup')
 
 local html = (content) -> (content
   :gsub('<a ', '<a target="_blank" ')
-  :gsub('news%.ycombinator%.com&#x2F;item%?id=', 'taybart.com&#x2F;post&#x2F;'))
+  :gsub('news%.ycombinator%.com&#x2F;item%?id=', 'taybart.com&#x2F;hn&#x2F;post&#x2F;'))
 
+-- collapse is native <details>: no per-comment state, works before hydration,
+-- and find-in-page can open collapsed threads. see src/app.css for the
+-- [+]/[-] summary swap.
 local function Comment({ comment, level = 0 }) {
-  local s = state({ collapse = false, leader_collapse = level == 0 })
-
-  if s.collapse {
-    return <div class="flex flex-col pb-1 items-start">
-        <button onclick={() -> { s.collapse = false }}>
-          [+] <span class="opacity-50 pb-2">{comment.user}&nbsp;</span>
-        </button>
-      </div>
-  }
-
   local replies = comment.comments || {}
-  return <div class="flex flex-col pb-1 items-start max-w-full overflow-x-auto">
-      <button onclick={() -> { s.collapse = true }}>[-]</button>
+  local children = map(replies, (c) -> <Comment key={c.id} comment={c} level={level + 1}/>)
+
+  return <details open class="comment flex flex-col pb-1 items-start max-w-full overflow-x-auto">
+      <summary>
+        <span class="when-open">[-]</span>
+        <span class="when-closed">[+] <span class="opacity-50">{comment.user}&nbsp;</span></span>
+      </summary>
       <div class="flex flex-row pl-2 max-w-screen">
         <div class="min-w-[2px] bg-white mr-3"/>
         <div class="flex flex-col items-start">
           <div>{raw(html(comment.content || ''))}</div>
           <span class="opacity-50 pb-2">{comment.user}&nbsp; {comment.time_ago}</span>
-          {#replies > 0 && (s.leader_collapse
-            && <button class="underline" onclick={() -> { s.leader_collapse = false }}>
-                 more replies ({#replies})
-               </button>
-            || map(replies, (c) -> <Comment key={c.id} comment={c} level={level + 1}/>))}
+          {#replies > 0 && (level == 0
+            && <details class="replies">
+                 <summary class="underline">more replies ({#replies})</summary>
+                 {children}
+               </details>
+            || children)}
         </div>
       </div>
-    </div>
+    </details>
 }
 
 return Comment

@@ -5,7 +5,7 @@ local Comment = require('src/components/comment')
 local item = rest.request('hn::item', { id = rest.req:path_value('id') }):json()
 
 local id = item.url:match('item%?id=(%d+)')
-local href = id && "/post/{id}" || item.url
+local href = id && "/hn/post/{id}" || item.url
 
 return <Layout title={item.title}>
   <main class="w-[90%]">
@@ -23,7 +23,7 @@ return <Layout title={item.title}>
         </h1>
       </div>
       {item.content && <div class="py-4 border-t w-full">
-        {raw((item.content:gsub('news%.ycombinator%.com/item%?id=', 'taybart.com/post/')))}
+        {raw((item.content:gsub('news%.ycombinator%.com/item%?id=', 'taybart.com/hn/post/')))}
       </div>}
     </div>
     {map(item.comments,(comment) -> <Comment comment={comment} />)}
