@@ -1,4 +1,4 @@
-local { map, raw, css } = require('erde.markup')
+local { map, raw, css } = require('midnight.markup')
 
 local clean_content = (content) -> (content
   :gsub('<a ', '<a target="_blank" ')

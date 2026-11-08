@@ -1,9 +1,9 @@
 /* tailwind input, built into public/app.css:
  *   tailwindcss -i src/app.css -o public/app.css --watch
- * class names are found by scanning the erde sources (as text), so build them
+ * class names are found by scanning the midnight sources (as text), so build them
  * as whole strings ("pl-4", not "pl-{n}") */
 @import "tailwindcss";
-@source "./**/*.erde";
+@source "./**/*.mn";
 
 /* was tailwind.config.cjs */
 @theme {
@@ -39,7 +39,7 @@
   }
 }
 
-/* was layout.erde's <style> */
+/* was layout.mn's <style> */
 html {
   font-family: system-ui, sans-serif;
 }
@@ -57,7 +57,7 @@ p {
   @apply mb-3;
 }
 
-/* was header.erde's (astro scoped) <style> */
+/* was header.mn's (astro scoped) <style> */
 header {
   @apply border-b w-screen min-h-[75px] flex items-center justify-between;
 }

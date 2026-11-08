@@ -1,4 +1,4 @@
-local { raw, map } = require('erde.markup')
+local { raw, map } = require('midnight.markup')
 local Layout = require('src/layout')
 local Comment = require('src/components/comment')
 

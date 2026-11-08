@@ -4,15 +4,15 @@ server {
   address   = "localhost:8083"
   directory = "./public"
   handler "GET" "/{$}" {
-    page  = read("src/app.erde")
+    page  = read("src/app.mn")
     cache = "5m"
   }
   handler "GET" "/hn" {
-    page  = read("src/pages/hn.erde")
+    page  = read("src/pages/hn.mn")
     cache = "1m"
   }
   handler "GET" "/hn/post/{id}" {
-    page  = read("src/pages/post.erde")
+    page  = read("src/pages/post.mn")
     cache = "1m"
   }
 }
