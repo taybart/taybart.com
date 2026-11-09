@@ -25,15 +25,15 @@ local function Comment({ comment, level = 0 }) {
   local replies = comment.comments || {}
   local children = map(replies, (c) -> <Comment key={c.id} comment={c} level={level + 1}/>)
 
-  return <details open class={{ s.comment, 'flex flex-col pb-1 items-start max-w-full overflow-x-auto' }}>
+  return <details open class={{ s.comment, 'flex flex-col pb-1 w-full max-w-full' }}>
       <summary>
         <span class={s.open}>[-]</span>
         <span class={s.closed}>[+] <span class="opacity-50">{comment.user}&nbsp;</span></span>
       </summary>
-      <div class="flex flex-row pl-2 max-w-screen">
-        <div class="min-w-[2px] bg-white mr-3"/>
-        <div class="flex flex-col items-start">
-          <div>{raw(clean_content(comment.content || ''))}</div>
+      <div class="flex flex-row pl-2 max-w-full min-w-0">
+        <div class="min-w-[2px] bg-white mr-3 shrink-0"/>
+        <div class="flex flex-col min-w-0 flex-1 max-w-full">
+          <div class="min-w-0 max-w-full overflow-x-auto break-words">{raw(clean_content(comment.content || ''))}</div>
           <span class="opacity-50 pb-2">{comment.user}&nbsp; {comment.time_ago}</span>
           {#replies > 0 && (level == 0
             && <details class={s.replies}>
