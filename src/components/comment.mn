@@ -1,4 +1,4 @@
-local { map, raw, css } = require('midnight.markup')
+local { map, raw, css, cx } = require('midnight.markup')
 
 local clean_content = (content) -> (content
   :gsub('<a ', '<a target="_blank" ')
@@ -25,7 +25,7 @@ local function Comment({ comment, level = 0 }) {
   local replies = comment.comments || {}
   local children = map(replies, (c) -> <Comment key={c.id} comment={c} level={level + 1}/>)
 
-  return <details open class={{ s.comment, 'flex flex-col pb-1 w-full max-w-full' }}>
+  return <details open class={cx(s.comment, 'flex flex-col pb-1 w-full max-w-full')}>
       <summary>
         <span class={s.open}>[-]</span>
         <span class={s.closed}>[+] <span class="opacity-50">{comment.user}&nbsp;</span></span>
